@@ -1,8 +1,8 @@
-import { Container } from "@/app/core/components";
 import styles from "./OurServices.module.scss";
 
 import React from "react";
 import Card from "./ui/Card";
+import { Container } from "../../../../components";
 
 export default function OurServices() {
 	return (

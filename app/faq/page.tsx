@@ -1,7 +1,5 @@
-import { Container } from "@/app/core/components";
-import { FAQSection } from "@/app/core/pages/FaqPage";
-
 import React from "react";
+import { FAQSection } from "../core/pages/FaqPage";
 
 export default function page() {
 	return <FAQSection />;

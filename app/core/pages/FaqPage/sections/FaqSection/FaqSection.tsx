@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./FaqSection.module.scss";
 import { FiPlus, FiX } from "react-icons/fi";
-import { Container } from "@/app/core/components";
+import { Container } from "../../../../components";
 
 type FAQItem = {
 	question: string;

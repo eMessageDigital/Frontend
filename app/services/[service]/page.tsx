@@ -1,6 +1,6 @@
-import { RequestForm } from "@/app/core/components";
-import { servicesData, ServiceKey } from "@/app/core/data/services";
-import { Hero, PlansSection, ToolsSection } from "@/app/core/pages/ServicePage";
+import { RequestForm } from "../../core/components";
+import { ServiceKey, servicesData } from "../../core/data/services";
+import { Hero, PlansSection, ToolsSection } from "../../core/pages/ServicePage";
 
 export default function ServicePage({ params }: { params: { service: ServiceKey } }) {
 	const service = servicesData[params.service];

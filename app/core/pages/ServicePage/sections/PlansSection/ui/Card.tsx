@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./Card.module.scss";
-import { Button } from "@/ui";
-import { LuBadgeCheck } from "react-icons/lu";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import Link from "next/link";
+import { Button } from "../../../../../components";
 
 type CardProps = {
 	title: string;

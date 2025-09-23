@@ -1,5 +1,4 @@
 import styles from "./AboutSection.module.scss";
-import { FaLightbulb, FaChartLine, FaBullseye } from "react-icons/fa";
 
 import Image from "next/image";
 import { Container } from "../../../../components";

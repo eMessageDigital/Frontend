@@ -1,8 +1,8 @@
 import React from "react";
 
 import styles from "./AdvantagesSection.module.scss";
-import { Container } from "@/app/core/components";
 import Card from "./ui/Card";
+import { Container } from "../../../../components";
 
 export default function AdvantagesSection() {
 	return (

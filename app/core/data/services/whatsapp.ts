@@ -31,6 +31,7 @@ export const whatsapp: ServiceData = {
 				theme: "dark",
 			},
 		],
+		href: "",
 	},
 	tools: {
 		title: "Инструменты WhatsApp",

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ToolsSection.module.scss";
-import { Container } from "@/app/core/components";
 import Card from "./ui/Card";
+import { Container } from "../../../../components";
 
 type Tool = {
 	title: string;

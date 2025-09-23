@@ -1,4 +1,4 @@
-import { Hero, OurServices } from "@/app/core/pages/ServicesPage";
+import { Hero, OurServices } from "../core/pages/ServicesPage";
 
 export default function ServicesPage() {
 	return (

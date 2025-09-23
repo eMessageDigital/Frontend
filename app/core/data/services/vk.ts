@@ -31,6 +31,7 @@ export const vk: ServiceData = {
 				theme: "dark",
 			},
 		],
+		href: "",
 	},
 	tools: {
 		title: "Инструменты VK",

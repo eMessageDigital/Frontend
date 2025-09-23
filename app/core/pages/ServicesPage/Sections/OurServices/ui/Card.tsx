@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Card.module.scss";
 import Image from "next/image";
-import { Button } from "@/ui";
 import { FiArrowRight } from "react-icons/fi";
 import Link from "next/link";
+import { Button } from "../../../../../components";
 
 type Props = {
 	src: string;

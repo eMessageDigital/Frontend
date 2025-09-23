@@ -1,6 +1,5 @@
-import { Container } from "@/app/core/components";
+import { Button, Container } from "../../../../components";
 import styles from "./HeroSection.module.scss";
-import { Button } from "@/ui";
 
 type Props = {
 	title: string;

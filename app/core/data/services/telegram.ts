@@ -31,6 +31,7 @@ export const telegram: ServiceData = {
 				theme: "dark",
 			},
 		],
+		href: "",
 	},
 	tools: {
 		title: "Дополнительные \nинструменты",

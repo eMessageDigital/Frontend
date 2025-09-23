@@ -1,6 +1,6 @@
-import { AdvantagesSection, Hero } from "@/app/core/pages/RequestPage";
 import React from "react";
 import Form from "../core/components/modules/Form/Form";
+import { AdvantagesSection, Hero } from "../core/pages/RequestPage";
 
 export default function page() {
 	return (

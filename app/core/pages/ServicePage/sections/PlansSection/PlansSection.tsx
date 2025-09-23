@@ -1,6 +1,6 @@
-import { Container } from "@/app/core/components";
 import Card from "./ui/Card";
 import styles from "./PlansSection.module.scss";
+import { Container } from "../../../../components";
 
 type Plan = {
 	title: string;
