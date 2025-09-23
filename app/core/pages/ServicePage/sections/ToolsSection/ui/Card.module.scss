@@ -1,0 +1,21 @@
+@import '../../../../../styles/colors';
+
+.card {
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  background-color: #F0F4F8;
+  border-radius: 24px;
+
+  .title {
+    margin-top: 36px;
+    font-size: 24px;
+    font-weight: 500;
+    color: $color-text-dark;
+  }
+
+  .description {
+    margin-top: 36px;
+    color: rgba($color: $color-text-dark, $alpha: .6);
+  }
+}

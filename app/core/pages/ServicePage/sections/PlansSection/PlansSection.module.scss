@@ -1,0 +1,19 @@
+@import '../../../../styles/colors';
+
+.container {
+  padding-top: 72px;
+  padding-bottom: 72px;
+
+  .title {
+    font-weight: 500;
+    font-size: 48px;
+    color: $color-text-dark;
+  }
+
+  .cards {
+    margin-top: 52px;
+    display: flex;
+    gap: 20px;
+
+  }
+}

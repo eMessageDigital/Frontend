@@ -1,0 +1,70 @@
+@import '../../../styles/colors';
+
+.headerWrapper {
+  position: fixed; /* фиксируем сверху */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* чтобы был поверх других элементов */
+  padding: 24px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-nav {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #131314;
+  margin-left: 30px;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+
+  .login {
+    background-color: $color-accent;
+    color: $color-text-light;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    padding: 13px 32px;
+
+    &:hover {
+      background-color: darken($color-accent, 10%);
+    }
+  }
+
+  .signin {
+    border: 1px solid $color-accent;
+    color: $color-accent;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 13px 32px;
+
+    &:hover {
+      background-color: $color-accent;
+      color: $color-text-light;
+    }
+  }
+}

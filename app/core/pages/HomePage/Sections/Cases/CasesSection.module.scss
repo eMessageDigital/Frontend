@@ -1,0 +1,74 @@
+@import '../../../../styles/colors';
+
+.sectionContainer {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+.sectionTitle {
+  font-size: 48px;
+  color: $color-text-dark;
+  font-weight: 500;
+
+  .titleRow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px; // расстояние между текстом и иконкой
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+}
+
+.cardsWrapper {
+  margin-top: 52px;
+  display: grid;
+  grid-template-columns: 1fr 2fr; // слева 1 колонка, справа 2 колонки
+  grid-template-rows: repeat(3, 215px); // три строки
+  gap: 20px;
+}
+
+.card {
+  background: rgba($color: #E7F6F8, $alpha: .8);
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h1 {
+    color: $color-text-dark;
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  p {
+    color: rgba($color: $color-text-dark, $alpha: .6);
+    font-size: 18px;
+  }
+}
+
+.bigCard {
+  grid-row: 1 / span 3; 
+  grid-column: 2 / span 1; 
+  background: rgba($color: #E7F6F8, $alpha: .8);
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.innerCard {
+  background: #4991fe;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+}
+

@@ -1,0 +1,100 @@
+@import '../../styles/colors';
+
+.container {
+  padding-top: 72px;
+  padding-bottom: 72px;
+
+  .form {
+    padding: 30px;
+    background-color: #f0f4f8;
+    border-radius: 26px;
+
+    .formHeader {
+      border-bottom: 1px solid rgba($color: $color-primary, $alpha: .25);
+      padding-bottom: 40px;
+
+      .left {
+        font-size: 66px;
+        font-weight: 500;
+        color: $color-text-dark;
+      }
+
+      .right {
+        margin-top: 36px;
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+      }
+
+      .rightTitle {
+        font-size: 66px;
+        font-weight: 500;
+        color: $color-primary;
+      }
+
+      .rightSubtitle {
+        font-size: 16px;
+        margin-top: 4px;
+        color: rgba($color: $color-text-dark, $alpha: .6);
+      }
+    }
+
+    .section {
+      padding: 40px 0;
+      border-bottom: 1px solid rgba($color: $color-primary, $alpha: .25);
+
+
+      .sectionTitle {
+        font-size: 28px;
+        color: $color-text-dark;
+        font-weight: 500;
+      }
+
+      .inputs {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+
+        .fileInputWrapper {
+          position: relative;
+          background: #fff;
+          border-radius: 8px;
+          padding: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+
+          .fileInput {
+            display: none;
+          }
+
+          .icon {
+            margin-left: 8px;
+            font-size: 18px;
+          }
+        }
+
+          /* Dropdown */
+          .select {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+          }
+
+          /* Textarea на всю ширину */
+          .textarea {
+            grid-column: 1 / -1; 
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 100px;
+          }
+      }
+    }  
+  }
+}

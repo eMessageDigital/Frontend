@@ -1,0 +1,20 @@
+@import '../../../../styles/colors';
+
+.container {
+  padding-top: 72px;
+  padding-bottom: 142px;
+
+  .title {
+    font-size: 48px;
+    font-weight: 500;
+    color: $color-text-dark;
+  }
+
+  .servicesList {
+    margin-top: 52px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+}

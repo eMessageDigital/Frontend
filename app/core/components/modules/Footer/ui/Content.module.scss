@@ -1,0 +1,71 @@
+@import '../../../../styles/colors';
+
+.contentWrapper {
+  
+  height: 800px;
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  background-color: #FAFAFA; 
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 32px; // отступ между top, divider и bottom
+
+  .top {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap; 
+    padding-bottom: 50px;
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      p {
+        font-size: 14px;
+        margin: 0;
+        color: $color-text-dark;
+      }
+    }
+  }
+
+  .divider {
+    height: 1px;
+    width: 100%;
+    background-color: rgba($color: #121212, $alpha: .12);
+  }
+
+  .bottom {
+    margin-top: 50px;
+    text-align: center;
+    color: #F4F4F4;
+
+    h1 {
+      font-size: 230px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .top {
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .top {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bottom h1 {
+      font-size: 36px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@import '../../../styles/colors';
+
+.innerCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8px;
+  color: $color-text-dark;
+  height: 100%; // чтобы карточка занимала всё пространство родителя
+
+  p {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 48px;
+    margin: 0;
+  }
+
+  .chartWrapper {
+    flex: 1; // занимает оставшееся место
+    width: 100%;
+    height: 80px; // фиксированная высота
+  }
+}
+
+.descContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.stats {
+  color: #1EB857;
+}
