@@ -7,17 +7,33 @@
   justify-content: center;
   background-size: 150px 150px;
   background-color: #EEF8FF;
-    background-image: 
-      linear-gradient(#CAEAFF, 1px, transparent 1px),
-      linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
+  background-image: 
+    linear-gradient(#CAEAFF, 1px, transparent 1px),
+    linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
+
+  @media (max-width: 1024px) {
+    background-size: 100px 100px;
+  }
+
+  @media (max-width: 768px) {
+    background-size: 50px 50px;
+    padding: 0 20px;
+  }
 }
 
 .container {
   display: flex;
   flex-direction: column;
   text-align: center;
-
   padding: 180px 0px 90px 0px;
+
+  @media (max-width: 1024px) {
+    padding: 140px 0px 70px 0px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 100px 0px 50px 0px;
+  }
 
   .title {
     font-size: 122px;
@@ -25,6 +41,18 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     white-space: pre-line;
+
+    @media (max-width: 1024px) {
+      font-size: 80px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 65px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 50px;
+    }
   }
 
   .subtitle {
@@ -32,6 +60,18 @@
     color: #121212;
     opacity: 85%;
     white-space: pre-line;
+
+    @media (max-width: 1024px) {
+      font-size: 36px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 22px;
+    }
   }
 
   .about {
@@ -40,6 +80,20 @@
     margin-top: 40px;
     color: #121212;
     opacity: 75%;
+
+    @media (max-width: 1024px) {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 14px;
+    }
   }
 
   .button {
@@ -48,5 +102,22 @@
     color: $color-text-light;
     padding: 16px 32px;
     margin-top: 40px;
+
+    @media (max-width: 1024px) {
+      font-size: 16px;
+      padding: 14px 28px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      padding: 12px 24px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 12px;
+      padding: 10px 20px;
+    }
   }
 }

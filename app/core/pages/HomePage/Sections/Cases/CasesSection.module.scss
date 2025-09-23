@@ -19,7 +19,36 @@
   .icon {
     flex-shrink: 0;
   }
+
+  /* ------------------ MEDIA QUERIES ------------------ */
+  @media (max-width: 1024px) {
+    font-size: 36px;
+
+    .titleRow {
+      gap: 8px;
+    }
+
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+
+    .titleRow {
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
 }
+
 
 .cardsWrapper {
   margin-top: 52px;
@@ -27,48 +56,79 @@
   grid-template-columns: 1fr 2fr; // слева 1 колонка, справа 2 колонки
   grid-template-rows: repeat(3, 215px); // три строки
   gap: 20px;
-}
 
-.card {
-  background: rgba($color: #E7F6F8, $alpha: .8);
-  border-radius: 24px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  .card {
+    background: rgba($color: #E7F6F8, $alpha: .8);
+    border-radius: 24px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-  h1 {
-    color: $color-text-dark;
-    font-size: 24px;
-    font-weight: 400;
+    h1 {
+      color: $color-text-dark;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    p {
+      color: rgba($color: $color-text-dark, $alpha: .6);
+      font-size: 18px;
+    }
   }
 
-  p {
-    color: rgba($color: $color-text-dark, $alpha: .6);
-    font-size: 18px;
+  .bigCard {
+    grid-row: 1 / span 3; 
+    grid-column: 2 / span 1; 
+    background: rgba($color: #E7F6F8, $alpha: .8);
+    border-radius: 16px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
-.bigCard {
-  grid-row: 1 / span 3; 
-  grid-column: 2 / span 1; 
-  background: rgba($color: #E7F6F8, $alpha: .8);
-  border-radius: 16px;
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Планшет */
+@media (max-width: 1024px) {
+  .cardsWrapper {
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto; 
+    gap: 16px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .bigCard {
+    padding: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
 }
 
-.innerCard {
-  background: #4991fe;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-}
+/* Мобильные */
+@media (max-width: 768px) {
+  .cardsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
+  .card {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .bigCard {
+    width: 100%;
+    margin-top: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 12px;
+  }
+}

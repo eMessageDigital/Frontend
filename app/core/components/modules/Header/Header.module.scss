@@ -1,23 +1,18 @@
 @import '../../../styles/colors';
 
-.headerWrapper {
-  position: fixed; /* фиксируем сверху */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; /* чтобы был поверх других элементов */
-  padding: 24px 0;
-}
-
 .header {
   display: flex;
   align-items: center;
+  padding: 20px 0;
+  width: 100%;
   justify-content: space-between;
 }
 
 .logo-nav {
   display: flex;
   align-items: center;
+  position: relative;
+  flex: 1;
 }
 
 .logo {
@@ -26,14 +21,57 @@
   pointer-events: none;
 }
 
+.close {
+  display: none;
+}
+
+/* Навигация */
 .nav {
   display: flex;
   gap: 20px;
   font-size: 14px;
   color: #131314;
   margin-left: 30px;
+
+  .mobileButtons {
+    display: none; /* скрыты по умолчанию */
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    padding: 60px 20px 20px 20px;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+    gap: 20px;
+    z-index: 2000;
+
+    .mobileButtons {
+      display: flex;
+    }
+
+    /* Кнопка закрытия */
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #131314;
+    }
+  }
 }
 
+/* Десктопные кнопки */
 .buttons {
   display: flex;
   gap: 12px;
@@ -66,5 +104,60 @@
       background-color: $color-accent;
       color: $color-text-light;
     }
+  }
+}
+
+/* Гамбургер */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #131314;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+}
+
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Планшет */
+@media (max-width: 1024px) {
+  .nav {
+    gap: 15px;
+    margin-left: 20px;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+}
+
+/* Мобильные */
+@media (max-width: 768px) {
+  .close {
+    display: flex;
+  }
+  .logo-nav {
+    justify-content: space-between; /* только для мобильного */
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .buttons {
+    display: none;
   }
 }

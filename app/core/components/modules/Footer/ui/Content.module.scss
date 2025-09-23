@@ -1,23 +1,18 @@
 @import '../../../../styles/colors';
 
 .contentWrapper {
-  
-  height: 800px;
   width: 100%;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  background-color: #FAFAFA; 
-  color: #fff;
+  padding: 100px 20px 50px 20px; // паддинги сверху и снизу
+  color: $color-text-dark;
   display: flex;
   flex-direction: column;
-  gap: 32px; // отступ между top, divider и bottom
+  gap: 32px;
 
   .top {
-    margin-top: 50px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: 40px;
-    flex-wrap: wrap; 
     padding-bottom: 50px;
 
     .column {
@@ -36,32 +31,58 @@
   .divider {
     height: 1px;
     width: 100%;
-    background-color: rgba($color: #121212, $alpha: .12);
+    background-color: rgba(#121212, 0.12);
   }
 
   .bottom {
-    margin-top: 50px;
     text-align: center;
-    color: #F4F4F4;
+    color: $color-text-dark;
 
     h1 {
       font-size: 230px;
       font-weight: 700;
       letter-spacing: 2px;
       margin: 0;
+      color: #dadada;
     }
   }
 
+  /* ------------------ MEDIA QUERIES ------------------ */
+
+  @media (max-width: 1300px) {
+    .bottom h1 {
+      font-size: 150px;
+    }
+  }
+
+  /* Планшет */
   @media (max-width: 1024px) {
+    padding: 80px 16px 40px;
+
     .top {
       gap: 20px;
+
+      .column {
+        flex: 1 1 45%; // две колонки в ряд
+      }
+    }
+
+    .bottom h1 {
+      font-size: 100px;
     }
   }
 
+  /* Мобильные */
   @media (max-width: 600px) {
+    padding: 60px 16px 30px;
+
     .top {
       flex-direction: column;
       gap: 16px;
+
+      .column {
+        width: 100%; 
+      }
     }
 
     .bottom h1 {
