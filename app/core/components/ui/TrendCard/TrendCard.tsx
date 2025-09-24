@@ -66,7 +66,7 @@ const TrendCard: React.FC<TrendCardProps> = ({
 			</div>
 			<div className={styles.chartWrapper}>
 				{inView && (
-					<ResponsiveContainer width='100%' height='100%'>
+					<ResponsiveContainer className={styles.responsiveChart} width='100%' height='100%'>
 						<AreaChart data={data.length ? data : [{ value: 0 }, { value: 0 }]}>
 							<defs>
 								<linearGradient id='gradient' x1='0' y1='0' x2='0' y2='1'>

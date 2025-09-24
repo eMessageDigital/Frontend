@@ -7,17 +7,15 @@
   justify-content: center;
   background-size: 150px 150px;
   background-color: #EEF8FF;
-    background-image: 
-      linear-gradient(#CAEAFF, 1px, transparent 1px),
-      linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
+  background-image: 
+    linear-gradient(#CAEAFF, 1px, transparent 1px),
+    linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
 }
-
 
 .container {
   display: flex;
   flex-direction: column;
   text-align: center;
-
   padding: 180px 0px 90px 0px;
 
   .title {
@@ -49,5 +47,59 @@
     color: $color-text-light;
     padding: 16px 32px;
     margin-top: 40px;
+  }
+}
+
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Планшет */
+@media (max-width: 1024px) {
+  .container {
+    padding: 120px 20px 60px 20px;
+
+    .title {
+      font-size: 80px;
+    }
+
+    .subtitle {
+      font-size: 36px;
+    }
+
+    .about {
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    .button {
+      font-size: 16px;
+      padding: 14px 28px;
+      margin-top: 30px;
+    }
+  }
+}
+
+/* Мобильные */
+@media (max-width: 768px) {
+  .container {
+    padding: 80px 16px 40px 16px;
+
+    .title {
+      font-size: 60px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+    }
+
+    .about {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .button {
+      font-size: 14px;
+      padding: 12px 24px;
+      margin-top: 20px;
+    }
   }
 }

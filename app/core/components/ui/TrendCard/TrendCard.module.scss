@@ -21,10 +21,40 @@
     margin: 0;
   }
 
+  /* Контейнер под график */
   .chartWrapper {
     flex: 1;
     width: 100%;
-    height: 80px;
+    min-height: 160px;
+
+    .responsiveChart {
+      width: 100% !important;
+      height: 160px !important; // базовая высота
+    }
+
+    @media (max-width: 1024px) {
+      .responsiveChart {
+        height: 140px !important; // планшет
+      }
+    }
+
+    @media (max-width: 768px) {
+      .responsiveChart {
+        height: 120px !important; // мобилка
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .chartWrapper {
+      min-height: 140px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .chartWrapper {
+      min-height: 120px;
+    }
   }
 }
 
@@ -39,6 +69,24 @@
 }
 
 /* ------------------ MEDIA QUERIES ------------------ */
+@media (max-width: 1024px) {
+  .innerCard {
+    padding: 14px;
+
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .chartWrapper {
+      min-height: 140px; // планшет
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .innerCard {
     padding: 12px;
@@ -53,7 +101,8 @@
     }
 
     .chartWrapper {
-      height: 60px;
+      flex: 1;
+      min-height: 120px; // мобилка, но не меньше 120px
     }
   }
 

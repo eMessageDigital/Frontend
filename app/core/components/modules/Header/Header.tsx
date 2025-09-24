@@ -31,11 +31,21 @@ export const Header = () => {
 							×
 						</button>
 
-						<HoverLink href='/'>Главная</HoverLink>
-						<HoverLink href='/services'>Услуги</HoverLink>
-						<HoverLink href='#'>Кейсы</HoverLink>
-						<HoverLink href='/faq'>FAQ</HoverLink>
-						<HoverLink href='#'>Контакты</HoverLink>
+						<HoverLink onClick={() => setMenuOpen(false)} href='/'>
+							Главная
+						</HoverLink>
+						<HoverLink onClick={() => setMenuOpen(false)} href='/services'>
+							Услуги
+						</HoverLink>
+						<HoverLink onClick={() => setMenuOpen(false)} href='#'>
+							Кейсы
+						</HoverLink>
+						<HoverLink onClick={() => setMenuOpen(false)} href='/faq'>
+							FAQ
+						</HoverLink>
+						<HoverLink onClick={() => setMenuOpen(false)} href='#'>
+							Контакты
+						</HoverLink>
 
 						{/* Мобильные кнопки */}
 						<div className={styles.mobileButtons}>

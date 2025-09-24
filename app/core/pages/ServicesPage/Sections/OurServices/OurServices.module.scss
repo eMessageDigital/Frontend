@@ -16,5 +16,42 @@
     gap: 20px;
     justify-content: space-between;
   }
+}
 
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Планшет */
+@media (max-width: 1024px) {
+  .container {
+    padding-top: 56px;
+    padding-bottom: 100px;
+
+    .title {
+      font-size: 36px;
+    }
+
+    .servicesList {
+      gap: 16px;
+      flex-wrap: wrap; // карточки переносятся на следующую строку
+      justify-content: center;
+    }
+  }
+}
+
+/* Мобильные */
+@media (max-width: 768px) {
+  .container {
+    padding-top: 40px;
+    padding-bottom: 60px;
+
+    .title {
+      font-size: 28px;
+    }
+
+    .servicesList {
+      flex-direction: column; // карточки в одну колонку
+      gap: 12px;
+      align-items: center;
+    }
+  }
 }

@@ -4,6 +4,7 @@ import styles from "./ApproachSection.module.scss";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import { Button, Container } from "../../../../components";
+import Link from "next/link";
 
 export default function ApproachSection() {
 	return (
@@ -98,9 +99,11 @@ export default function ApproachSection() {
 				</div>
 			</div>
 			<div className={styles.buttonContainer}>
-				<Button className={styles.button}>
-					Посмотреть все услуги <FaArrowRight style={{ marginLeft: "8px" }} />
-				</Button>
+				<Link href='/services'>
+					<Button className={styles.button}>
+						Посмотреть все услуги <FaArrowRight style={{ marginLeft: "8px" }} />
+					</Button>
+				</Link>
 			</div>
 		</Container>
 	);
