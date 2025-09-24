@@ -14,7 +14,7 @@ export const Header = () => {
 			<header className={styles.header}>
 				<div className={styles["logo-nav"]}>
 					<div className={styles.logo}>
-						<Image src='/img/logo.png' alt='Logo' width={42} height={42} />
+						<Image src='/img/logo.svg' alt='Logo' width={42} height={42} />
 					</div>
 
 					{/* Гамбургер */}

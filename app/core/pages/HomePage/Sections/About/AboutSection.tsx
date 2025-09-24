@@ -10,7 +10,7 @@ export default function AboutSection() {
 				<div className={styles.card1}>
 					<div>
 						<h1 className={styles.sectionTitle}>Мы -</h1>
-						<Image src={"/img/logo.png"} width={52} height={52} alt='logo'></Image>
+						<Image src={"/img/logo.svg"} width={52} height={52} alt='logo'></Image>
 						<h1 className={styles.accent}>eMessage</h1>
 					</div>
 					<p>Сервис, который продвигает проекты в социальных сетях и мессенджерах.</p>
@@ -34,15 +34,15 @@ export default function AboutSection() {
 					<h1>Что мы делаем</h1>
 					<div className={styles.services}>
 						<div className={styles.service}>
-							<Image width={62} height={62} src={"/ico/fire.png"} alt='fire'></Image>
+							<Image width={62} height={62} src={"/ico/light.svg"} alt='icon'></Image>
 							<p>Анализируем задачи и целевую аудиторию</p>
 						</div>
 						<div className={styles.service}>
-							<Image width={62} height={62} src={"/ico/monitor.png"} alt='fire'></Image>
+							<Image width={62} height={62} src={"/ico/monitor.svg"} alt='icon'></Image>
 							<p>Подбираем оптимальные инструменты продвижения</p>
 						</div>
 						<div className={styles.service}>
-							<Image width={62} height={62} src={"/ico/arrow.png"} alt='fire'></Image>
+							<Image width={62} height={62} src={"/ico/purpose.svg"} alt='icon'></Image>
 							<p>Реализуем стратегию на высшем уровне</p>
 						</div>
 					</div>

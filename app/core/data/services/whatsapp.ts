@@ -39,18 +39,18 @@ export const whatsapp: ServiceData = {
 			{
 				title: "Оформление аккаунтов",
 				description: "Меняем имя пользователя, фото профиля и описание аккаунта под ваш запрос.",
-				imageSrc: "/ico/peopleplus.png",
+				imageSrc: "/ico/tools/peopleadd.svg",
 			},
 			{
 				title: "Оффер с фото",
 				description: "Прикрепляем к рассылаемому сообщению необходимый креатив, фото.",
-				imageSrc: "/ico/imgplus.png",
+				imageSrc: "/ico/tools/imgadd.svg",
 			},
 			{
 				title: "Сбор ответов",
 				description:
 					"Выгружаем всю информацию по откликам на рассылку. Ответ пользователя и его контакт, чтобы вы лично могли продолжить с ним диалог.",
-				imageSrc: "/ico/messageplus.png",
+				imageSrc: "/ico/tools/messageadd.svg",
 			},
 		],
 	},

@@ -15,25 +15,25 @@ export default function AdvantagesSection() {
 				<Card
 					title={"Быстро"}
 					text={"Мгновенная доставка сообщений вашей аудитории без задержек."}
-					src={"/ico/speed.png"}
+					src={"/ico/advantages/speed.svg"}
 					variant='primary'
 				/>
 				<Card
 					title={"Безопасно"}
 					text={"Надежная защита данных и гарантированная конфиденциальность."}
-					src={"/ico/close.png"}
+					src={"/ico/advantages/close.svg"}
 					variant='primary'
 				/>
 				<Card
 					title={"Лояльно"}
 					text={"Бережное отношение к вашей базе клиентов, без спама и блокировок."}
-					src={"/ico/smile.png"}
+					src={"/ico/advantages/smile.svg"}
 					variant='light'
 				/>
 				<Card
 					title={"Поддержка 24/7"}
 					text={"Оперативная помощь в любое время суток и по любому вопросу."}
-					src={"/ico/monitortime.png"}
+					src={"/ico/advantages/monitortime.svg"}
 					variant='light'
 				/>
 			</div>

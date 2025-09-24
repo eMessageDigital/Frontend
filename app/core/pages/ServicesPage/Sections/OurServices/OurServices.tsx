@@ -12,7 +12,7 @@ export default function OurServices() {
 			</h1>
 			<div className={styles.servicesList}>
 				<Card
-					src={"/ico/companies/tg.png"}
+					src={"/ico/companies/tg.svg"}
 					title={"Telegram"}
 					description={
 						"Мы создаём персонализированные рассылки, которые цепляют внимание, вызывают отклик и приводят клиентов."
@@ -21,7 +21,7 @@ export default function OurServices() {
 					buttonLink={"/services/telegram"}
 				/>
 				<Card
-					src={"/ico/companies/whatsapp.png"}
+					src={"/ico/companies/whatsapp.svg"}
 					title={"WhatsApp"}
 					description={
 						"Мы создаём персонализированные рассылки, которые цепляют внимание, вызывают отклик и приводят клиентов."
@@ -30,7 +30,7 @@ export default function OurServices() {
 					buttonLink={"/services/whatsapp"}
 				/>
 				<Card
-					src={"/ico/companies/vk.png"}
+					src={"/ico/companies/vk.svg"}
 					title={"VK"}
 					description={
 						"Мы создаём персонализированные рассылки, которые цепляют внимание, вызывают отклик и приводят клиентов."

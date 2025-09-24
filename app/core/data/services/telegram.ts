@@ -40,18 +40,18 @@ export const telegram: ServiceData = {
 				title: "Парсинг Telegram аудитории",
 				description:
 					"Проведем профессиональный сбор базы по сегментам, используя современные решения.",
-				imageSrc: "/ico/people.png",
+				imageSrc: "/ico/tools/people.svg",
 			},
 			{
 				title: "Чекер номеров на наличие Telegram",
 				description: "Проверим вашу базу телефонных номеров на наличие телеграм-аккаунтов.",
-				imageSrc: "/ico/loop.png",
+				imageSrc: "/ico/tools/magnifier.svg",
 			},
 			{
 				title: "Комплексная рассылка",
 				description:
 					"Дополнительные каналы привлечения аудитории. Запуск рассылки в нескольких соц сетях, чтобы выявить наиболее эффективный источник аудитории.",
-				imageSrc: "/ico/message.png",
+				imageSrc: "/ico/tools/messages.svg",
 			},
 		],
 	},

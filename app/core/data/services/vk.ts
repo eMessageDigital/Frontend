@@ -40,19 +40,19 @@ export const vk: ServiceData = {
 				title: "Сегментация аудитории",
 				description:
 					"Разделение вашей ЦА по подгруппам, чтобы расширить возможности стратегии и детализировать статистику.",
-				imageSrc: "/ico/people.png",
+				imageSrc: "/ico/tools/people.svg",
 			},
 			{
 				title: "Оформление офферов",
 				description:
 					"Полное оформление рассылаемых сообщений, отталкиваясь от проекта, ваших задач и потребности аудитории.",
-				imageSrc: "/ico/note.png",
+				imageSrc: "/ico/tools/stick.svg",
 			},
 			{
 				title: "Комплексная рассылка",
 				description:
 					"Дополнительные каналы привлечения аудитории. Запуск рассылки в нескольких соц сетях, чтобы выявить наиболее эффективный источник аудитории.",
-				imageSrc: "/ico/message.png",
+				imageSrc: "/ico/tools/messages.svg",
 			},
 		],
 	},

@@ -17,21 +17,21 @@ export default function ApproachSection() {
 					<div>
 						<Image
 							className={styles.icon}
-							src={"/ico/companies/tg.png"}
+							src={"/ico/companies/tg.svg"}
 							width={48}
 							height={48}
 							alt='icon'
 						/>
 						<Image
 							className={styles.icon}
-							src={"/ico/companies/vk.png"}
+							src={"/ico/companies/vk.svg"}
 							width={48}
 							height={48}
 							alt='icon'
 						/>
 						<Image
 							className={styles.icon}
-							src={"/ico/companies/whatsapp.png"}
+							src={"/ico/companies/whatsapp.svg"}
 							width={48}
 							height={48}
 							alt='icon'
@@ -50,34 +50,34 @@ export default function ApproachSection() {
 						<div className={styles.iconContainer}>
 							<Image
 								className={styles.icon}
-								src={"/ico/companies/soon/yandex.png"}
+								src={"/ico/companies/soon/yandex.svg"}
 								width={48}
 								height={48}
 								alt='icon'
 							/>
 							<Image
 								className={styles.icon}
-								src={"/ico/companies/soon/xz.png"}
+								src={"/ico/companies/soon/xz.svg"}
 								width={48}
 								height={48}
 								alt='icon'
 							/>
 							<Image
 								className={styles.icon}
-								src={"/ico/companies/soon/vk.png"}
+								src={"/ico/companies/soon/vk.svg"}
 								width={48}
 								height={48}
 								alt='icon'
 							/>
 							<Image
 								className={styles.icon}
-								src={"/ico/companies/soon/tg.png"}
+								src={"/ico/companies/soon/tg.svg"}
 								width={48}
 								height={48}
 								alt='icon'
 							/>
 						</div>
-						<div className={`${styles.badge} ${styles.blue}`}>скоро 🔥</div>
+						{/* <div className={`${styles.badge} ${styles.blue}`}>скоро 🔥</div> */}
 					</div>
 					<h1>Настройка таргетированной рекламы</h1>
 					<p>Точечный таргетинг на вашу целевую аудиторию с оптимизацией бюджета и высоким ROI.</p>
@@ -86,11 +86,11 @@ export default function ApproachSection() {
 					<div className={styles.cardTop}>
 						<Image
 							className={styles.icon}
-							src={"/ico/companies/soon/trand.png"}
+							src={"/ico/companies/soon/trandline.svg"}
 							width={48}
 							height={48}
 							alt='icon'></Image>
-						<div className={`${styles.badge} ${styles.dark}`}>скоро 🔥</div>
+						{/* <div className={`${styles.badge} ${styles.dark}`}>скоро 🔥</div> */}
 					</div>
 					<h1>Развитие проекта под ключ</h1>
 					<p>

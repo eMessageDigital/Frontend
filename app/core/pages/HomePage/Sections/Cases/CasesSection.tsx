@@ -54,17 +54,17 @@ export default function CasesSection() {
 			</h1>
 			<div className={styles.cardsWrapper}>
 				<div className={styles.card}>
-					<Image src={"/ico/companies/vk.png"} width={60} height={60} alt='icon'></Image>
+					<Image src={"/ico/companies/vk.svg"} width={60} height={60} alt='icon'></Image>
 					<h1>Запуск продукта во VK</h1>
 					<p>Более 5000 подписчиков за 2 недели</p>
 				</div>
 				<div className={styles.card}>
-					<Image src={"/ico/companies/monitor.png"} width={60} height={60} alt='icon'></Image>
+					<Image src={"/ico/trandmonitor.svg"} width={60} height={60} alt='icon'></Image>
 					<h1>Рекламная кампания</h1>
 					<p>+40% к конверсии за месяц</p>
 				</div>
 				<div className={styles.card}>
-					<Image src={"/ico/companies/cart.png"} width={60} height={60} alt='icon'></Image>
+					<Image src={"/ico/cart.svg"} width={60} height={60} alt='icon'></Image>
 					<h1>Онлайн-магазин</h1>
 					<p>950+ заказов за 7 дней</p>
 				</div>
