@@ -43,7 +43,7 @@ export const Header = () => {
 						<HoverLink onClick={() => setMenuOpen(false)} href='/faq'>
 							FAQ
 						</HoverLink>
-						<HoverLink onClick={() => setMenuOpen(false)} href='#'>
+						<HoverLink onClick={() => setMenuOpen(false)} href='/contact'>
 							Контакты
 						</HoverLink>
 

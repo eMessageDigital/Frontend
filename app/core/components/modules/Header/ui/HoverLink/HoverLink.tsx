@@ -8,7 +8,7 @@ interface HoverLinkProps {
 }
 
 export const HoverLink = ({ href, children, onClick }: HoverLinkProps) => {
-	const letters = children.split("");
+	const letters = Array.from(children);
 
 	return (
 		<Link onClick={onClick} href={href} className={styles.hoverLink}>

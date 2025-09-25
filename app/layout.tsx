@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Footer, Header } from "../app/core/components";
 import "./core/styles/globals.scss";
+import { ReduxProvider } from "./core/store/Providers";
 
 export const metadata: Metadata = {
 	title: "eMassage - Главная",
@@ -15,9 +16,11 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body>
-				<Header />
-				{children}
-				<Footer />
+				<ReduxProvider>
+					<Header />
+					{children}
+					<Footer />
+				</ReduxProvider>
 			</body>
 		</html>
 	);

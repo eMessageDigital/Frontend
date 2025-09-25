@@ -1,0 +1,165 @@
+@import '../../../styles/colors';
+
+.bgGrid {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-size: 150px 150px;
+  overflow: hidden;
+  background-color: #EEF8FF;
+  background-image: 
+    linear-gradient(#CAEAFF, 1px, transparent 1px),
+    linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
+
+  .planes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  .plane {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    opacity: 0.2;
+  }
+
+  .plane:nth-child(1) { top: 38%; left: 12%; }
+  .plane:nth-child(2) { top: 38%; right: 12%; }
+  .plane:nth-child(3) { bottom: 35%; left: 30%; }
+  .plane:nth-child(4) { bottom: 14%; right: 20%; }
+}
+
+/* -------- Планшеты -------- */
+@media (max-width: 1024px) {
+  .planes {
+    .plane {
+      width: 44px;
+      height: 44px;
+    }
+
+    .plane:nth-child(1) { top: 25%; left: 10%; }
+    .plane:nth-child(2) { top: 25%; right: 10%; }
+    .plane:nth-child(3) { bottom: 38%; left: 20%; }
+    .plane:nth-child(4) { bottom: 9%; right: 24%; }
+  }
+}
+
+/* -------- Мобильные -------- */
+@media (max-width: 768px) {
+  .planes {
+    .plane {
+      width: 32px;
+      height: 32px;
+    }
+
+    .plane:nth-child(1) { top: 25%; left: 8%; }
+    .plane:nth-child(2) { top: 25%; right: 8%; }
+    .plane:nth-child(3) { bottom: 25%; left: 20%; }
+    .plane:nth-child(4) { bottom: 10%; right: 15%; }
+  }
+}
+
+/* -------- Очень маленькие экраны -------- */
+@media (max-width: 480px) {
+  .planes {
+    .plane {
+      width: 22px;
+      height: 22px;
+    }
+
+    .plane:nth-child(1) { top: 38%; left: 6%; }
+    .plane:nth-child(2) { top: 14%; right: 21%; }
+    .plane:nth-child(3) { bottom: 16%; left: 15%; }
+    .plane:nth-child(4) { bottom: 16%; right: 21%; }
+  }
+}
+
+/* Цвет самолётиков по variant */
+.telegramPlanes .plane { fill: #4991FE; }
+.whatsappPlanes .plane { fill: #25D366; }
+.vkPlanes .plane { fill: #FF4F79; }
+.defaultPlanes .plane { fill: #53BBFF; }
+
+  &.telegram {
+    background-color: #EEF8FF;
+    background-image:
+      linear-gradient(#CAEAFF, 1px, transparent 1px),
+      linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
+  }
+
+  &.whatsapp {
+    background-color: #E9FBF0;
+    background-image:
+      linear-gradient(#CFEFF2, 1px, transparent 1px),
+      linear-gradient(90deg, #CFEFF2, 1px, transparent 1px);
+  }
+
+  &.vk {
+    background-color: #FFEBF2;
+    background-image:
+      linear-gradient(#FFD3E3, 1px, transparent 1px),
+      linear-gradient(90deg, #FFD3E3, 1px, transparent 1px);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 180px 0 90px;
+
+  .title {
+    font-size: 122px;
+    background: -webkit-linear-gradient(-81deg, #4991FE, #77CFFD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: pre-line;
+  }
+
+  .subtitle {
+    font-size: 48px;
+    color: #121212;
+    opacity: 85%;
+    white-space: pre-line;
+  }
+
+  .about {
+    font-size: 24px;
+    white-space: pre-line;
+    margin-top: 40px;
+    color: #121212;
+    opacity: 75%;
+  }
+
+  .button {
+    font-size: 18px;
+    background-color: $color-accent;
+    color: $color-text-light;
+    padding: 16px 32px;
+    margin-top: 40px;
+  }
+}
+
+/* адаптив */
+@media (max-width: 1024px) {
+  .container {
+    padding: 120px 20px 60px;
+
+    .title { font-size: 80px; }
+    .subtitle { font-size: 36px; }
+    .about { font-size: 20px; margin-top: 30px; }
+    .button { font-size: 16px; padding: 14px 28px; margin-top: 30px; }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 80px 16px 40px;
+
+    .title { font-size: 60px; }
+    .subtitle { font-size: 24px; }
+    .about { font-size: 18px; margin-top: 20px; }
+    .button { font-size: 14px; padding: 12px 24px; margin-top: 20px; }
+  }
+}

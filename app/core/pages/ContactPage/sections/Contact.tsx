@@ -21,7 +21,7 @@ export default function ContactsPage() {
 				<div className={styles.cardSmall}>
 					{/* Телефон */}
 					<div className={styles.contactItem}>
-						<Image src={"/ico/phone.png"} height={48} width={48} alt='icon' />
+						<Image src={"/ico/phone.svg"} height={48} width={48} alt='icon' />
 						<div className={styles.cardText}>
 							<p className={styles.contactLabel}>Номер телефона</p>
 							<p className={styles.contactValue}>
@@ -32,7 +32,7 @@ export default function ContactsPage() {
 
 					{/* Email */}
 					<div className={styles.contactItem}>
-						<Image src={"/ico/email.png"} height={48} width={48} alt='icon' />
+						<Image src={"/ico/incomemail.svg"} height={48} width={48} alt='icon' />
 						<div className={styles.cardText}>
 							<p className={styles.contactLabel}>Электронная почта</p>
 							<p className={styles.contactValue}>
@@ -45,7 +45,7 @@ export default function ContactsPage() {
 				{/* Карточка 2 — 66% */}
 				<div className={styles.cardLarge}>
 					<div className={styles.leftIcon}>
-						<Image src='/ico/paper.png' width={48} height={48} alt='icon' />
+						<Image src='/ico/paper.svg' width={48} height={48} alt='icon' />
 					</div>
 
 					<div className={styles.columns}>

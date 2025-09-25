@@ -1,4 +1,5 @@
-import { Hero, OurServices } from "../core/pages/ServicesPage";
+import { Hero } from "../core/components";
+import { OurServices } from "../core/pages/ServicesPage";
 
 export default function ServicesPage() {
 	return (
