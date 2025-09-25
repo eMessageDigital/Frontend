@@ -28,7 +28,11 @@ export default function PlansSection({ title, plans = [], href }: PlansSectionPr
 			</h1>
 			<div className={styles.cards}>
 				{plans.map((plan, idx) => (
-					<Card href={`/request/${serviceKey}`} key={idx} {...plan} />
+					<Card
+						href={`/request/${serviceKey}?plan=${encodeURIComponent(plan.title.toLowerCase())}`}
+						key={idx}
+						{...plan}
+					/>
 				))}
 			</div>
 		</Container>

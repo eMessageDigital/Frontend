@@ -9,5 +9,9 @@ type Props = {
 };
 
 export default function Button({ children, className = "", onClick, type = "button" }: Props) {
-	return <button className={`${styles.button} ${className}`}>{children}</button>;
+	return (
+		<button onClick={onClick} className={`${styles.button} ${className}`}>
+			{children}
+		</button>
+	);
 }

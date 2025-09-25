@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./FaqSection.module.scss";
 import { FiPlus, FiX } from "react-icons/fi";
 import { Container } from "../../../../components";
+import Link from "next/link";
 
 type FAQItem = {
 	question: string;
@@ -41,7 +42,12 @@ export default function FAQSection() {
 
 	return (
 		<Container className={styles.container}>
-			<div className={styles.breadcrumbs}>Главная / FAQ</div>
+			<div className={styles.breadcrumbs}>
+				<Link style={{ color: "#53BBFF" }} href={"/"}>
+					Главная
+				</Link>{" "}
+				/ FAQ
+			</div>
 			<h1 className={styles.title}>Часто задаваемые вопросы</h1>
 			<div className={styles.faqList}>
 				{faqData.map((item, index) => (

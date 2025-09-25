@@ -3,6 +3,7 @@ import styles from "./Card.module.scss";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import Link from "next/link";
 import { Button } from "../../../../../components";
+import { useRouter } from "next/navigation";
 
 type CardProps = {
 	title: string;
@@ -21,6 +22,7 @@ export default function Card({
 	buttonText,
 	href,
 }: CardProps) {
+	const router = useRouter();
 	return (
 		<div className={`${styles.card} ${theme === "dark" ? styles.dark : styles.light}`}>
 			<h1 className={styles.title}>{title}</h1>
@@ -36,9 +38,9 @@ export default function Card({
 			</ul>
 			<div className={styles.bottom}>
 				<h2 className={styles.price}>{price}</h2>
-				<Link href={href}>
-					<Button className={styles.button}>{buttonText}</Button>
-				</Link>
+				<Button onClick={() => router.push(href)} className={styles.button}>
+					{buttonText}
+				</Button>
 			</div>
 		</div>
 	);

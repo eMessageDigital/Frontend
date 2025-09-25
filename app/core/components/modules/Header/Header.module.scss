@@ -37,6 +37,37 @@
     display: none; /* скрыты по умолчанию */
     flex-direction: column;
     gap: 10px;
+
+    .login {
+    background-color: $color-accent;
+    color: $color-text-light;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    padding: 13px 32px;
+
+    &:hover {
+      background-color: darken($color-accent, 10%);
+      transform: scale(1.1);
+    }
+  }
+
+  .signin {
+    border: 1px solid $color-accent;
+    color: $color-accent;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: transparent;
+  transition: all .2s ease-in-out;
+    padding: 13px 32px;
+
+    &:hover {
+      background-color: $color-accent;
+      color: $color-text-light;
+      transform: scale(1.1);
+    }
+  }
   }
 
   &.active {
@@ -83,11 +114,12 @@
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.2s;
+  transition: all .2s ease-in-out;
     padding: 13px 32px;
 
     &:hover {
       background-color: darken($color-accent, 10%);
+      transform: scale(1.1);
     }
   }
 
@@ -97,12 +129,13 @@
     border-radius: 12px;
     cursor: pointer;
     background-color: transparent;
-    transition: background-color 0.2s, color 0.2s;
+  transition: all .2s ease-in-out;
     padding: 13px 32px;
 
     &:hover {
       background-color: $color-accent;
       color: $color-text-light;
+      transform: scale(1.1);
     }
   }
 }
