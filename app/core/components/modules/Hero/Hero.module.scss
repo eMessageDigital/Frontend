@@ -5,12 +5,39 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background-size: 150px 150px;
   overflow: hidden;
-  background-color: #EEF8FF;
-  background-image: 
-    linear-gradient(#CAEAFF, 1px, transparent 1px),
-    linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
+
+  background-color: #EEF8FF; // фон всегда ровный
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background-size: 150px 150px;
+    background-image: 
+      linear-gradient(#CAEAFF 1px, transparent 1px),
+      linear-gradient(90deg, #CAEAFF 1px, transparent 1px);
+
+    /* только на сетку накладываем маску */
+    -webkit-mask-image: radial-gradient(
+      circle at center,
+      rgba(0,0,0,1) 70%,   /* центр чёткий */
+      rgba(0,0,0,0) 80%   /* плавное исчезновение к краям */
+    );
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: cover;
+
+    mask-image: radial-gradient(
+      circle at center,
+      rgba(0,0,0,1) 70%,   /* центр чёткий */
+      rgba(0,0,0,0) 80%   /* плавное исчезновение к краям */
+    );
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
+  }
 
   .planes {
   position: absolute;
@@ -104,6 +131,8 @@
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   text-align: center;

@@ -1,5 +1,15 @@
 @import '../../../../styles/colors';
 
+.one {
+  background: #fff; 
+  border-top-left-radius: 72px;
+  border-top-right-radius: 72px;
+  margin-top: -40px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
 .container {
   padding-top: 72px;
   padding-bottom: 72px;

@@ -1,6 +1,17 @@
 @import '../../../../styles/colors';
 
-.container {
+.one {
+  background: #fff; 
+  border-top-left-radius: 72px;
+  border-top-right-radius: 72px;
+  margin-top: -40px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.container { 
+  overflow: hidden;
   padding-top: 72px;
   padding-bottom: 142px;
 

@@ -22,19 +22,21 @@ export default function PlansSection({ title, plans = [], href }: PlansSectionPr
 	const serviceKey = useSelector((state: rootState) => state.service.selected);
 
 	return (
-		<Container className={styles.container}>
-			<h1 style={{ whiteSpace: "pre-line" }} className={styles.title}>
-				{title}
-			</h1>
-			<div className={styles.cards}>
-				{plans.map((plan, idx) => (
-					<Card
-						href={`/request/${serviceKey}?plan=${encodeURIComponent(plan.title.toLowerCase())}`}
-						key={idx}
-						{...plan}
-					/>
-				))}
-			</div>
-		</Container>
+		<div className={styles.one}>
+			<Container className={styles.container}>
+				<h1 style={{ whiteSpace: "pre-line" }} className={styles.title}>
+					{title}
+				</h1>
+				<div className={styles.cards}>
+					{plans.map((plan, idx) => (
+						<Card
+							href={`/request/${serviceKey}?plan=${encodeURIComponent(plan.title.toLowerCase())}`}
+							key={idx}
+							{...plan}
+						/>
+					))}
+				</div>
+			</Container>
+		</div>
 	);
 }
