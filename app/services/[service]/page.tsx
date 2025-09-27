@@ -5,8 +5,8 @@ import { Hero, RequestForm } from "../../core/components";
 import { ServiceKey, servicesData } from "../../core/data/services";
 import { PlansSection, ToolsSection } from "../../core/pages/ServicePage";
 import { useEffect } from "react";
-import { setService } from "../../core/store/serviceSlice";
 import { useParams } from "next/navigation";
+import { setService } from "../../core/store/slices/serviceSlice";
 
 export default function ServicePage() {
 	const params = useParams();
