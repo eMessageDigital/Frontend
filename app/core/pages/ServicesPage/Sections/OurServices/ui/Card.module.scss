@@ -1,11 +1,12 @@
 @import '../../../../../styles/colors';
 
 .card {
-  position: relative; // важно для псевдоэлементов
+  position: relative;
   padding: 30px;
-  background-color: rgba($color: #828EFF, $alpha: .1);
+  background-color: rgba(#828EFF, 0.1);
   border-radius: 24px;
-  overflow: hidden; // чтобы треугольники не выходили за рамки
+  overflow: hidden;
+
   .title,
   .description,
   .button {
@@ -13,28 +14,30 @@
     z-index: 1;
   }
 
-  &::before,
-  &::after {
+  // Верхний квадрат
+  &::before {
     content: '';
     position: absolute;
+    top: 0;
     right: 0;
-    width: 150px;
-    height: 300px;
-    background-color: rgba(#828EFF, 0.2);
-    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    width: 200px;
+    height: 200px;
+    background-color: rgba(#828EFF, 0.1);
+    border-top-left-radius: 100%;
     z-index: 0;
   }
 
-  // Расположение верхние 2 треугольника
-  &::before {
-    top: 0;
-    transform: translateY(-100px);
-  }
-
-  // Расположение нижние 2 треугольника
+  // Нижний квадрат
   &::after {
+    content: '';
+    position: absolute;
     bottom: 0;
-    transform: translateY(100px);
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(#828EFF, 0.1);
+    border-top-left-radius: 100%;
+    z-index: 0;
   }
 
   .title {
@@ -47,7 +50,7 @@
   .description {
     margin-top: 30px;
     font-size: 18px;
-    color: rgba($color: #131314, $alpha: .6);
+    color: rgba(#131314, 0.6);
   }
 
   .button {
@@ -62,13 +65,12 @@
     background-color: $color-primary;
     border-radius: 12px;
     color: #fff;
+    transition: all 0.2s ease-in-out;
 
-    transition: all .2s ease-in-out;
-
-        &:hover {
-          transform: scale(1.1);
-          background-color: darken($color: $color-primary, $amount: 10);
-        }
+    &:hover {
+      transform: scale(1.05);
+      background-color: darken($color-primary, 10%);
+    }
 
     .icon {
       font-size: 18px;

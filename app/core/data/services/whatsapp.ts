@@ -1,6 +1,8 @@
 import { ServiceData } from "./types";
 
-export const whatsapp: ServiceData = {
+export const whatsapp: ServiceData & {
+	extraServices: { id: string; name: string; dependsOn?: string }[];
+} = {
 	hero: {
 		title: "eMessage",
 		subtitle: "сервис по продвижению \nв социальных сетях",
@@ -17,16 +19,16 @@ export const whatsapp: ServiceData = {
 					"Индивидуальный сбор базы с разделением её по сегментам аудитории",
 					"Написание офферов, отталкиваясь от выбранной стратегии",
 					"Сбор статистики по запуску и ее анализ",
-					"Отчет в html-формате, подробная статистика по проведённой работе",
+					"Отчет в txt-формате, подробная статистика по проведённой работе",
 				],
-				price: "5₽ / сообщение",
+				price: "13₽ / сообщение",
 				buttonText: "Выбрать премиум",
 				theme: "light",
 			},
 			{
 				title: "Стандарт",
 				items: ["Индивидуальный сбор базы", "Корректировка офферов", "Отчет в html-формате"],
-				price: "3₽ / сообщение",
+				price: "10₽ / сообщение",
 				buttonText: "Выбрать стандарт",
 				theme: "dark",
 			},
@@ -54,4 +56,11 @@ export const whatsapp: ServiceData = {
 			},
 		],
 	},
+	extraServices: [
+		{ id: "w1", name: "Оформление аккаунтов (имя и фото профиля)" },
+		{ id: "w2", name: "Оформление сообщений" },
+		{ id: "w3", name: "Оффер с фото" },
+		{ id: "w4", name: "Подготовка креативов", dependsOn: "w3" }, // зависит от пункта 3
+		{ id: "w5", name: "Сбор ответов от получателей" },
+	],
 };

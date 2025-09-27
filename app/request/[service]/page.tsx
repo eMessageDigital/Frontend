@@ -11,14 +11,14 @@ export default function RequestPage() {
 	const searchParams = useSearchParams();
 
 	const serviceKey = (params?.service as ServiceKey) ?? "telegram";
-	const plan = searchParams.get("plan"); // 'премиум (под ключ)' или 'стандарт'
+	const plan = searchParams.get("plan");
 	const service = servicesData[serviceKey];
 
 	return (
 		<>
 			<Hero {...service.hero} variant={serviceKey} />
 			<AdvantagesSection />
-			<Form plan={plan} />
+			<Form plan={plan} serviceData={service} />
 		</>
 	);
 }

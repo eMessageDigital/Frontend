@@ -1,6 +1,8 @@
 import { ServiceData } from "./types";
 
-export const telegram: ServiceData = {
+export const telegram: ServiceData & {
+	extraServices: { id: string; name: string; dependsOn?: string }[];
+} = {
 	hero: {
 		title: "eMessage",
 		subtitle: "сервис по продвижению \nв социальных сетях",
@@ -17,16 +19,16 @@ export const telegram: ServiceData = {
 					"Индивидуальный сбор базы с разделением её по сегментам аудитории",
 					"Написание офферов, отталкиваясь от выбранной стратегии",
 					"Сбор статистики по запуску и ее анализ",
-					"Отчет в html-формате, подробная статистика по проведённой работе",
+					"Отчет в txt-формате, подробная статистика по проведённой работе",
 				],
-				price: "5₽ / сообщение",
+				price: "10₽ / сообщение",
 				buttonText: "Выбрать премиум",
 				theme: "light",
 			},
 			{
 				title: "Стандарт",
 				items: ["Индивидуальный сбор базы", "Корректировка офферов", "Отчет в html-формате"],
-				price: "3₽ / сообщение",
+				price: "7₽ / сообщение",
 				buttonText: "Выбрать стандарт",
 				theme: "dark",
 			},
@@ -55,4 +57,9 @@ export const telegram: ServiceData = {
 			},
 		],
 	},
+	extraServices: [
+		{ id: "t1", name: "Сегментация аудитории" },
+		{ id: "t2", name: "Оформление сообщений" },
+		{ id: "t3", name: "Подготовка креативов" },
+	],
 };

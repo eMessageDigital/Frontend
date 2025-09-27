@@ -17,10 +17,15 @@
   width: 100% !important;
 }
 
+.dateInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
 .dateInput {
   display: block;
   width: 100%;
-  padding: 24px;
+  padding: 24px 48px 24px 24px; // справа отступ под иконку
   font-size: 16px;
   border: none;
   border-radius: 12px;
@@ -32,6 +37,19 @@
     border-color: #4991fe;
     box-shadow: 0 0 0 3px rgba(73, 145, 254, 0.2);
   }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #666;
 }
 
 /* Кастомизация календаря */

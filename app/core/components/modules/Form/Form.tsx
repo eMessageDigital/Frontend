@@ -4,25 +4,34 @@ import React, { useState } from "react";
 import styles from "./Form.module.scss";
 import { Booking, Button, Container, Input } from "../..";
 import { IMaskInput } from "react-imask";
+import { Download } from "lucide-react";
+import { ServiceData } from "../../../data/services/types";
+import { FormExtraOptions } from "../FormExtraOptions/FormExtraOptions";
 
-const extraServicesOptions = ["Таргетинг", "Сегментация", "Дизайн баннеров", "Копирайтинг"];
+interface FormProps {
+	plan: string | null;
+	serviceData: ServiceData & {
+		extraServices: { id: string; name: string; dependsOn?: string }[];
+	};
+}
 
-export default function Form({ plan }: { plan: string | null }) {
+export default function Form({ plan, serviceData }: FormProps) {
 	const showExtraService = plan?.includes("стандарт");
 
 	const [selectedServices, setSelectedServices] = useState<string[]>([]);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [phone, setPhone] = useState<string>("");
 
-	const toggleService = (service: string) => {
+	const toggleService = (serviceId: string) => {
 		setSelectedServices((prev) =>
-			prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]
+			prev.includes(serviceId) ? prev.filter((s) => s !== serviceId) : [...prev, serviceId]
 		);
 	};
 
+	const extraServicesOptions = serviceData.extraServices || [];
+
 	return (
 		<Container className={styles.container}>
-			<form className={styles.form} action=''>
+			<form className={styles.form}>
 				{/* Верхний блок */}
 				<div className={styles.formHeader}>
 					<h1 className={styles.left}>Хотите обсудить проект?</h1>
@@ -39,7 +48,6 @@ export default function Form({ plan }: { plan: string | null }) {
 					<h2 className={styles.sectionTitle}>Ваши данные</h2>
 					<div className={styles.inputs}>
 						<Input type='text' placeholder='Имя' />
-
 						<div className={styles.wrapper}>
 							<IMaskInput
 								mask='+{7} (000) 000 00-00'
@@ -47,10 +55,9 @@ export default function Form({ plan }: { plan: string | null }) {
 								value={phone}
 								onAccept={(value: string) => setPhone(value)}
 								overwrite
-								className={styles.input} // стили как у обычного input
+								className={styles.input}
 							/>
 						</div>
-
 						<Input type='email' placeholder='Telegram' />
 						<Input type='tel' placeholder='Компания' />
 					</div>
@@ -65,9 +72,11 @@ export default function Form({ plan }: { plan: string | null }) {
 
 						<div className={styles.fileInputWrapper}>
 							<label className={styles.fileLabel}>
-								<span>Загрузить файл</span>
-								<input type='file' className={styles.fileInput} />
-								<span className={styles.icon}>📎</span>
+								<span>Прикрепить файлы</span>
+								<input type='file' className={styles.fileInput} multiple />
+								<span className={styles.icon}>
+									<Download size={18} />
+								</span>
 							</label>
 						</div>
 
@@ -79,34 +88,22 @@ export default function Form({ plan }: { plan: string | null }) {
 
 				{/* Секция дополнительных услуг */}
 				{showExtraService && (
-					<div className={styles.section}>
-						<h2 className={styles.sectionTitle}>Дополнительные услуги</h2>
-						<div className={styles.extraService}>
-							<div className={styles.selectBox} onClick={() => setDropdownOpen(!dropdownOpen)}>
-								{selectedServices.length > 0 ? selectedServices.join(", ") : "Выберите услуги"}
-								<span className={styles.arrow}>{dropdownOpen ? "▲" : "▼"}</span>
-							</div>
-							{dropdownOpen && (
-								<div className={styles.dropdownList}>
-									{extraServicesOptions.map((service) => (
-										<label key={service} className={styles.checkboxLabel}>
-											<input
-												type='checkbox'
-												checked={selectedServices.includes(service)}
-												onChange={() => toggleService(service)}
-											/>
-											{service}
-										</label>
-									))}
-								</div>
-							)}
-						</div>
-					</div>
+					<FormExtraOptions
+						extraServices={extraServicesOptions}
+						selectedServices={selectedServices}
+						toggleService={toggleService}
+					/>
 				)}
 
 				{/* Кнопка */}
 				<div className={styles.endSection}>
 					<Button className={styles.formBtn}>Заказать рассылку</Button>
+					<p className={styles.policyText}>
+						Нажимая на кнопку, вы соглашаетесь с <br />
+						<a href='/privacy' target='_blank' rel='noopener noreferrer'>
+							политикой конфиденциальности
+						</a>
+					</p>
 				</div>
 			</form>
 		</Container>

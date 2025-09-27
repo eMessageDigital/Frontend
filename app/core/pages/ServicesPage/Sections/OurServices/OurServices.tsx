@@ -16,7 +16,7 @@ export default function OurServices() {
 						src={"/ico/companies/tg.svg"}
 						title={"Telegram"}
 						description={
-							"Мы создаём персонализированные рассылки, которые цепляют внимание, вызывают отклик и приводят клиентов."
+							"Рассылка в Telegram — персональные сообщения в личные чаты, которые привлекают внимание, вызывают отклик и приводят клиентов."
 						}
 						buttonText={"Перейти"}
 						buttonLink={"/services/telegram"}
@@ -25,7 +25,7 @@ export default function OurServices() {
 						src={"/ico/companies/whatsapp.svg"}
 						title={"WhatsApp"}
 						description={
-							"Мы создаём персонализированные рассылки, которые цепляют внимание, вызывают отклик и приводят клиентов."
+							"Рассылка в WhatsApp — мгновенная доставка персонализированных сообщений, которые читают все, удерживают внимание и стимулируют продажи."
 						}
 						buttonText={"Перейти"}
 						buttonLink={"/services/whatsapp"}
@@ -34,7 +34,7 @@ export default function OurServices() {
 						src={"/ico/companies/vk.svg"}
 						title={"VK"}
 						description={
-							"Мы создаём персонализированные рассылки, которые цепляют внимание, вызывают отклик и приводят клиентов."
+							"Рассылка во ВКонтакте — прямое обращение к аудитории, которое повышает вовлечённость, вызывает отклик и помогает привлекать клиентов."
 						}
 						buttonText={"Перейти"}
 						buttonLink={"/services/vk"}

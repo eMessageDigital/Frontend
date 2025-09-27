@@ -5,6 +5,8 @@ import styles from "./RequestForm.module.scss";
 import { FaTelegramPlane, FaPhoneAlt } from "react-icons/fa";
 import { Container } from "../../ui/Container/Container";
 import { Button } from "../..";
+import { FaPhoneVolume } from "react-icons/fa6";
+import { MdPhoneInTalk } from "react-icons/md";
 
 export const RequestForm: React.FC = () => {
 	return (
@@ -31,7 +33,7 @@ export const RequestForm: React.FC = () => {
 						<Button className={styles.mainButton}>Оставить заявку</Button>
 						<div className={styles.smallButtons}>
 							<Button className={styles.iconButton}>
-								<FaPhoneAlt />
+								<MdPhoneInTalk />
 							</Button>
 							<Button className={styles.iconButton}>
 								<FaTelegramPlane />

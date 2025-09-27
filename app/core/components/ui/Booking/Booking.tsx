@@ -4,6 +4,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./Booking.module.scss";
+import { ChevronDown } from "lucide-react";
 
 export default function Booking() {
 	const [startDate, setStartDate] = useState<Date | null>(null);
@@ -12,20 +13,23 @@ export default function Booking() {
 
 	return (
 		<div className={styles.bookingWrapper}>
-			<DatePicker
-				className={styles.dateInput}
-				wrapperClassName={styles.fullWidthWrapper}
-				selected={startDate}
-				onChange={(date) => setStartDate(date)}
-				showTimeSelect
-				timeFormat='HH:mm'
-				timeIntervals={30}
-				dateFormat='dd.MM.yyyy HH:mm'
-				minDate={minDate}
-				minTime={minDate}
-				maxTime={new Date(new Date().setHours(23, 59, 59))}
-				placeholderText='Выберите дату и время'
-			/>
+			<div className={styles.dateInputWrapper}>
+				<DatePicker
+					className={styles.dateInput}
+					wrapperClassName={styles.fullWidthWrapper}
+					selected={startDate}
+					onChange={(date) => setStartDate(date)}
+					showTimeSelect
+					timeFormat='HH:mm'
+					timeIntervals={30}
+					dateFormat='dd.MM.yyyy HH:mm'
+					minDate={minDate}
+					minTime={minDate}
+					maxTime={new Date(new Date().setHours(23, 59, 59))}
+					placeholderText='Желаемое время запуска'
+				/>
+				<ChevronDown size={18} className={styles.icon} />
+			</div>
 		</div>
 	);
 }
