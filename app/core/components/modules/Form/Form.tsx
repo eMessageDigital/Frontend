@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import styles from "./Form.module.scss";
-import { Button, Container, Input } from "../..";
+import { Booking, Button, Container, Input } from "../..";
+import { IMaskInput } from "react-imask";
 
 const extraServicesOptions = ["Таргетинг", "Сегментация", "Дизайн баннеров", "Копирайтинг"];
 
@@ -11,6 +12,7 @@ export default function Form({ plan }: { plan: string | null }) {
 
 	const [selectedServices, setSelectedServices] = useState<string[]>([]);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [phone, setPhone] = useState<string>("");
 
 	const toggleService = (service: string) => {
 		setSelectedServices((prev) =>
@@ -37,9 +39,20 @@ export default function Form({ plan }: { plan: string | null }) {
 					<h2 className={styles.sectionTitle}>Ваши данные</h2>
 					<div className={styles.inputs}>
 						<Input type='text' placeholder='Имя' />
-						<Input type='email' placeholder='Телефон' />
-						<Input type='tel' placeholder='Telegram' />
-						<Input type='text' placeholder='Компания' />
+
+						<div className={styles.wrapper}>
+							<IMaskInput
+								mask='+{7} (000) 000 00-00'
+								placeholder='Телефон'
+								value={phone}
+								onAccept={(value: string) => setPhone(value)}
+								overwrite
+								className={styles.input} // стили как у обычного input
+							/>
+						</div>
+
+						<Input type='email' placeholder='Telegram' />
+						<Input type='tel' placeholder='Компания' />
 					</div>
 				</div>
 
@@ -47,8 +60,8 @@ export default function Form({ plan }: { plan: string | null }) {
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Информация о проекте</h2>
 					<div className={styles.inputs}>
-						<Input type='text' placeholder='База' />
-						<Input type='text' placeholder='Оффер' />
+						<Input type='text' placeholder='База / информация для её сбора' />
+						<Input type='text' placeholder='Оффер / Черновик сообщения' />
 
 						<div className={styles.fileInputWrapper}>
 							<label className={styles.fileLabel}>
@@ -58,13 +71,7 @@ export default function Form({ plan }: { plan: string | null }) {
 							</label>
 						</div>
 
-						<select className={styles.select}>
-							<option value=''>Желаемое время запуска</option>
-							<option value='1'>1 неделя</option>
-							<option value='2'>2 недели</option>
-							<option value='3'>1 месяц</option>
-							<option value='4'>Другой</option>
-						</select>
+						<Booking />
 
 						<textarea className={styles.textarea} placeholder='Расскажите о вашем проекте' />
 					</div>

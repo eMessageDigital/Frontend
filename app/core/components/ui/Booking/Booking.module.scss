@@ -1,0 +1,61 @@
+@import '../../../styles/colors';
+
+.fullWidthWrapper {
+  display: block !important;
+  width: 100% !important;
+}
+
+.bookingWrapper {
+  width: 100%;
+  display: block;
+}
+
+/* пробиваем все обёртки */
+.bookingWrapper .react-datepicker-wrapper,
+.bookingWrapper .react-datepicker__input-container {
+  display: block !important;
+  width: 100% !important;
+}
+
+.dateInput {
+  display: block;
+  width: 100%;
+  padding: 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: #4991fe;
+    box-shadow: 0 0 0 3px rgba(73, 145, 254, 0.2);
+  }
+}
+
+/* Кастомизация календаря */
+:global(.react-datepicker) {
+  font-family: inherit;
+  border-radius: 12px;
+  border: 1px solid $color-primary;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+:global(.react-datepicker__header) {
+  background-color: $color-primary;
+  border-bottom: 1px solid $color-primary;
+}
+
+:global(.react-datepicker__day--selected),
+:global(.react-datepicker__day--keyboard-selected) {
+  background-color: $color-accent !important;
+  color: #fff !important;
+  border-radius: 50px;
+}
+
+:global(.react-datepicker__day:hover) {
+  background-color: rgba(73, 145, 254, 0.1);
+  border-radius: 50px;
+}
