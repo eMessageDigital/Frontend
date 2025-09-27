@@ -12,6 +12,16 @@ export const Header = () => {
 	const dispatch = useDispatch();
 	const [menuOpen, setMenuOpen] = useState(false);
 
+	const loginModal = () => {
+		setMenuOpen(false);
+		dispatch(openModal("login"));
+	};
+
+	const signinModal = () => {
+		setMenuOpen(false);
+		dispatch(openModal("register"));
+	};
+
 	return (
 		<Container>
 			<header className={styles.header}>
@@ -52,10 +62,10 @@ export const Header = () => {
 
 						{/* Мобильные кнопки */}
 						<div className={styles.mobileButtons}>
-							<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>
+							<Button onClick={loginModal} className={styles.login}>
 								Вход
 							</Button>
-							<Button onClick={() => dispatch(openModal("register"))} className={styles.signin}>
+							<Button onClick={signinModal} className={styles.signin}>
 								Регистрация
 							</Button>
 						</div>
