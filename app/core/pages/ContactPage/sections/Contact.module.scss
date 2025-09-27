@@ -103,6 +103,12 @@
           display: flex;
           flex-direction: column;
           gap: 22px;
+          
+          .text {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+          }
 
           &:first-child {
             border-right: 1px solid rgba($color: #000, $alpha: 0.1);
