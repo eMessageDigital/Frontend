@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Footer, Header } from "../app/core/components";
+import { Footer, Header, Modal } from "../app/core/components";
 import "./core/styles/globals.scss";
 import { ReduxProvider } from "./core/store/Providers";
 
@@ -16,9 +16,11 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body>
+				<div id='modal-root'></div>
 				<ReduxProvider>
 					<Header />
 					{children}
+					<Modal />
 					<Footer />
 				</ReduxProvider>
 			</body>

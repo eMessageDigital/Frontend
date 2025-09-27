@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ServiceKey } from "../data/services";
+import { ServiceKey } from "../../data/services";
 
 type ServiceState = {
 	selected: ServiceKey | null;

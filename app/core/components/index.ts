@@ -9,6 +9,7 @@ import { Header } from "./modules/Header/Header";
 import { Footer } from "./modules/Footer/Footer";
 import { HoverLink } from "./modules/Header/ui/HoverLink/HoverLink";
 import Hero from "./modules/Hero/Hero";
+import Modal from "./modules/Modal/Modal";
 
 export {
 	Header,
@@ -21,4 +22,5 @@ export {
 	Button,
 	Hero,
 	Booking,
+	Modal,
 };

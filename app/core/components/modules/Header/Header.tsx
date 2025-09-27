@@ -5,8 +5,11 @@ import styles from "./Header.module.scss";
 
 import Image from "next/image";
 import { Button, Container, HoverLink } from "../..";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../store/slices/modalSlice";
 
 export const Header = () => {
+	const dispatch = useDispatch();
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
@@ -49,16 +52,24 @@ export const Header = () => {
 
 						{/* Мобильные кнопки */}
 						<div className={styles.mobileButtons}>
-							<Button className={styles.login}>Вход</Button>
-							<Button className={styles.signin}>Регистрация</Button>
+							<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>
+								Вход
+							</Button>
+							<Button onClick={() => dispatch(openModal("register"))} className={styles.signin}>
+								Регистрация
+							</Button>
 						</div>
 					</nav>
 				</div>
 
 				{/* Десктопные кнопки */}
 				<div className={styles.buttons}>
-					<Button className={styles.login}>Вход</Button>
-					<Button className={styles.signin}>Регистрация</Button>
+					<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>
+						Вход
+					</Button>
+					<Button onClick={() => dispatch(openModal("register"))} className={styles.signin}>
+						Регистрация
+					</Button>
 				</div>
 			</header>
 		</Container>
