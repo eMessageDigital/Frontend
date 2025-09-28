@@ -9,7 +9,27 @@ import { ChevronDown } from "lucide-react";
 export default function Booking() {
 	const [startDate, setStartDate] = useState<Date | null>(null);
 
-	const minDate = new Date(Date.now() + 3 * 60 * 60 * 1000);
+	const today = new Date();
+	today.setHours(0, 0, 0, 0);
+
+	const minDate = today;
+
+	const filterPassedTime = (time: Date) => {
+		const currentDate = new Date();
+		const selectedDate = startDate || currentDate;
+
+		const isToday = selectedDate.setHours(0, 0, 0, 0) === currentDate.setHours(0, 0, 0, 0);
+
+		if (isToday) {
+			const minSelectable = new Date();
+			minSelectable.setHours(currentDate.getHours() + 3, currentDate.getMinutes(), 0, 0);
+
+			return time.getTime() >= minSelectable.getTime();
+		}
+
+		// если другой день → всё доступно
+		return true;
+	};
 
 	return (
 		<div className={styles.bookingWrapper}>
@@ -24,8 +44,7 @@ export default function Booking() {
 					timeIntervals={30}
 					dateFormat='dd.MM.yyyy HH:mm'
 					minDate={minDate}
-					minTime={minDate}
-					maxTime={new Date(new Date().setHours(23, 59, 59))}
+					filterTime={filterPassedTime}
 					placeholderText='Желаемое время запуска'
 				/>
 				<ChevronDown size={18} className={styles.icon} />

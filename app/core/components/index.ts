@@ -10,6 +10,8 @@ import { Footer } from "./modules/Footer/Footer";
 import { HoverLink } from "./modules/Header/ui/HoverLink/HoverLink";
 import Hero from "./modules/Hero/Hero";
 import Modal from "./modules/Modal/Modal";
+import Profile from "./modules/Profile/Profile";
+import Sidebar from "./modules/Sidebar/Sidebar";
 
 export {
 	Header,
@@ -23,4 +25,6 @@ export {
 	Hero,
 	Booking,
 	Modal,
+	Profile,
+	Sidebar,
 };

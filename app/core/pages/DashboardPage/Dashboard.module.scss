@@ -1,0 +1,17 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding-top: 28px;
+  padding-bottom: 72px;
+}
+
+.breadcrumbs {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.content {
+  display: flex;
+  gap: 2rem;
+}

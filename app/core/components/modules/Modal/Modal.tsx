@@ -7,8 +7,8 @@ import { rootState } from "../../../store";
 import { closeModal, toggleMode } from "../../../store/slices/modalSlice";
 import styles from "./Modal.module.scss";
 import Input from "../../ui/Input/Input";
-import Image from "next/image"; // для иконки самолета
-import { Button } from "../..";
+import Image from "next/image";
+import { login } from "../../../store/slices/authSlice";
 
 const Modal: React.FC = () => {
 	const dispatch = useDispatch();
@@ -19,7 +19,18 @@ const Modal: React.FC = () => {
 	const modalRoot = document.getElementById("modal-root");
 	if (!modalRoot) return null;
 
-	// Определяем цвет фона баннера
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (mode === "register") {
+			dispatch(login({ name: "Новый пользователь", email: "new@mail.com" }));
+		} else {
+			dispatch(login({ name: "Demo", email: "demo@mail.com" }));
+		}
+
+		dispatch(closeModal());
+	};
+
 	const heroBgColor = mode === "register" ? "#828EFF" : "#53BBFF";
 
 	return ReactDOM.createPortal(
@@ -41,7 +52,7 @@ const Modal: React.FC = () => {
 				</div>
 
 				{/* Форма */}
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					{mode === "register" && (
 						<div className={styles.inputGroup}>
 							<label htmlFor='name'>Имя</label>
@@ -64,7 +75,9 @@ const Modal: React.FC = () => {
 						<button
 							type='submit'
 							className={styles.submitBtn}
-							style={{ backgroundColor: mode === "register" ? "#828EFF" : "#53BBFF" }}>
+							style={{
+								backgroundColor: mode === "register" ? "#828EFF" : "#53BBFF",
+							}}>
 							{mode === "login" ? "Войти" : "Зарегистрироваться"}
 						</button>
 

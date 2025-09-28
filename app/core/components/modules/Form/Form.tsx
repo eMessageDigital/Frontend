@@ -4,9 +4,12 @@ import React, { useState } from "react";
 import styles from "./Form.module.scss";
 import { Booking, Button, Container, Input } from "../..";
 import { IMaskInput } from "react-imask";
-import { Download } from "lucide-react";
+import { Download, Paperclip, X } from "lucide-react";
 import { ServiceData } from "../../../data/services/types";
 import { FormExtraOptions } from "../FormExtraOptions/FormExtraOptions";
+import { useDispatch, useSelector } from "react-redux";
+import { rootState } from "../../../store";
+import { addFiles, removeFiles } from "../../../store/slices/formSlice";
 
 interface FormProps {
 	plan: string | null;
@@ -16,6 +19,15 @@ interface FormProps {
 }
 
 export default function Form({ plan, serviceData }: FormProps) {
+	const dispatch = useDispatch();
+	const files = useSelector((state: rootState) => state.form.files);
+
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files) {
+			dispatch(addFiles(Array.from(e.target.files)));
+		}
+	};
+
 	const showExtraService = plan?.includes("стандарт");
 
 	const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -28,7 +40,6 @@ export default function Form({ plan, serviceData }: FormProps) {
 	};
 
 	const extraServicesOptions = serviceData.extraServices || [];
-
 	return (
 		<Container className={styles.container}>
 			<form className={styles.form}>
@@ -73,7 +84,12 @@ export default function Form({ plan, serviceData }: FormProps) {
 						<div className={styles.fileInputWrapper}>
 							<label className={styles.fileLabel}>
 								<span>Прикрепить файлы</span>
-								<input type='file' className={styles.fileInput} multiple />
+								<input
+									type='file'
+									className={styles.fileInput}
+									multiple
+									onChange={handleFileChange}
+								/>
 								<span className={styles.icon}>
 									<Download size={18} />
 								</span>
@@ -81,6 +97,23 @@ export default function Form({ plan, serviceData }: FormProps) {
 						</div>
 
 						<Booking />
+
+						{files.length > 0 && (
+							<ul className={styles.filesList}>
+								{files.map((file, index) => (
+									<li key={index} className={styles.fileItem}>
+										<Paperclip size={16} />
+										<span>{file.name}</span>
+										<button
+											type='button'
+											onClick={() => dispatch(removeFiles(index))}
+											className={styles.removeFileBtn}>
+											<X size={14} />
+										</button>
+									</li>
+								))}
+							</ul>
+						)}
 
 						<textarea className={styles.textarea} placeholder='Расскажите о вашем проекте' />
 					</div>

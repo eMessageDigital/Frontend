@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import styles from "../Form/Form.module.scss";
 
@@ -18,11 +18,24 @@ interface Props {
 
 export function FormExtraOptions({ extraServices, selectedServices, toggleService }: Props) {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const wrapperRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+				setDropdownOpen(false);
+			}
+		}
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
 
 	return (
 		<div className={styles.section}>
 			<h2 className={styles.sectionTitle}>Дополнительные услуги</h2>
-			<div className={styles.extraService}>
+			<div className={styles.extraService} ref={wrapperRef}>
 				<div className={styles.selectBox} onClick={() => setDropdownOpen(!dropdownOpen)}>
 					{selectedServices.length > 0
 						? selectedServices.map((id) => extraServices.find((s) => s.id === id)?.name).join(", ")

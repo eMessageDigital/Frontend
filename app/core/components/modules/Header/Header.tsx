@@ -4,12 +4,15 @@ import { useState } from "react";
 import styles from "./Header.module.scss";
 
 import Image from "next/image";
-import { Button, Container, HoverLink } from "../..";
-import { useDispatch } from "react-redux";
+import { Button, Container, HoverLink, Profile } from "../..";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../store/slices/modalSlice";
+import { rootState } from "../../../store";
 
 export const Header = () => {
 	const dispatch = useDispatch();
+	const user = useSelector((state: rootState) => state.auth.user);
+
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const loginModal = () => {
@@ -74,12 +77,18 @@ export const Header = () => {
 
 				{/* Десктопные кнопки */}
 				<div className={styles.buttons}>
-					<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>
-						Вход
-					</Button>
-					<Button onClick={() => dispatch(openModal("register"))} className={styles.signin}>
-						Регистрация
-					</Button>
+					{user ? (
+						<Profile />
+					) : (
+						<>
+							<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>
+								Вход
+							</Button>
+							<Button onClick={() => dispatch(openModal("register"))} className={styles.signin}>
+								Регистрация
+							</Button>
+						</>
+					)}
 				</div>
 			</header>
 		</Container>
