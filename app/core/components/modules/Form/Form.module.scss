@@ -11,8 +11,10 @@
     position: relative;
 
     .formHeader {
-      border-bottom: 1px solid rgba($color: $color-primary, $alpha: .25);
+      border-bottom: 1px solid rgba($color: $color-primary, $alpha: 0.25);
       padding-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
 
       .left {
         font-size: 66px;
@@ -25,24 +27,24 @@
         display: flex;
         flex-direction: column;
         text-align: right;
-      }
 
-      .rightTitle {
-        font-size: 66px;
-        font-weight: 500;
-        color: $color-primary;
-      }
+        .rightTitle {
+          font-size: 66px;
+          font-weight: 500;
+          color: $color-primary;
+        }
 
-      .rightSubtitle {
-        font-size: 16px;
-        margin-top: 4px;
-        color: rgba($color: $color-text-dark, $alpha: .6);
+        .rightSubtitle {
+          font-size: 16px;
+          margin-top: 4px;
+          color: rgba($color: $color-text-dark, $alpha: 0.6);
+        }
       }
     }
 
     .section {
       padding: 40px 0;
-      border-bottom: 1px solid rgba($color: $color-primary, $alpha: .25);
+      border-bottom: 1px solid rgba($color: $color-primary, $alpha: 0.25);
 
       .sectionTitle {
         font-size: 28px;
@@ -97,7 +99,7 @@
           justify-content: space-between;
           cursor: pointer;
           transition: all 0.2s;
-          color: rgba($color: $color-text-dark, $alpha: .6);
+          color: rgba($color: $color-text-dark, $alpha: 0.6);
 
           &:hover {
             background-color: lighten(#fff, 3%);
@@ -117,7 +119,7 @@
 
           .icon {
             font-size: 18px;
-            color: rgba($color: $color-text-dark, $alpha: .6);
+            color: rgba($color: $color-text-dark, $alpha: 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -155,7 +157,7 @@
               border: none;
               cursor: pointer;
               padding: 4px;
-              color: rgba($color: $color-text-dark, $alpha: .5);
+              color: rgba($color: $color-text-dark, $alpha: 0.5);
               transition: color 0.2s;
 
               &:hover {
@@ -173,7 +175,7 @@
           font-size: 16px;
           resize: vertical;
           min-height: 100px;
-          box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
           font-family: 'Inter', sans-serif;
         }
       }
@@ -195,7 +197,7 @@
           cursor: pointer;
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
           transition: all 0.2s;
-          color: rgba($color: $color-text-dark, $alpha: .6);
+          color: rgba($color: $color-text-dark, $alpha: 0.6);
 
           &:hover {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -213,7 +215,7 @@
           left: 0;
           right: 0;
           background: #fff;
-          border: 1px solid rgba($color: $color-primary, $alpha: .25);
+          border: 1px solid rgba($color: $color-primary, $alpha: 0.25);
           border-radius: 12px;
           padding: 12px;
           display: flex;
@@ -296,13 +298,34 @@
 }
 
 /* ------------------ MEDIA QUERIES ------------------ */
+
+/* Планшеты (1024px и ниже) */
 @media (max-width: 1024px) {
-  .form {
+  .container .form {
     padding: 30px;
 
-    .formHeader .left,
-    .formHeader .rightTitle {
-      font-size: 48px;
+    .formHeader {
+      flex-direction: column;
+
+      .left,
+      .rightTitle {
+        font-size: 48px;
+        text-align: center;
+      }
+
+      .right {
+        margin-top: 24px;
+        text-align: center;
+
+        .rightTitle {
+          font-size: 48px;
+          text-align: center;
+        }
+      }
+
+      .rightSubtitle {
+        font-size: 14px;
+      }
     }
 
     .section {
@@ -313,24 +336,70 @@
       }
 
       .inputs {
+        grid-template-columns: 1fr 1fr;
         gap: 16px;
 
-        .textarea,
-        &.extraService .dropdown {
+        .textarea {
           font-size: 14px;
         }
+      }
+
+      .extraService {
+        .selectBox {
+          padding: 10px 14px;
+        }
+
+        .dropdownList {
+          top: 48px;
+          padding: 10px;
+        }
+
+        .checkboxLabel {
+          font-size: 14px;
+
+          input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+
+    .endSection {
+      .formBtn {
+        font-size: 16px;
+        padding: 14px 28px;
+      }
+
+      .policyText {
+        font-size: 11px;
       }
     }
   }
 }
 
+/* Мобильные устройства (768px и ниже) */
 @media (max-width: 768px) {
-  .form {
+  .container .form {
     padding: 20px;
 
-    .formHeader .left,
-    .formHeader .rightTitle {
-      font-size: 32px;
+    .formHeader {
+      .left,
+      .rightTitle {
+        font-size: 32px;
+      }
+
+      .right {
+        margin-top: 16px;
+
+        .rightTitle {
+          font-size: 32px;
+        }
+      }
+
+      .rightSubtitle {
+        font-size: 12px;
+      }
     }
 
     .section {
@@ -341,13 +410,91 @@
       }
 
       .inputs {
+        grid-template-columns: 1fr;
         gap: 12px;
 
-        .textarea,
-        &.extraService .dropdown {
-          font-size: 14px;
+        .wrapper {
+          padding: 12px 16px;
         }
+
+        .textarea {
+          font-size: 14px;
+          padding: 16px;
+        }
+
+        .fileInputWrapper {
+          padding: 8px 20px;
+        }
+      }
+
+      .extraService {
+        grid-column: 1 / -1;
+        margin-top: 12px;
+
+        .selectBox {
+          padding: 10px 12px;
+        }
+
+        .dropdownList {
+          top: 44px;
+          padding: 8px;
+        }
+
+        .checkboxLabel {
+          font-size: 14px;
+          gap: 8px;
+
+          input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+
+    .endSection {
+      .formBtn {
+        font-size: 16px;
+        padding: 12px 24px;
+      }
+
+      .policyText {
+        font-size: 10px;
       }
     }
   }
 }
+
+/* Очень маленькие устройства (480px и ниже) */
+@media (max-width: 480px) {
+  .container .form {
+    .formHeader {
+      .left,
+      .rightTitle {
+        font-size: 28px;
+      }
+
+      .rightSubtitle {
+        font-size: 11px;
+      }
+    }
+
+    .section {
+      .sectionTitle {
+        font-size: 18px;
+      }
+    }
+
+    .endSection {
+      .formBtn {
+        font-size: 14px;
+        padding: 10px 20px;
+      }
+
+      .policyText {
+        font-size: 9px;
+      }
+    }
+  }
+}
+   

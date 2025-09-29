@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Card.module.scss";
 import { BaseModal, Button } from "../../..";
+import { PenLine, Save, Trash } from "lucide-react"; // иконка кнопки сохранения
 
 interface Order {
 	id: string;
@@ -19,13 +20,22 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ order, onCancel }) => {
+	const [draftNote, setDraftNote] = useState("");
+	const [isEditing, setIsEditing] = useState(false);
 	const [isNotesOpen, setIsNotesOpen] = useState(false);
-	const [note, setNote] = useState("");
+	const [notes, setNotes] = useState<string[]>([]); // массив заметок
 
-	// Вычисляем количество людей
 	const ctrCount = Math.round((order.ctr / 100) * order.reach);
 	const conversionCount = Math.round((order.conversion / 100) * order.reach);
 	const leadsCount = Math.round((order.ctr / 100) * (order.conversion / 100) * order.reach);
+
+	const handleSaveNote = () => {
+		if (draftNote.trim()) {
+			setNotes([...notes, draftNote.trim()]);
+			setDraftNote("");
+			setIsEditing(false);
+		}
+	};
 
 	return (
 		<div className={styles.orderCard}>
@@ -63,47 +73,76 @@ const Card: React.FC<CardProps> = ({ order, onCancel }) => {
 				</div>
 			</div>
 
-			{/* Модалка заметок */}
 			<BaseModal isOpen={isNotesOpen} onClose={() => setIsNotesOpen(false)}>
 				<div className={styles.notesModal}>
 					<h2>Заметки к заказу №{order.id}</h2>
 
-					{note ? (
-						<>
-							<p className={styles.noteText}>{note}</p>
-							<div className={styles.addBtnWrapper}>
-								<Button
-									className={styles.secondary}
-									onClick={() => setNote("")} // сброс для добавления новой
-								>
-									Добавить заметку
-								</Button>
-							</div>
-						</>
-					) : (
-						<>
-							<textarea
-								value={note}
-								onChange={(e) => setNote(e.target.value)}
-								placeholder='Введите заметку...'
-								className={styles.textarea}
-							/>
-							<div className={styles.modalButtons}>
-								<Button className={styles.secondary} onClick={() => setIsNotesOpen(false)}>
-									Закрыть
-								</Button>
-								<Button
-									className={styles.primary}
-									onClick={() => {
-										if (note.trim()) {
-											console.log("Сохранили заметку:", note);
-										}
-									}}>
-									Сохранить
-								</Button>
-							</div>
-						</>
+					{/* Список существующих заметок */}
+					{notes.length > 0 && (
+						<div className={styles.notesList}>
+							{notes.map((n, i) => (
+								<div key={i} className={styles.noteItem}>
+									<span className={styles.noteText}>{n}</span>
+
+									<div className={styles.noteActions}>
+										<Button
+											type='button'
+											className={styles.actionBtn}
+											onClick={() => setNotes(notes.filter((_, idx) => idx !== i))}>
+											<span>
+												<Trash />
+											</span>
+										</Button>
+
+										<Button
+											type='button'
+											className={styles.actionBtn}
+											onClick={() => {
+												setDraftNote(n);
+												setIsEditing(true);
+												setNotes(notes.filter((_, idx) => idx !== i));
+											}}>
+											<span>
+												<PenLine />
+											</span>
+										</Button>
+									</div>
+								</div>
+							))}
+						</div>
 					)}
+
+					{/* Инпут для добавления новой заметки */}
+					{isEditing && (
+						<div className={styles.addingNote}>
+							<div className={styles.noteInputWrapper}>
+								<input
+									type='text'
+									value={draftNote}
+									onChange={(e) => setDraftNote(e.target.value)}
+									placeholder='Введите заметку...'
+									className={styles.noteInput}
+								/>
+								<Button className={styles.saveIconBtn} onClick={handleSaveNote}>
+									<Save size={16} />
+								</Button>
+							</div>
+						</div>
+					)}
+
+					{/* Если нет заметок и не редактируем */}
+					{notes.length === 0 && !isEditing && (
+						<div className={styles.noNotes}>
+							<p>У вас пока нет заметок к данному заказу :(</p>
+						</div>
+					)}
+
+					{/* Кнопка "Добавить заметку" */}
+					<div className={styles.addBtnWrapper}>
+						<Button className={styles.primary} onClick={() => setIsEditing(true)}>
+							Добавить
+						</Button>
+					</div>
 				</div>
 			</BaseModal>
 		</div>

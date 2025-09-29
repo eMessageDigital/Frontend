@@ -27,6 +27,8 @@
     margin-top: 40px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
 
     .column {
       display: flex;
@@ -37,6 +39,7 @@
     .row {
       display: flex;
       gap: 12px;
+      flex-wrap: wrap;
     }
   }
 
@@ -75,6 +78,7 @@
   }
 }
 
+/* ====== Модалка заметок ====== */
 .notesModal {
 	display: flex;
 	flex-direction: column;
@@ -86,41 +90,203 @@
 		color: #222;
 	}
 
-	.textarea {
-		width: 100%;
-		min-height: 120px;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		padding: 12px;
-		font-size: 15px;
-		resize: vertical;
+	.noNotes {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
 
-		&:focus {
-			border-color: #53bbff;
-			outline: none;
+		p {
+			font-size: 16px;
+			color: #666;
+			text-align: center;
+      margin-top: 100px;
+      margin-bottom: 100px;
 		}
 	}
 
-	.noteText {
-		font-size: 16px;
-		line-height: 1.4;
-		color: #333;
-		padding: 12px;
-		background: #f9f9f9;
-		border-radius: 8px;
-		border: 1px solid #eee;
-		white-space: pre-wrap;
-	}
+	.addingNote {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 
-	.modalButtons {
-		display: flex;
-		justify-content: flex-end;
-		gap: 12px;
-	}
+    .noteInputWrapper {
+      display: flex;
+      width: 100%;
+      gap: 8px;
 
-	.addBtnWrapper {
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
-	}
+      .noteInput {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 15px;
+      }
+
+      .saveIconBtn {
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background-color: $color-accent;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+	.notesList {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 12px;
+	  width: 100%;
+
+	  .noteItem {
+		  display: flex;
+		  align-items: stretch;
+		  justify-content: space-between;
+      gap: 12px;
+
+		  .noteText {
+			  flex: 1;
+			  font-size: 16px;
+			  line-height: 1.4;
+			  color: #333;
+			  white-space: pre-wrap;
+			  word-break: break-word;
+			  margin-right: 8px;
+        background: #f9f9f9;
+        padding: 22px;
+        border-radius: 12px;
+        min-height: 48px;
+		  }
+
+		  .noteActions {
+			  display: flex;
+        flex-direction: column;
+			  gap: 8px;
+
+			  .actionBtn {
+				  background: #F9F9F9;
+				  border: none;
+				  cursor: pointer;
+				  padding: 8px;
+				  display: flex;
+				  align-items: center;
+				  justify-content: center;
+				  transition: all 0.2s ease-in-out;
+
+          span {
+            font-size: 8px;
+            color: rgba($color: $color-text-dark, $alpha: .4);
+          }
+
+				  &:hover {
+					  transform: scale(1.2);
+				  }
+			  }
+		  }
+	  }
+  }
+}
+
+/* ====== АДАПТИВ ====== */
+
+/* Планшеты */
+@media (max-width: 1024px) {
+  .orderCard {
+    padding: 24px;
+
+    .cardHeader {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+
+      h3, p {
+        font-size: 16px;
+      }
+    }
+
+    .cardMain {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  .secondary, .primary {
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .notesModal {
+    h2 {
+      font-size: 18px;
+    }
+    .noteText {
+      font-size: 15px;
+      padding: 16px;
+    }
+  }
+}
+
+/* Мобильные */
+@media (max-width: 480px) {
+  .orderCard {
+    padding: 16px;
+    border-radius: 16px;
+
+    .cardHeader {
+      h3, p {
+        font-size: 14px;
+      }
+    }
+
+    .cardMain {
+      gap: 16px;
+      .row {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .secondary, .primary {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .notesModal {
+    gap: 12px;
+
+    h2 {
+      font-size: 16px;
+    }
+
+    .noNotes p {
+      font-size: 14px;
+      margin: 40px 0;
+    }
+
+    .noteText {
+      font-size: 14px;
+      padding: 12px;
+    }
+
+    .noteActions {
+      flex-direction: row;
+      gap: 12px;
+    }
+  }
 }

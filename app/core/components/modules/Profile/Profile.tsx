@@ -58,6 +58,7 @@ const Profile: React.FC = () => {
 						<label>
 							<span>Имя</span>
 							<Input
+								className={styles.input}
 								placeholder='Иван'
 								type='text'
 								name='firstName'
@@ -68,6 +69,7 @@ const Profile: React.FC = () => {
 						<label>
 							<span>Фамилия</span>
 							<Input
+								className={styles.input}
 								placeholder='Иванов'
 								type='text'
 								name='lastName'
@@ -78,6 +80,7 @@ const Profile: React.FC = () => {
 						<label>
 							<span>Email</span>
 							<Input
+								className={styles.input}
 								placeholder='emessage.adt@yandex.ru'
 								type='email'
 								name='email'
@@ -88,6 +91,7 @@ const Profile: React.FC = () => {
 						<label>
 							<span>Телефон</span>
 							<Input
+								className={styles.input}
 								placeholder='+7 (995) 993-83-72'
 								type='tel'
 								name='phone'
@@ -125,6 +129,7 @@ const Profile: React.FC = () => {
 							<label>
 								<span>ИНН</span>
 								<Input
+									className={styles.input}
 									type='text'
 									name='inn'
 									value={newContractor.inn}
@@ -134,6 +139,7 @@ const Profile: React.FC = () => {
 							<label>
 								<span>КПП</span>
 								<Input
+									className={styles.input}
 									type='text'
 									name='kpp'
 									value={newContractor.kpp}
@@ -143,6 +149,7 @@ const Profile: React.FC = () => {
 							<label>
 								<span>ОГРН / ОГРНИП</span>
 								<Input
+									className={styles.input}
 									type='text'
 									name='ogrn'
 									value={newContractor.ogrn}
@@ -154,6 +161,7 @@ const Profile: React.FC = () => {
 						<label>
 							<span>Название организации</span>
 							<Input
+								className={styles.input}
 								type='text'
 								name='name'
 								value={newContractor.name}

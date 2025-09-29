@@ -18,11 +18,56 @@
     font-size: 48px;
     font-weight: 500;
     color: $color-text-dark;
+    text-align: center; // чтобы красиво смотрелось на мобилках
   }
 
   .cards {
     margin-top: 52px;
     display: flex;
+    flex-wrap: wrap; // позволяем перенос строк
     gap: 20px;
+
+    // карточка займёт одинаковую ширину
+    > * {
+      flex: 1 1 calc(25% - 20px);
+      min-width: 250px; // ограничение чтобы не сжималось слишком сильно
+    }
+  }
+}
+
+/* ======= Адаптив ======= */
+
+/* Планшеты */
+@media (max-width: 1024px) {
+  .container {
+    .sectionTitle {
+      font-size: 36px;
+    }
+
+    .cards > * {
+      flex: 1 1 calc(50% - 20px);
+    }
+  }
+}
+
+/* Мобилки */
+@media (max-width: 600px) {
+  .container {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    .sectionTitle {
+      font-size: 28px;
+    }
+
+    .cards {
+      flex-direction: column;
+      align-items: center;
+
+      > * {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
   }
 }

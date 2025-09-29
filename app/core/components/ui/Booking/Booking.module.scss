@@ -10,7 +10,7 @@
   display: block;
 }
 
-/* пробиваем все обёртки */
+/* Пробиваем все обёртки */
 .bookingWrapper .react-datepicker-wrapper,
 .bookingWrapper .react-datepicker__input-container {
   display: block !important;
@@ -52,13 +52,15 @@
   color: #666;
 }
 
-/* Кастомизация календаря */
+/* ------------------- ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ REACT-DATEPICKER ------------------- */
 :global(.react-datepicker) {
   font-family: inherit;
   border-radius: 12px;
   border: 1px solid $color-primary;
   overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  max-height: 250px;
+  display: flex;
 }
 
 :global(.react-datepicker__header) {
@@ -76,4 +78,59 @@
 :global(.react-datepicker__day:hover) {
   background-color: rgba(73, 145, 254, 0.1);
   border-radius: 50px;
+}
+
+:global(.react-datepicker__time-container) {
+  width: auto; // чтобы тайм-пикер не растягивался
+  float: right; // по дефолту календарь слева, тайм-пикер справа
+}
+
+/* ------------------ MEDIA QUERIES ------------------ */
+
+/* Планшеты (1024px и ниже) */
+@media (max-width: 1024px) {
+  .dateInput {
+    padding: 20px 44px 20px 20px;
+    font-size: 14px;
+  }
+
+  .icon {
+    right: 12px;
+  }
+
+  :global(.react-datepicker) {
+    font-size: 14px;
+  }
+}
+
+/* Мобильные устройства (768px и ниже) */
+@media (max-width: 768px) {
+  .dateInput {
+    padding: 16px 40px 16px 16px;
+    font-size: 14px;
+  }
+
+  .icon {
+    right: 10px;
+  }
+
+  :global(.react-datepicker) {
+    font-size: 13px;
+  }
+}
+
+/* Очень маленькие устройства (480px и ниже) */
+@media (max-width: 480px) {
+  .dateInput {
+    padding: 12px 36px 12px 12px;
+    font-size: 12px;
+  }
+
+  .icon {
+    right: 8px;
+  }
+
+  :global(.react-datepicker) {
+    font-size: 12px;
+  }
 }
