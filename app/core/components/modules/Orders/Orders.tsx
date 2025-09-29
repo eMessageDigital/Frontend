@@ -23,7 +23,7 @@ const Orders: React.FC = () => {
 
 			<div className={styles.ordersList}>
 				{orders.map((order) => (
-					<Card order={order} onCancel={handleCancel} />
+					<Card key={order.id} order={order} onCancel={handleCancel} />
 				))}
 			</div>
 		</div>
