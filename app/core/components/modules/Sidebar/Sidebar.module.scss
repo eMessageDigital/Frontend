@@ -18,6 +18,12 @@
     gap: 32px;
   }
 
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   li {
     display: flex;
     align-items: center;
@@ -86,7 +92,7 @@
 
   // Планшет: 481px - 1023px
   @media (max-width: 1023px) and (min-width: 481px) {
-    max-width: 180px;
+    max-width: 132px;
     padding: 30px 15px;
 
     li {
@@ -108,33 +114,59 @@
   }
 
   // Мобильный: <=480px
-  @media (max-width: 595px) {
-  max-width: 70px;
-  padding: 20px 8px;
+  @media (max-width: 480px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 16px;
 
-  li {
-    justify-content: center;
-    gap: 0;
-    font-size: 0;
-
-    span {
-      display: none;
+    ul {
+      flex-direction: row;
+      gap: 16px;
+      width: 100%;
+      justify-content: space-around;
     }
 
-    svg {
-      width: 18px;
-      height: 18px;
-    }
+    li {
+      justify-content: center;
+      font-size: 14px;
+      padding: 8px;
+      gap: 6px;
 
-    padding: 12px 0;
-  }
+      span {
+        display: none; // скрываем текст, если нужно оставить только иконки
+      }
 
-  .bottom {
-      .logout {
-        justify-content: center !important;
-        margin-top: 20px;
-        gap: 0 !important;
+      svg {
+        width: 20px;
+        height: 20px;
       }
     }
-}
+
+    .top {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .bottom {
+      margin-top: 0;
+      border-top: none;
+      display: flex;
+      justify-content: flex-end;
+      border-left: 1px solid #999;
+
+      .logout {
+        margin-top: 0;
+        font-size: 14px;
+        padding: 8px;
+        gap: 6px;
+        justify-content: center;
+      }
+    }
+  }
 }

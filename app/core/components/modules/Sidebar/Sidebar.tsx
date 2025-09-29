@@ -15,22 +15,24 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onLogout, ro
 	return (
 		<aside className={styles.sidebar}>
 			<ul>
-				<li
-					className={activeTab === "profile" ? styles.active : ""}
-					onClick={() => setActiveTab("profile")}>
-					<User scale={14} />
-					Личные данные
-				</li>
-				<li
-					className={activeTab === "orders" ? styles.active : ""}
-					onClick={() => setActiveTab("orders")}>
-					<SquareMousePointer />
-					История заказов
-				</li>
+				<div className={styles.top}>
+					<li
+						className={activeTab === "profile" ? styles.active : ""}
+						onClick={() => setActiveTab("profile")}>
+						<User scale={14} />
+						<span>Личные данные</span>
+					</li>
+					<li
+						className={activeTab === "orders" ? styles.active : ""}
+						onClick={() => setActiveTab("orders")}>
+						<SquareMousePointer />
+						<span>История заказов</span>
+					</li>
+				</div>
 				<div className={styles.bottom}>
 					<li className={styles.logout} onClick={onLogout}>
 						<LogOut />
-						Выйти
+						<span>Выйти</span>
 					</li>
 				</div>
 			</ul>

@@ -26,3 +26,9 @@
   min-width: 0; 
   max-width: 100%;
 }
+
+@media (max-width: 480px) {
+  .content {
+    flex-direction: column;
+  }
+}
