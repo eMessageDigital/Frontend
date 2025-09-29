@@ -74,12 +74,20 @@ export const Header = () => {
 
 						{/* Мобильные кнопки */}
 						<div className={styles.mobileButtons}>
-							<Button onClick={loginModal} className={styles.login}>
-								Вход
-							</Button>
-							<Button onClick={signinModal} className={styles.signin}>
-								Регистрация
-							</Button>
+							{user ? (
+								<span onClick={() => setMenuOpen(false)}>
+									<MiniProfile />
+								</span>
+							) : (
+								<>
+									<Button onClick={loginModal} className={styles.login}>
+										Вход
+									</Button>
+									<Button onClick={signinModal} className={styles.signin}>
+										Регистрация
+									</Button>
+								</>
+							)}
 						</div>
 					</nav>
 				</div>
