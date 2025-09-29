@@ -4,10 +4,11 @@ import { useState } from "react";
 import styles from "./Header.module.scss";
 
 import Image from "next/image";
-import { Button, Container, HoverLink, Profile } from "../..";
+import { Button, Container, HoverLink, MiniProfile } from "../..";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../store/slices/modalSlice";
 import { rootState } from "../../../store";
+import Link from "next/link";
 
 export const Header = () => {
 	const dispatch = useDispatch();
@@ -30,7 +31,15 @@ export const Header = () => {
 			<header className={styles.header}>
 				<div className={styles["logo-nav"]}>
 					<div className={styles.logo}>
-						<Image src='/img/logo.svg' alt='Logo' width={42} height={42} />
+						<Link href='/'>
+							<Image
+								className={styles.logoImg}
+								src='/img/logo.svg'
+								alt='Logo'
+								width={42}
+								height={42}
+							/>
+						</Link>
 					</div>
 
 					{/* Гамбургер */}
@@ -78,7 +87,7 @@ export const Header = () => {
 				{/* Десктопные кнопки */}
 				<div className={styles.buttons}>
 					{user ? (
-						<Profile />
+						<MiniProfile />
 					) : (
 						<>
 							<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>

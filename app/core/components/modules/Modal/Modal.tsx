@@ -16,7 +16,7 @@ const Modal: React.FC = () => {
 
 	if (!isOpen) return null;
 
-	const modalRoot = document.getElementById("modal-root");
+	const modalRoot = document.getElementById("modal-root-auth");
 	if (!modalRoot) return null;
 
 	const handleSubmit = (e: React.FormEvent) => {

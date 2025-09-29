@@ -1,0 +1,44 @@
+@import '../../../styles/colors';
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  position: relative;
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #53bbff;
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      font-weight: 500;
+      color: $color-text-dark;
+      font-size: 14px;
+    }
+
+    .email {
+      font-weight: 500;
+      color: $color-text-dark;
+      font-size: 14px;
+    }
+  }
+
+  .logout {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+  }
+}

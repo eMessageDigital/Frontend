@@ -16,7 +16,8 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body>
-				<div id='modal-root'></div>
+				<div id='modal-root-auth'></div>
+				<div id='modal-root-notes'></div>
 				<ReduxProvider>
 					<Header />
 					{children}

@@ -6,7 +6,7 @@ import { rootState } from "../../store";
 import { logout } from "../../store/slices/authSlice";
 // import Profile from "../components/Profile/Profile";
 // import Orders from "../components/Orders/Orders";
-import { Container, Sidebar } from "../../components";
+import { Container, Orders, Profile, Sidebar } from "../../components";
 import styles from "./Dashboard.module.scss";
 import Link from "next/link";
 
@@ -34,9 +34,9 @@ const Dashboard: React.FC = () => {
 					onLogout={handleLogout}
 					role={"user"}
 				/>
-				<main>
-					{/* {activeTab === "profile" && <Profile />}
-            {activeTab === "orders" && <Orders />} */}
+				<main className={styles.main}>
+					{activeTab === "profile" && <Profile />}
+					{activeTab === "orders" && <Orders />}
 				</main>
 			</div>
 		</Container>

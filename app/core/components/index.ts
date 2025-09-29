@@ -4,14 +4,17 @@ import { RequestForm } from "./modules/RequestForm/RequestForm";
 import Input from "./ui/Input/Input";
 import Button from "./ui/Button/Button";
 import Booking from "./ui/Booking/Booking";
+import BaseModal from "./ui/BaseModal/BaseModal";
 
 import { Header } from "./modules/Header/Header";
 import { Footer } from "./modules/Footer/Footer";
 import { HoverLink } from "./modules/Header/ui/HoverLink/HoverLink";
 import Hero from "./modules/Hero/Hero";
 import Modal from "./modules/Modal/Modal";
-import Profile from "./modules/Profile/Profile";
 import Sidebar from "./modules/Sidebar/Sidebar";
+import MiniProfile from "./modules/MiniProfile/MiniProfile";
+import Profile from "./modules/Profile/Profile";
+import Orders from "./modules/Orders/Orders";
 
 export {
 	Header,
@@ -25,6 +28,9 @@ export {
 	Hero,
 	Booking,
 	Modal,
-	Profile,
+	MiniProfile,
 	Sidebar,
+	Profile,
+	Orders,
+	BaseModal,
 };

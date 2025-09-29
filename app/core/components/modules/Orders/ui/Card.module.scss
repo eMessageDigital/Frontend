@@ -1,0 +1,126 @@
+@import '../../../../styles/colors';
+
+.orderCard {
+  border-radius: 24px;
+  background-color: #f9f9f9;
+  padding: 40px;
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba($color: $color-text-dark, $alpha: .1);
+
+    h3 {
+      font-size: 18px;
+      font-weight: 500;
+      color: $color-text-dark;
+    }
+
+    p {
+      font-size: 18px;
+      color: $color-text-dark;
+    }
+  }
+
+  .cardMain {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  strong {
+    color: rgba($color: $color-text-dark, $alpha: .75);
+    font-weight: 500;
+  }
+
+  p {
+    font-weight: 600;
+    color: $color-text-dark;
+  }
+}
+
+.secondary {
+  border: 1px solid $color-accent;
+  padding: 16px 32px;
+  color: $color-accent;
+  font-size: 14px;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.primary {
+  padding: 16px 32px;
+  font-size: 14px;
+  background-color: $color-accent;
+  color: #ffffff;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.notesModal {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	h2 {
+		font-size: 20px;
+		font-weight: 600;
+		color: #222;
+	}
+
+	.textarea {
+		width: 100%;
+		min-height: 120px;
+		border: 1px solid #ddd;
+		border-radius: 8px;
+		padding: 12px;
+		font-size: 15px;
+		resize: vertical;
+
+		&:focus {
+			border-color: #53bbff;
+			outline: none;
+		}
+	}
+
+	.noteText {
+		font-size: 16px;
+		line-height: 1.4;
+		color: #333;
+		padding: 12px;
+		background: #f9f9f9;
+		border-radius: 8px;
+		border: 1px solid #eee;
+		white-space: pre-wrap;
+	}
+
+	.modalButtons {
+		display: flex;
+		justify-content: flex-end;
+		gap: 12px;
+	}
+
+	.addBtnWrapper {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+}

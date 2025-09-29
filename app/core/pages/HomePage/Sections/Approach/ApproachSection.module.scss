@@ -138,6 +138,16 @@
       font-weight: 400;
     }
   }
+
+  .card1,
+  .card2,
+  .card3 {
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 

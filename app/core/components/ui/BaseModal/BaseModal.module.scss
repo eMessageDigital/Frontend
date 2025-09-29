@@ -1,0 +1,79 @@
+@import "../../../styles/colors";
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  min-height: 200px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  font-weight: 600;
+  color: $color-text-dark;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* Специфично для заметок */
+.notesModal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: $color-text-dark;
+  }
+
+  .textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 15px;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: $color-accent;
+      outline: none;
+    }
+  }
+
+  .modalButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+  }
+}

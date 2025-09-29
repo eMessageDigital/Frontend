@@ -21,7 +21,8 @@
     "react-input-mask": "^2.0.4",
     "react-redux": "^9.2.0",
     "recharts": "^3.2.1",
-    "sass": "^1.92.1"
+    "sass": "^1.92.1",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
