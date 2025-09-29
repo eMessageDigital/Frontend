@@ -58,7 +58,7 @@ export default function Form({ plan, serviceData }: FormProps) {
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Ваши данные</h2>
 					<div className={styles.inputs}>
-						<Input type='text' placeholder='Имя' />
+						<Input className={styles.input} type='text' placeholder='Имя' />
 						<div className={styles.wrapper}>
 							<IMaskInput
 								mask='+{7} (000) 000 00-00'
@@ -69,8 +69,8 @@ export default function Form({ plan, serviceData }: FormProps) {
 								className={styles.input}
 							/>
 						</div>
-						<Input type='email' placeholder='Telegram' />
-						<Input type='tel' placeholder='Компания' />
+						<Input className={styles.input} type='email' placeholder='Telegram' />
+						<Input className={styles.input} type='tel' placeholder='Компания' />
 					</div>
 				</div>
 

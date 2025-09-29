@@ -166,7 +166,7 @@ const Profile: React.FC = () => {
 								name='name'
 								value={newContractor.name}
 								onChange={handleNewContractorChange}
-								placeholder='Например, ООО "Улов"'
+								placeholder=''
 							/>
 						</label>
 
