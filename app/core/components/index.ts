@@ -11,10 +11,10 @@ import { Footer } from "./modules/Footer/Footer";
 import { HoverLink } from "./modules/Header/ui/HoverLink/HoverLink";
 import Hero from "./modules/Hero/Hero";
 import Modal from "./modules/Modal/Modal";
-import Sidebar from "./modules/Sidebar/Sidebar";
 import MiniProfile from "./modules/MiniProfile/MiniProfile";
 import Profile from "./modules/Profile/Profile";
 import Orders from "./modules/Orders/Orders";
+import { Sidebar } from "./modules/Sidebar/Sidebar";
 
 export {
 	Header,

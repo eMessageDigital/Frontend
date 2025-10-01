@@ -8,57 +8,53 @@
   background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
+  max-height: 50vh;
 
   .top {
     display: flex;
     flex-direction: column;
     gap: 20px;
-  }
 
-  li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #121212;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 12px;
-    transition: background 0.2s, color 0.2s;
+    a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #121212;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 12px;
+      transition: background 0.2s, color 0.2s;
 
-    svg {
-      width: 18px;
-      height: 18px;
-      stroke-width: 2;
-      flex-shrink: 0;
-    }
+      svg {
+        width: 18px;
+        height: 18px;
+        stroke-width: 2;
+        flex-shrink: 0;
+      }
 
-    span {
-      display: inline-block;
-    }
+      span {
+        display: inline-block;
+      }
 
-    &:hover {
-      background-color: $color-accent;
-      color: #fff;
-    }
-  }
+      &:hover {
+        background-color: $color-accent;
+        color: #fff;
 
-  .active {
-    background-color: $color-accent;
-    color: white;
+        svg {
+          stroke: white;
+        }
+      }
 
-    svg {
-      stroke: white;
+      &.active {
+        background-color: $color-accent;
+        color: white;
+
+        svg {
+          stroke: white;
+        }
+      }
     }
   }
 
@@ -74,6 +70,9 @@
       gap: 12px;
       padding: 8px 12px;
       border-radius: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
 
       svg {
         stroke: $color-text-dark;
@@ -95,7 +94,7 @@
     max-width: 132px;
     padding: 30px 15px;
 
-    li {
+    .top a {
       font-size: 14px;
       padding: 6px 10px;
       gap: 8px;
@@ -123,34 +122,27 @@
     padding: 12px 16px;
     border-radius: 16px;
 
-    ul {
+    .top {
       flex-direction: row;
       gap: 16px;
       width: 100%;
       justify-content: space-around;
-    }
 
-    li {
-      justify-content: center;
-      font-size: 14px;
-      padding: 8px;
-      gap: 6px;
+      a {
+        justify-content: center;
+        font-size: 14px;
+        padding: 8px;
+        gap: 6px;
 
-      span {
-        display: none; // скрываем текст, если нужно оставить только иконки
+        span {
+          display: none; // скрываем текст, оставляем только иконки
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
       }
-
-      svg {
-        width: 20px;
-        height: 20px;
-      }
-    }
-
-    .top {
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-      flex: 1;
     }
 
     .bottom {
@@ -166,6 +158,10 @@
         padding: 8px;
         gap: 6px;
         justify-content: center;
+
+        span {
+          display: none;
+        }
       }
     }
   }
