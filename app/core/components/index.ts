@@ -5,6 +5,7 @@ import Input from "./ui/Input/Input";
 import Button from "./ui/Button/Button";
 import Booking from "./ui/Booking/Booking";
 import BaseModal from "./ui/BaseModal/BaseModal";
+import FileCard from "./ui/FileCard/FileCard";
 
 import { Header } from "./modules/Header/Header";
 import { Footer } from "./modules/Footer/Footer";
@@ -15,6 +16,7 @@ import MiniProfile from "./modules/MiniProfile/MiniProfile";
 import Profile from "./modules/Profile/Profile";
 import Orders from "./modules/Orders/Orders";
 import { Sidebar } from "./modules/Sidebar/Sidebar";
+import OrderDetails from "./modules/OrderDetails/OrderDetails";
 
 export {
 	Header,
@@ -33,4 +35,6 @@ export {
 	Profile,
 	Orders,
 	BaseModal,
+	OrderDetails,
+	FileCard,
 };

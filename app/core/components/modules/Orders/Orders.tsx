@@ -6,10 +6,17 @@ import { rootState } from "../../../store";
 import { cancelOrder } from "../../../store/slices/ordersSlice";
 import styles from "./Orders.module.scss";
 import Card from "./ui/Card";
+import { useRouter } from "next/navigation";
 
 const Orders: React.FC = () => {
 	const dispatch = useDispatch();
 	const orders = useSelector((state: rootState) => state.orders.orders);
+
+	const router = useRouter();
+
+	const handleGoToOrder = (id: string) => {
+		router.push(`/dashboard/orders/${id}`);
+	};
 
 	const handleCancel = (id: string) => {
 		dispatch(cancelOrder(id));
@@ -23,7 +30,12 @@ const Orders: React.FC = () => {
 
 			<div className={styles.ordersList}>
 				{orders.map((order) => (
-					<Card key={order.id} order={order} onCancel={handleCancel} />
+					<Card
+						key={order.id}
+						order={order}
+						onCancel={handleCancel}
+						onGoToOrder={handleGoToOrder}
+					/>
 				))}
 			</div>
 		</div>

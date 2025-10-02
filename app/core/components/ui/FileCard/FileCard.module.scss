@@ -1,0 +1,34 @@
+@import '../../../styles/colors';
+
+.fileCard {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px;
+  background-color: #fff;
+  gap: 8px;
+  border-radius: 12px;
+  transition: all .2s ease-in-out;
+
+  .icon {
+    color: $color-text-dark;
+  }
+
+  p {
+    pointer-events: none;
+    color: $color-text-dark;
+  }
+
+  .arrowIcon {
+    color: $color-accent;
+    padding: 8px;
+    background-color: rgba($color: $color-accent, $alpha: .2);
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}

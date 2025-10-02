@@ -28,7 +28,22 @@ const initialState: ProfileState = {
 		email: "",
 		phone: "",
 	},
-	contractors: [],
+	contractors: [
+		{
+			id: "c1",
+			inn: "7701234567",
+			kpp: "770101001",
+			ogrn: "1027700132195",
+			name: "ООО Реклама Плюс",
+		},
+		{
+			id: "c2",
+			inn: "7809876543",
+			kpp: "780101002",
+			ogrn: "1037800000100",
+			name: "ИП Иванов И.И.",
+		},
+	],
 };
 
 const profileSlice = createSlice({

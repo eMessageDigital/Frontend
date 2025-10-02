@@ -1,11 +1,28 @@
+// store/slices/formSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FormState {
 	files: File[];
+	name: string;
+	phone: string;
+	telegram: string;
+	company: string;
+	baseInfo: string;
+	offer: string;
+	description: string;
+	selectedServices: string[];
 }
 
 const initialState: FormState = {
 	files: [],
+	name: "",
+	phone: "",
+	telegram: "",
+	company: "",
+	baseInfo: "",
+	offer: "",
+	description: "",
+	selectedServices: [],
 };
 
 const formSlice = createSlice({
@@ -21,8 +38,16 @@ const formSlice = createSlice({
 		clearFiles: (state) => {
 			state.files = [];
 		},
+		updateField: (state, action: PayloadAction<{ field: keyof FormState; value: any }>) => {
+			state[action.payload.field] = action.payload.value;
+		},
+		updateSelectedServices: (state, action: PayloadAction<string[]>) => {
+			state.selectedServices = action.payload;
+		},
+		clearForm: () => initialState,
 	},
 });
 
-export const { addFiles, removeFiles, clearFiles } = formSlice.actions;
+export const { addFiles, removeFiles, clearFiles, updateField, updateSelectedServices, clearForm } =
+	formSlice.actions;
 export default formSlice.reducer;

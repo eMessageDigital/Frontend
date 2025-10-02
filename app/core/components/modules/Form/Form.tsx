@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Form.module.scss";
 import { Booking, Button, Container, Input } from "../..";
 import { IMaskInput } from "react-imask";
@@ -9,7 +9,12 @@ import { ServiceData } from "../../../data/services/types";
 import { FormExtraOptions } from "../FormExtraOptions/FormExtraOptions";
 import { useDispatch, useSelector } from "react-redux";
 import { rootState } from "../../../store";
-import { addFiles, removeFiles } from "../../../store/slices/formSlice";
+import {
+	addFiles,
+	removeFiles,
+	updateField,
+	updateSelectedServices,
+} from "../../../store/slices/formSlice";
 
 interface FormProps {
 	plan: string | null;
@@ -20,7 +25,7 @@ interface FormProps {
 
 export default function Form({ plan, serviceData }: FormProps) {
 	const dispatch = useDispatch();
-	const files = useSelector((state: rootState) => state.form.files);
+	const form = useSelector((state: rootState) => state.form);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
@@ -30,16 +35,16 @@ export default function Form({ plan, serviceData }: FormProps) {
 
 	const showExtraService = plan?.includes("стандарт");
 
-	const [selectedServices, setSelectedServices] = useState<string[]>([]);
-	const [phone, setPhone] = useState<string>("");
-
 	const toggleService = (serviceId: string) => {
-		setSelectedServices((prev) =>
-			prev.includes(serviceId) ? prev.filter((s) => s !== serviceId) : [...prev, serviceId]
-		);
+		const newSelected = form.selectedServices.includes(serviceId)
+			? form.selectedServices.filter((s) => s !== serviceId)
+			: [...form.selectedServices, serviceId];
+
+		dispatch(updateSelectedServices(newSelected));
 	};
 
 	const extraServicesOptions = serviceData.extraServices || [];
+
 	return (
 		<Container className={styles.container}>
 			<form className={styles.form}>
@@ -58,19 +63,40 @@ export default function Form({ plan, serviceData }: FormProps) {
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Ваши данные</h2>
 					<div className={styles.inputs}>
-						<Input className={styles.input} type='text' placeholder='Имя' />
+						<Input
+							className={styles.input}
+							type='text'
+							placeholder='Имя'
+							value={form.name}
+							onChange={(e) => dispatch(updateField({ field: "name", value: e.target.value }))}
+						/>
+
 						<div className={styles.wrapper}>
 							<IMaskInput
 								mask='+{7} (000) 000 00-00'
 								placeholder='Телефон'
-								value={phone}
-								onAccept={(value: string) => setPhone(value)}
+								value={form.phone}
+								onAccept={(value: string) => dispatch(updateField({ field: "phone", value }))}
 								overwrite
 								className={styles.input}
 							/>
 						</div>
-						<Input className={styles.input} type='email' placeholder='Telegram' />
-						<Input className={styles.input} type='tel' placeholder='Компания' />
+
+						<Input
+							className={styles.input}
+							type='email'
+							placeholder='Telegram'
+							value={form.telegram}
+							onChange={(e) => dispatch(updateField({ field: "telegram", value: e.target.value }))}
+						/>
+
+						<Input
+							className={styles.input}
+							type='text'
+							placeholder='Компания'
+							value={form.company}
+							onChange={(e) => dispatch(updateField({ field: "company", value: e.target.value }))}
+						/>
 					</div>
 				</div>
 
@@ -78,8 +104,19 @@ export default function Form({ plan, serviceData }: FormProps) {
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Информация о проекте</h2>
 					<div className={styles.inputs}>
-						<Input type='text' placeholder='База / информация для её сбора' />
-						<Input type='text' placeholder='Оффер / Черновик сообщения' />
+						<Input
+							type='text'
+							placeholder='База / информация для её сбора'
+							value={form.baseInfo}
+							onChange={(e) => dispatch(updateField({ field: "baseInfo", value: e.target.value }))}
+						/>
+
+						<Input
+							type='text'
+							placeholder='Оффер / Черновик сообщения'
+							value={form.offer}
+							onChange={(e) => dispatch(updateField({ field: "offer", value: e.target.value }))}
+						/>
 
 						<div className={styles.fileInputWrapper}>
 							<label className={styles.fileLabel}>
@@ -98,9 +135,9 @@ export default function Form({ plan, serviceData }: FormProps) {
 
 						<Booking />
 
-						{files.length > 0 && (
+						{form.files.length > 0 && (
 							<ul className={styles.filesList}>
-								{files.map((file, index) => (
+								{form.files.map((file, index) => (
 									<li key={index} className={styles.fileItem}>
 										<Paperclip size={16} />
 										<span>{file.name}</span>
@@ -115,7 +152,14 @@ export default function Form({ plan, serviceData }: FormProps) {
 							</ul>
 						)}
 
-						<textarea className={styles.textarea} placeholder='Расскажите о вашем проекте' />
+						<textarea
+							className={styles.textarea}
+							placeholder='Расскажите о вашем проекте'
+							value={form.description}
+							onChange={(e) =>
+								dispatch(updateField({ field: "description", value: e.target.value }))
+							}
+						/>
 					</div>
 				</div>
 
@@ -123,7 +167,7 @@ export default function Form({ plan, serviceData }: FormProps) {
 				{showExtraService && (
 					<FormExtraOptions
 						extraServices={extraServicesOptions}
-						selectedServices={selectedServices}
+						selectedServices={form.selectedServices}
 						toggleService={toggleService}
 					/>
 				)}

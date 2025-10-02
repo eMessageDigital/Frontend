@@ -17,9 +17,10 @@ interface Order {
 interface CardProps {
 	order: Order;
 	onCancel: (id: string) => void;
+	onGoToOrder: (id: string) => void;
 }
 
-const Card: React.FC<CardProps> = ({ order, onCancel }) => {
+const Card: React.FC<CardProps> = ({ order, onCancel, onGoToOrder }) => {
 	const [draftNote, setDraftNote] = useState("");
 	const [isEditing, setIsEditing] = useState(false);
 	const [isNotesOpen, setIsNotesOpen] = useState(false);
@@ -69,7 +70,9 @@ const Card: React.FC<CardProps> = ({ order, onCancel }) => {
 					<Button className={styles.secondary} onClick={() => setIsNotesOpen(true)}>
 						Заметки
 					</Button>
-					<Button className={styles.primary}>Детали заказа</Button>
+					<Button onClick={() => onGoToOrder(order.id)} className={styles.primary}>
+						Детали заказа
+					</Button>
 				</div>
 			</div>
 

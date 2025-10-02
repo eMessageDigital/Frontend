@@ -36,8 +36,8 @@ export const Header = () => {
 								className={styles.logoImg}
 								src='/img/logo.svg'
 								alt='Logo'
-								width={42}
-								height={42}
+								width={78}
+								height={30}
 							/>
 						</Link>
 					</div>

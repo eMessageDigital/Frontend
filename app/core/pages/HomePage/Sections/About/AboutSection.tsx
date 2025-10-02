@@ -11,7 +11,7 @@ export default function AboutSection() {
 					<div className={styles.card1}>
 						<div>
 							<h1 className={styles.sectionTitle}>Мы -</h1>
-							<Image src={"/img/logo.svg"} width={52} height={52} alt='logo'></Image>
+							<Image src={"/img/logoicon.svg"} width={52} height={52} alt='logo'></Image>
 							<h1 className={styles.accent}>eMessage</h1>
 						</div>
 						<p>Сервис, который продвигает проекты в социальных сетях и мессенджерах.</p>

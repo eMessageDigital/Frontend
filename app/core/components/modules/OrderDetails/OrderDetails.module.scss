@@ -1,0 +1,192 @@
+@import '../../../styles/colors';
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+
+  h2 {
+    color: $color-text-dark;
+    font-size: 34px;
+    font-weight: 500;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 14px;
+    border-radius: 12px;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: currentColor; // возьмёт цвет у текста
+    }
+  }
+
+  .done {
+    background-color: rgba($color: $color-primary, $alpha: .15);
+    color: rgba($color: $color-primary, $alpha: .8);
+  }
+
+  .pending {
+    color: #2e7d32; 
+	  background: #e6f4ea;
+  }
+}
+
+.contractorsList {
+  margin-top: 26px;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 24px;
+
+  .contractorCardHeader {
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba($color: $color-text-dark, $alpha: .1);
+    h4 {
+      color: $color-text-dark;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+
+  .contractorCardText {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    p {
+      font-size: 16px;
+      color: rgba($color: $color-text-dark, $alpha: .4);
+
+      span {
+        font-size: 16px;
+        color: $color-text-dark;
+      }
+    }
+  }
+
+  .contractorNone {
+    text-align: center;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 40px;
+  border-radius: 24px;
+  padding: 40px;
+  background-color: #f9f9f9;
+
+  .sectionHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    p {
+      margin-bottom: 16px;
+    }
+  }
+
+  .offer {
+    p {
+      margin-bottom: 16px;
+    }
+  }
+
+  .about {
+    p {
+      margin-bottom: 16px;
+    }
+  }
+
+  .files {
+    .text {
+      margin-bottom: 16px;
+    }
+
+    .bottomFiles {
+      display: flex; 
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.resultsTitle {
+  margin-top: 40px;
+  font-size: 34px;
+  font-weight: 500;
+  color: $color-text-dark;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  margin-top: 26px;
+  padding: 40px;
+  background-color: #f9f9f9;
+  gap: 30px;
+  border-radius: 24px;
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    
+    p {
+      margin-bottom: 16px;
+    }
+  }
+
+  .files {
+    .text {
+      margin-bottom: 16px;
+    }
+
+    .bottomFiles {
+      display: flex; 
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contractorsList {
+    .contractorCardText {
+      flex-direction: column;
+    }
+  }
+
+  .info {
+    .sectionHeader {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .result {
+    .row {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    h2 {
+      font-size: 24px;
+    }
+    span {
+      font-size: 13px;
+    }
+  }
+}

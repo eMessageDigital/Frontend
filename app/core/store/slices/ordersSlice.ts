@@ -9,6 +9,7 @@ interface Order {
 	leads: number;
 	ctr: number;
 	conversion: number;
+	contractorIds: string[];
 }
 
 interface OrdersState {
@@ -26,6 +27,7 @@ const initialState: OrdersState = {
 			leads: 45,
 			ctr: 3.2,
 			conversion: 4.5,
+			contractorIds: ["c1"],
 		},
 		{
 			id: "002",
@@ -36,6 +38,7 @@ const initialState: OrdersState = {
 			leads: 20,
 			ctr: 2.5,
 			conversion: 3.0,
+			contractorIds: ["c2"],
 		},
 	],
 };
