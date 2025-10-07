@@ -7,7 +7,6 @@ import { Button, Container } from "../../../../components";
 import Link from "next/link";
 
 export default function ApproachSection() {
-	const handleClick = () => {};
 	return (
 		<Container className={styles.sectionContainer}>
 			<h1 className={styles.sectionTitle}>

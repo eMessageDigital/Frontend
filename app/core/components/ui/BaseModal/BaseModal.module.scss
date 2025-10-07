@@ -1,4 +1,5 @@
-@import "../../../styles/colors";
+@use "sass:color";
+@use "../../../styles/colors" as *;
 
 .overlay {
   position: fixed;
@@ -27,8 +28,8 @@
 
 .closeBtn {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 48px;
+  right: 48px;
   background: transparent;
   border: none;
   font-size: 22px;
@@ -36,6 +37,7 @@
   color: $color-text-dark;
   cursor: pointer;
   transition: transform 0.2s ease;
+  z-index: 100;
 
   &:hover {
     transform: scale(1.1);

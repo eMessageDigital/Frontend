@@ -3,11 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Sidebar.module.scss";
-import { Button } from "../..";
+import { Button, Loader } from "../..";
 import { LogOut, SquareMousePointer, User } from "lucide-react";
+import { useLogoutMutation } from "../../auth/hooks/useLogoutMutation";
 
-export const Sidebar = ({ onLogout, role }: { onLogout: () => void; role: string }) => {
-	const pathname = usePathname(); // для подсветки активного таба
+interface SidebarProps {
+	role: string;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
+	const pathname = usePathname();
+	const { logout, isLoadingLogout } = useLogoutMutation();
 
 	return (
 		<aside className={styles.sidebar}>
@@ -30,9 +36,9 @@ export const Sidebar = ({ onLogout, role }: { onLogout: () => void; role: string
 			</div>
 
 			<div className={styles.bottom}>
-				<Button className={styles.logout} onClick={onLogout}>
+				<Button className={styles.logout} onClick={() => logout()} disabled={isLoadingLogout}>
 					<LogOut />
-					<span>Выйти</span>
+					<span>{isLoadingLogout ? <Loader /> : "Выйти"}</span>
 				</Button>
 			</div>
 		</aside>

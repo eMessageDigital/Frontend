@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Footer, Header, Modal } from "../app/core/components";
+import { Footer, Header } from "../app/core/components";
 import "./core/styles/globals.scss";
 import { ReduxProvider } from "./core/store/Providers";
+import { AuthModal } from "./core/components/auth/components/AuthModal/AuthModal";
+import { Toaster } from "sonner";
+import { ReactQueryProvider } from "./core/Providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
 	title: "eMessage - Главная",
@@ -18,12 +21,15 @@ export default function RootLayout({
 			<body>
 				<div id='modal-root-auth'></div>
 				<div id='modal-root-notes'></div>
-				<ReduxProvider>
-					<Header />
-					{children}
-					<Modal />
-					<Footer />
-				</ReduxProvider>
+				<ReactQueryProvider>
+					<ReduxProvider>
+						<Header />
+						{children}
+						<Footer />
+						<AuthModal />
+						<Toaster position='bottom-right' richColors duration={4000} />
+					</ReduxProvider>
+				</ReactQueryProvider>
 			</body>
 		</html>
 	);

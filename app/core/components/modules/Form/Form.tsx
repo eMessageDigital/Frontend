@@ -63,13 +63,15 @@ export default function Form({ plan, serviceData }: FormProps) {
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Ваши данные</h2>
 					<div className={styles.inputs}>
-						<Input
-							className={styles.input}
-							type='text'
-							placeholder='Имя'
-							value={form.name}
-							onChange={(e) => dispatch(updateField({ field: "name", value: e.target.value }))}
-						/>
+						<div className={styles.wrapper}>
+							<Input
+								className={styles.input}
+								type='text'
+								placeholder='Имя'
+								value={form.name}
+								onChange={(e) => dispatch(updateField({ field: "name", value: e.target.value }))}
+							/>
+						</div>
 
 						<div className={styles.wrapper}>
 							<IMaskInput
@@ -82,21 +84,27 @@ export default function Form({ plan, serviceData }: FormProps) {
 							/>
 						</div>
 
-						<Input
-							className={styles.input}
-							type='email'
-							placeholder='Telegram'
-							value={form.telegram}
-							onChange={(e) => dispatch(updateField({ field: "telegram", value: e.target.value }))}
-						/>
+						<div className={styles.wrapper}>
+							<Input
+								className={styles.input}
+								type='email'
+								placeholder='Telegram'
+								value={form.telegram}
+								onChange={(e) =>
+									dispatch(updateField({ field: "telegram", value: e.target.value }))
+								}
+							/>
+						</div>
 
-						<Input
-							className={styles.input}
-							type='text'
-							placeholder='Компания'
-							value={form.company}
-							onChange={(e) => dispatch(updateField({ field: "company", value: e.target.value }))}
-						/>
+						<div className={styles.wrapper}>
+							<Input
+								className={styles.input}
+								type='text'
+								placeholder='Компания'
+								value={form.company}
+								onChange={(e) => dispatch(updateField({ field: "company", value: e.target.value }))}
+							/>
+						</div>
 					</div>
 				</div>
 
@@ -104,19 +112,25 @@ export default function Form({ plan, serviceData }: FormProps) {
 				<div className={styles.section}>
 					<h2 className={styles.sectionTitle}>Информация о проекте</h2>
 					<div className={styles.inputs}>
-						<Input
-							type='text'
-							placeholder='База / информация для её сбора'
-							value={form.baseInfo}
-							onChange={(e) => dispatch(updateField({ field: "baseInfo", value: e.target.value }))}
-						/>
+						<div className={styles.wrapper}>
+							<Input
+								type='text'
+								placeholder='База / информация для её сбора'
+								value={form.baseInfo}
+								onChange={(e) =>
+									dispatch(updateField({ field: "baseInfo", value: e.target.value }))
+								}
+							/>
+						</div>
 
-						<Input
-							type='text'
-							placeholder='Оффер / Черновик сообщения'
-							value={form.offer}
-							onChange={(e) => dispatch(updateField({ field: "offer", value: e.target.value }))}
-						/>
+						<div className={styles.wrapper}>
+							<Input
+								type='text'
+								placeholder='Оффер / Черновик сообщения'
+								value={form.offer}
+								onChange={(e) => dispatch(updateField({ field: "offer", value: e.target.value }))}
+							/>
+						</div>
 
 						<div className={styles.fileInputWrapper}>
 							<label className={styles.fileLabel}>

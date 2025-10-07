@@ -1,4 +1,6 @@
-@import '../../../styles/colors';
+@use "sass:color";
+@use '../../../styles/colors' as *;
+
 
 .header {
   display: flex;
@@ -51,7 +53,7 @@
     padding: 13px 32px;
 
     &:hover {
-      background-color: darken($color-accent, 10%);
+      background-color: color.adjust($color-accent, $lightness: -10%);
       transform: scale(1.1);
     }
   }
@@ -121,7 +123,7 @@
     padding: 13px 32px;
 
     &:hover {
-      background-color: darken($color-accent, 10%);
+      background-color: color.adjust($color-accent, $lightness: -10%);
       transform: scale(1.1);
     }
   }

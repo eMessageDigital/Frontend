@@ -4,20 +4,50 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./Profile.module.scss";
-import {
-	addContractor,
-	removeContractor,
-	updatePersonalInfo,
-} from "../../../store/slices/profileSlice";
+import { addContractor, removeContractor } from "../../../store/slices/profileSlice";
 import { rootState } from "../../../store";
-import { Input } from "../..";
+import { Input, Loader } from "../..";
 import { FilePlus, PenLine, Trash } from "lucide-react";
+import { useProfile } from "../../auth/hooks";
 
 const Profile: React.FC = () => {
 	const dispatch = useDispatch();
-	const { personalInfo, contractors } = useSelector((state: rootState) => state.profile);
+	const { contractors } = useSelector((state: rootState) => state.profile);
 
-	// Форма нового контрагента
+	// данные пользователя
+	const { user, isLoading } = useProfile();
+	// const { updateProfile, isUpdating } = useUpdateProfileMutation();
+
+	// локальное состояние для редактирования личных данных
+	const [formData, setFormData] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		phone: "",
+	});
+
+	React.useEffect(() => {
+		if (user) {
+			setFormData({
+				firstName: user.displayName ?? "",
+				lastName: "",
+				email: user.email ?? "",
+				phone: "",
+			});
+		}
+	}, [user]);
+
+	// изменение инпутов личной информации
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	// отправка формы для обновления профиля
+	// const handleSubmit = (e: React.FormEvent) => {
+	// 	e.preventDefault();
+	// 	updateProfile(formData);
+	// };
+
 	const [showForm, setShowForm] = useState(true);
 	const [newContractor, setNewContractor] = useState({
 		inn: "",
@@ -26,25 +56,20 @@ const Profile: React.FC = () => {
 		name: "",
 	});
 
-	// Изменение персональной информации
-	const handlePersonalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(updatePersonalInfo({ [e.target.name]: e.target.value }));
-	};
-
-	// Изменение нового контрагента
 	const handleNewContractorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setNewContractor({ ...newContractor, [e.target.name]: e.target.value });
 	};
 
-	// Сохранение нового контрагента
 	const handleSaveNewContractor = (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!newContractor.name || !newContractor.inn) return;
 
 		dispatch(addContractor({ id: uuidv4(), ...newContractor }));
 		setNewContractor({ inn: "", kpp: "", ogrn: "", name: "" });
-		setShowForm(false); // скрываем форму после сохранения
+		setShowForm(false);
 	};
+
+	if (isLoading) return <Loader />;
 
 	return (
 		<div className={styles.profile}>
@@ -52,6 +77,7 @@ const Profile: React.FC = () => {
 			<div className={styles.sectionHeader}>
 				<h2>Персональная информация</h2>
 			</div>
+
 			<section className={styles.section}>
 				<form className={styles.form}>
 					<div className={styles.grid2}>
@@ -62,8 +88,8 @@ const Profile: React.FC = () => {
 								placeholder='Иван'
 								type='text'
 								name='firstName'
-								value={personalInfo.firstName}
-								onChange={handlePersonalChange}
+								value={formData.firstName}
+								onChange={handleChange}
 							/>
 						</label>
 						<label>
@@ -73,30 +99,30 @@ const Profile: React.FC = () => {
 								placeholder='Иванов'
 								type='text'
 								name='lastName'
-								value={personalInfo.lastName}
-								onChange={handlePersonalChange}
+								value={formData.lastName}
+								onChange={handleChange}
 							/>
 						</label>
 						<label>
 							<span>Email</span>
 							<Input
 								className={styles.input}
-								placeholder='emessage.adt@yandex.ru'
+								placeholder='example@mail.ru'
 								type='email'
 								name='email'
-								value={personalInfo.email}
-								onChange={handlePersonalChange}
+								value={formData.email}
+								onChange={handleChange}
 							/>
 						</label>
 						<label>
 							<span>Телефон</span>
 							<Input
 								className={styles.input}
-								placeholder='+7 (995) 993-83-72'
+								placeholder='+7 (999) 999-99-99'
 								type='tel'
 								name='phone'
-								value={personalInfo.phone}
-								onChange={handlePersonalChange}
+								value={formData.phone}
+								onChange={handleChange}
 							/>
 						</label>
 					</div>

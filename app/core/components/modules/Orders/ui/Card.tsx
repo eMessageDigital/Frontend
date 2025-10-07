@@ -41,7 +41,7 @@ const Card: React.FC<CardProps> = ({ order, onCancel, onGoToOrder }) => {
 	return (
 		<div className={styles.orderCard}>
 			<div className={styles.cardHeader}>
-				<h3>
+				<h3 onClick={() => onGoToOrder(order.id)}>
 					Заказ №{order.id} от {order.date}
 				</h3>
 				<p>{order.total} ₽</p>

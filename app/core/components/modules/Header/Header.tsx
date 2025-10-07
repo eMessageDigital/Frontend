@@ -5,14 +5,17 @@ import styles from "./Header.module.scss";
 
 import Image from "next/image";
 import { Button, Container, HoverLink, MiniProfile } from "../..";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { openModal } from "../../../store/slices/modalSlice";
-import { rootState } from "../../../store";
 import Link from "next/link";
+import { useProfile } from "../../auth/hooks/useProfile";
 
 export const Header = () => {
 	const dispatch = useDispatch();
-	const user = useSelector((state: rootState) => state.auth.user);
+
+	const { user, isLoading } = useProfile();
+
+	console.log("Header user:", user, "Loading:", isLoading);
 
 	const [menuOpen, setMenuOpen] = useState(false);
 
@@ -42,16 +45,13 @@ export const Header = () => {
 						</Link>
 					</div>
 
-					{/* Гамбургер */}
 					<button className={styles.burger} onClick={() => setMenuOpen(true)}>
 						<span></span>
 						<span></span>
 						<span></span>
 					</button>
 
-					{/* Навигация */}
 					<nav className={`${styles.nav} ${menuOpen ? styles.active : ""}`}>
-						{/* Кнопка закрытия */}
 						<button className={styles.close} onClick={() => setMenuOpen(false)}>
 							×
 						</button>
@@ -76,7 +76,7 @@ export const Header = () => {
 						<div className={styles.mobileButtons}>
 							{user ? (
 								<span onClick={() => setMenuOpen(false)}>
-									<MiniProfile />
+									<MiniProfile loading={isLoading} />
 								</span>
 							) : (
 								<>
@@ -94,8 +94,10 @@ export const Header = () => {
 
 				{/* Десктопные кнопки */}
 				<div className={styles.buttons}>
-					{user ? (
-						<MiniProfile />
+					{isLoading ? (
+						<MiniProfile loading={true} user={user} />
+					) : user ? (
+						<MiniProfile user={user} />
 					) : (
 						<>
 							<Button onClick={() => dispatch(openModal("login"))} className={styles.login}>
