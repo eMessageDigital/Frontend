@@ -13,9 +13,9 @@ export default function Input({
 	...props
 }: InputProps) {
 	return (
-		<div className={`${styles.wrapper} ${styles[variant]} ${className}`}>
+		<div className={`${styles.wrapper} ${styles[variant]}`}>
 			{children && <div className={styles.icon}>{children}</div>}
-			<input className={`${styles.input} ${styles.className}`} {...props} />
+			<input className={className} {...props} />
 		</div>
 	);
 }

@@ -71,15 +71,15 @@
       color: rgba($color-text-dark, 0.75);
     }
 
-    input {
-      border: 1px solid #ddd;
+    .input {
+      border: 1px solid #f9f9f9;
       padding: 10px 12px;
       border-radius: 8px;
       transition: border-color 0.2s;
 
       &:focus {
+        border: 1px solid $color-accent;
         outline: none;
-        border-color: $color-accent;
       }
     }
   }

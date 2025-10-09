@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./Profile.module.scss";
@@ -8,45 +8,42 @@ import { addContractor, removeContractor } from "../../../store/slices/profileSl
 import { rootState } from "../../../store";
 import { Input, Loader } from "../..";
 import { FilePlus, PenLine, Trash } from "lucide-react";
-import { useProfile } from "../../auth/hooks";
+import { useProfile, useUpdateProfileMutation } from "../../auth/hooks";
+import { IMaskInput } from "react-imask";
 
 const Profile: React.FC = () => {
 	const dispatch = useDispatch();
 	const { contractors } = useSelector((state: rootState) => state.profile);
 
-	// данные пользователя
 	const { user, isLoading } = useProfile();
-	// const { updateProfile, isUpdating } = useUpdateProfileMutation();
+	const { updateProfile, isUpdating } = useUpdateProfileMutation();
 
-	// локальное состояние для редактирования личных данных
 	const [formData, setFormData] = useState({
-		firstName: "",
+		name: "",
 		lastName: "",
 		email: "",
 		phone: "",
 	});
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (user) {
 			setFormData({
-				firstName: user.displayName ?? "",
-				lastName: "",
+				name: user.displayName ?? "",
+				lastName: user.lastName ?? "",
 				email: user.email ?? "",
-				phone: "",
+				phone: user.phone ?? "",
 			});
 		}
 	}, [user]);
 
-	// изменение инпутов личной информации
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	// отправка формы для обновления профиля
-	// const handleSubmit = (e: React.FormEvent) => {
-	// 	e.preventDefault();
-	// 	updateProfile(formData);
-	// };
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		await updateProfile(formData);
+	};
 
 	const [showForm, setShowForm] = useState(true);
 	const [newContractor, setNewContractor] = useState({
@@ -79,50 +76,55 @@ const Profile: React.FC = () => {
 			</div>
 
 			<section className={styles.section}>
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<div className={styles.grid2}>
 						<label>
 							<span>Имя</span>
 							<Input
 								className={styles.input}
-								placeholder='Иван'
 								type='text'
-								name='firstName'
-								value={formData.firstName}
+								name='displayName'
+								value={formData.name}
 								onChange={handleChange}
+								placeholder='Иван'
 							/>
 						</label>
+
 						<label>
 							<span>Фамилия</span>
 							<Input
 								className={styles.input}
-								placeholder='Иванов'
 								type='text'
 								name='lastName'
 								value={formData.lastName}
 								onChange={handleChange}
+								placeholder='Иванов'
 							/>
 						</label>
+
 						<label>
 							<span>Email</span>
 							<Input
 								className={styles.input}
-								placeholder='example@mail.ru'
 								type='email'
 								name='email'
 								value={formData.email}
 								onChange={handleChange}
+								placeholder='example@mail.ru'
 							/>
 						</label>
+
 						<label>
 							<span>Телефон</span>
-							<Input
+							<IMaskInput
 								className={styles.input}
-								placeholder='+7 (999) 999-99-99'
+								mask='+{7} (000) 000 00-00'
 								type='tel'
 								name='phone'
 								value={formData.phone}
 								onChange={handleChange}
+								placeholder='+7 (999) 999-99-99'
+								overwrite
 							/>
 						</label>
 					</div>
@@ -131,8 +133,8 @@ const Profile: React.FC = () => {
 						<button type='button' className={styles.secondary}>
 							Изменить пароль
 						</button>
-						<button type='submit' className={styles.primary}>
-							Сохранить
+						<button type='submit' className={styles.primary} disabled={isUpdating}>
+							{isUpdating ? <Loader /> : "Сохранить"}
 						</button>
 					</div>
 				</form>
@@ -216,9 +218,8 @@ const Profile: React.FC = () => {
 							<Trash
 								className={styles.iconBtn}
 								type='button'
-								onClick={() => dispatch(removeContractor(c.id))}>
-								Удалить
-							</Trash>
+								onClick={() => dispatch(removeContractor(c.id))}
+							/>
 						</div>
 						<div className={styles.contractorCardText}>
 							<p>

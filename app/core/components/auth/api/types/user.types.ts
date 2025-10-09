@@ -28,6 +28,8 @@ export interface IUser {
 	email: string;
 	password: string;
 	displayName: string;
+	lastName?: string;
+	phone?: string;
 	picture: string;
 	role: UserRole;
 	isVerified: boolean;

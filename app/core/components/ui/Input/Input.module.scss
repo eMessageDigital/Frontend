@@ -1,52 +1,32 @@
+@use '../../../styles/colors' as *;
+
 .wrapper {
   display: flex;
   align-items: center;
-  border-radius: 12px;
-  background: #fff;
+  border-radius: 8px;
+  background: #fff; 
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: $color-accent; 
+  }
 
   .icon {
-    margin-right: 8px;
+    margin-left: 8px;
     display: flex;
     align-items: center;
   }
 
-  .input {
+  input {
+    flex: 1;
     border: none;
     outline: none;
-    flex: 1;
-    font-size: 16px;
     background: transparent;
+    font-size: 16px;
     color: #333;
 
     &::placeholder {
       color: #999;
-    }
-  }
-
-  /* --- Планшеты (до 1024px) --- */
-  @media (max-width: 1024px) {
-    padding: 12px 16px;
-
-    .input {
-      font-size: 14px;
-    }
-  }
-
-  /* --- Мобильные (до 768px) --- */
-  @media (max-width: 768px) {
-    padding: 10px 14px;
-
-    .input {
-      font-size: 13px;
-    }
-  }
-
-  /* --- Очень маленькие экраны (до 480px) --- */
-  @media (max-width: 480px) {
-    padding: 8px 12px;
-
-    .input {
-      font-size: 12px;
     }
   }
 }
