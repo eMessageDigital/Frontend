@@ -15,8 +15,6 @@ export const Header = () => {
 
 	const { user, isLoading } = useProfile();
 
-	console.log("Header user:", user, "Loading:", isLoading);
-
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const loginModal = () => {
