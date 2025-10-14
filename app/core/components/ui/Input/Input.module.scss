@@ -2,13 +2,45 @@
 
 .wrapper {
   display: flex;
+  flex-direction: column; 
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 16px; 
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.inputContainer {
+  display: flex;
   align-items: center;
   border-radius: 8px;
-  background: #fff; 
-  transition: border-color 0.2s;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
 
   &:focus-within {
-    border-color: $color-accent; 
+    border-color: $color-accent;
+    box-shadow: 0 0 0 2px rgba($color-accent, 1);
+  }
+
+  &.primary {
+    border-color: $color-accent;
+    background: #fdfdfd;
+  }
+
+  &.error {
+    border-color: #e74c3c !important;
+    box-shadow: 0 0 0 1px rgba(231, 76, 60, 1);
+
+    input {
+      color: #ff1900;
+    }
+
+    .icon {
+      color: #e74c3c;
+    }
   }
 
   .icon {
@@ -24,9 +56,17 @@
     background: transparent;
     font-size: 16px;
     color: #333;
+    padding: 10px 12px;
 
     &::placeholder {
       color: #999;
     }
   }
+}
+
+.errorMessage {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
 }

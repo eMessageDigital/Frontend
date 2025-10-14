@@ -7,6 +7,7 @@ import Booking from "./ui/Booking/Booking";
 import BaseModal from "./ui/BaseModal/BaseModal";
 import FileCard from "./ui/FileCard/FileCard";
 import Loader from "./ui/Loader/Loader";
+import { ContractorCard } from "./ui/ContractorCard/ContractorCard";
 
 import { Header } from "./modules/Header/Header";
 import { Footer } from "./modules/Footer/Footer";
@@ -18,6 +19,8 @@ import Orders from "./modules/Orders/Orders";
 import { Sidebar } from "./modules/Sidebar/Sidebar";
 import OrderDetails from "./modules/OrderDetails/OrderDetails";
 import { AuthWrapper } from "./backend/components/AuthWrapperModal/AuthWrapper";
+import { PersonalInfoForm } from "./modules/PersonalInfoForm/PersonalInfoForm";
+import { ContractorsForm } from "./modules/ContractorForm/ContractorForm";
 
 export {
 	Header,
@@ -39,4 +42,7 @@ export {
 	OrderDetails,
 	FileCard,
 	Loader,
+	ContractorCard,
+	PersonalInfoForm,
+	ContractorsForm,
 };
