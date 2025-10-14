@@ -52,9 +52,12 @@ export function RegisterForm() {
 			<form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
 				<div
 					className={`${styles.formField} ${form.formState.errors.name ? styles.errorField : ""}`}>
-					<label htmlFor='name'>Имя</label>
+					<label className={styles.label} htmlFor='name'>
+						Имя
+					</label>
 					<Input
 						disabled={isLoadingRegister}
+						className={styles.inputField}
 						placeholder='Иван'
 						id='name'
 						type='text'
@@ -67,9 +70,12 @@ export function RegisterForm() {
 
 				<div
 					className={`${styles.formField} ${form.formState.errors.email ? styles.errorField : ""}`}>
-					<label htmlFor='email'>Email</label>
+					<label className={styles.label} htmlFor='email'>
+						Email
+					</label>
 					<Input
 						disabled={isLoadingRegister}
+						className={styles.inputField}
 						placeholder='ivan@example.com'
 						id='email'
 						type='email'
@@ -84,9 +90,12 @@ export function RegisterForm() {
 					className={`${styles.formField} ${
 						form.formState.errors.password ? styles.errorField : ""
 					}`}>
-					<label htmlFor='password'>Пароль</label>
+					<label className={styles.label} htmlFor='password'>
+						Пароль
+					</label>
 					<Input
 						disabled={isLoadingRegister}
+						className={styles.inputField}
 						placeholder='********'
 						id='password'
 						type='password'
@@ -101,9 +110,12 @@ export function RegisterForm() {
 					className={`${styles.formField} ${
 						form.formState.errors.passwordRepeat ? styles.errorField : ""
 					}`}>
-					<label htmlFor='passwordRepeat'>Подтверждение пароля</label>
+					<label className={styles.label} htmlFor='passwordRepeat'>
+						Подтверждение пароля
+					</label>
 					<Input
 						disabled={isLoadingRegister}
+						className={styles.inputField}
 						placeholder='********'
 						id='passwordRepeat'
 						type='password'
@@ -114,12 +126,11 @@ export function RegisterForm() {
 					)}
 				</div>
 
-				<div style={{ display: "flex", justifyContent: "center" }}>
-					<ReCAPTCHA
-						sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!}
-						onChange={setRecaptchaValue}
-					/>
-				</div>
+				<ReCAPTCHA
+					style={{ display: "flex", justifyContent: "center" }}
+					sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!}
+					onChange={setRecaptchaValue}
+				/>
 
 				<Button type='submit' className={styles.submitBtn} disabled={isLoadingRegister}>
 					{isLoadingRegister ? <Loader /> : "Зарегестрироваться"}
