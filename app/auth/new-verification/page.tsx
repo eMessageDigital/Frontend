@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import NewVerificationForm from "../../core/components/auth/components/NewVerificationForm/NewVerificationForm";
+import NewVerificationForm from "../../core/components/backend/components/NewVerificationForm/NewVerificationForm";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {

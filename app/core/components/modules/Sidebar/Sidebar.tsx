@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import styles from "./Sidebar.module.scss";
 import { Button, Loader } from "../..";
 import { LogOut, SquareMousePointer, User } from "lucide-react";
-import { useLogoutMutation } from "../../auth/hooks/useLogoutMutation";
+import { useLogoutMutation } from "../../backend/hooks/useLogoutMutation";
 
 interface SidebarProps {
 	role: string;

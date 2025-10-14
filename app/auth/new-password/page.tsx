@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import React, { Suspense } from "react";
-import { NewPasswordForm } from "../../core/components/auth/components";
+import { NewPasswordForm } from "../../core/components/backend/components";
 
 export const metadata: Metadata = {
 	title: "Новый пароль",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Footer, Header } from "../app/core/components";
 import "./core/styles/globals.scss";
 import { ReduxProvider } from "./core/store/Providers";
-import { AuthModal } from "./core/components/auth/components/AuthModal/AuthModal";
+import { AuthModal } from "./core/components/backend/components/AuthModal/AuthModal";
 import { Toaster } from "sonner";
 import { ReactQueryProvider } from "./core/Providers/ReactQueryProvider";
 

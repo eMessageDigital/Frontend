@@ -8,7 +8,7 @@ import { Button, Container, HoverLink, MiniProfile } from "../..";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../store/slices/modalSlice";
 import Link from "next/link";
-import { useProfile } from "../../auth/hooks/useProfile";
+import { useProfile } from "../../backend/hooks/useProfile";
 
 export const Header = () => {
 	const dispatch = useDispatch();

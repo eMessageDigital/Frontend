@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./MiniProfile.module.scss";
 import { User, LogOut } from "lucide-react";
 import Link from "next/link";
-import { IUser } from "../../auth/api/types";
+import { IUser } from "../../backend/api/types";
 
 interface MiniProfileProps {
 	user?: IUser;

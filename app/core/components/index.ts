@@ -17,7 +17,7 @@ import Profile from "./modules/Profile/Profile";
 import Orders from "./modules/Orders/Orders";
 import { Sidebar } from "./modules/Sidebar/Sidebar";
 import OrderDetails from "./modules/OrderDetails/OrderDetails";
-import { AuthWrapper } from "./auth/components/AuthWrapperModal/AuthWrapper";
+import { AuthWrapper } from "./backend/components/AuthWrapperModal/AuthWrapper";
 
 export {
 	Header,

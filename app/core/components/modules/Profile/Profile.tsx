@@ -1,28 +1,40 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import styles from "./Profile.module.scss";
-import { addContractor, removeContractor } from "../../../store/slices/profileSlice";
-import { rootState } from "../../../store";
 import { Input, Loader } from "../..";
 import { FilePlus, PenLine, Trash } from "lucide-react";
-import { useProfile, useUpdateProfileMutation } from "../../auth/hooks";
 import { IMaskInput } from "react-imask";
+import {
+	useContractors,
+	useCreateContractorMutation,
+	useDeleteContractorMutation,
+	useProfile,
+	useUpdateProfileMutation,
+} from "../../backend/hooks";
+import { IContractor } from "../../backend/features/user/services";
 
 const Profile: React.FC = () => {
-	const dispatch = useDispatch();
-	const { contractors } = useSelector((state: rootState) => state.profile);
-
 	const { user, isLoading } = useProfile();
 	const { updateProfile, isUpdating } = useUpdateProfileMutation();
+
+	const { data: contractors, isLoading: isLoadingContractors } = useContractors();
+	const { createContractor, isCreating } = useCreateContractorMutation();
+	const { deleteContractor, isDeleting } = useDeleteContractorMutation();
 
 	const [formData, setFormData] = useState({
 		name: "",
 		lastName: "",
 		email: "",
 		phone: "",
+	});
+
+	const [showForm, setShowForm] = useState(false);
+	const [newContractor, setNewContractor] = useState<Partial<IContractor>>({
+		inn: "",
+		kpp: "",
+		ogrn: "",
+		name: "",
 	});
 
 	useEffect(() => {
@@ -45,32 +57,23 @@ const Profile: React.FC = () => {
 		await updateProfile(formData);
 	};
 
-	const [showForm, setShowForm] = useState(true);
-	const [newContractor, setNewContractor] = useState({
-		inn: "",
-		kpp: "",
-		ogrn: "",
-		name: "",
-	});
-
 	const handleNewContractorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setNewContractor({ ...newContractor, [e.target.name]: e.target.value });
 	};
 
-	const handleSaveNewContractor = (e: React.FormEvent) => {
+	const handleSaveNewContractor = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (!newContractor.name || !newContractor.inn) return;
 
-		dispatch(addContractor({ id: uuidv4(), ...newContractor }));
+		await createContractor(newContractor);
 		setNewContractor({ inn: "", kpp: "", ogrn: "", name: "" });
 		setShowForm(false);
 	};
 
-	if (isLoading) return <Loader />;
+	if (isLoading || isLoadingContractors) return <Loader />;
 
 	return (
 		<div className={styles.profile}>
-			{/* Персональная информация */}
 			<div className={styles.sectionHeader}>
 				<h2>Персональная информация</h2>
 			</div>
@@ -83,7 +86,7 @@ const Profile: React.FC = () => {
 							<Input
 								className={styles.input}
 								type='text'
-								name='displayName'
+								name='name'
 								value={formData.name}
 								onChange={handleChange}
 								placeholder='Иван'
@@ -199,7 +202,7 @@ const Profile: React.FC = () => {
 						</label>
 
 						<div className={styles.buttonsRight}>
-							<button type='submit' className={styles.primary}>
+							<button type='submit' className={styles.primary} disabled={isCreating}>
 								<FilePlus size={16} /> Сохранить
 							</button>
 						</div>
@@ -207,9 +210,8 @@ const Profile: React.FC = () => {
 				</section>
 			)}
 
-			{/* Список сохранённых контрагентов */}
 			<section className={styles.contractorsList}>
-				{contractors.map((c) => (
+				{contractors?.map((c) => (
 					<div key={c.id} className={styles.contractorCard}>
 						<div className={styles.contractorCardHeader}>
 							<h3>
@@ -218,7 +220,7 @@ const Profile: React.FC = () => {
 							<Trash
 								className={styles.iconBtn}
 								type='button'
-								onClick={() => dispatch(removeContractor(c.id))}
+								onClick={() => deleteContractor(c.id)}
 							/>
 						</div>
 						<div className={styles.contractorCardText}>
