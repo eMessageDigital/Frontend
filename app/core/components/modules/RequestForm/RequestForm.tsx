@@ -7,6 +7,7 @@ import { Container } from "../../ui/Container/Container";
 import { Button } from "../..";
 import { FaPhoneVolume } from "react-icons/fa6";
 import { MdPhoneInTalk } from "react-icons/md";
+import Link from "next/link";
 
 export const RequestForm: React.FC = () => {
 	return (
@@ -35,9 +36,11 @@ export const RequestForm: React.FC = () => {
 							<Button className={styles.iconButton}>
 								<MdPhoneInTalk />
 							</Button>
-							<Button className={styles.iconButton}>
-								<FaTelegramPlane />
-							</Button>
+							<Link href='https://t.me/emessage_advt'>
+								<Button className={styles.iconButton}>
+									<FaTelegramPlane />
+								</Button>
+							</Link>
 						</div>
 					</div>
 				</div>

@@ -11,6 +11,7 @@ interface FormState {
 	offer: string;
 	description: string;
 	selectedServices: string[];
+	launchTime: string;
 }
 
 const initialState: FormState = {
@@ -23,6 +24,7 @@ const initialState: FormState = {
 	offer: "",
 	description: "",
 	selectedServices: [],
+	launchTime: "",
 };
 
 const formSlice = createSlice({

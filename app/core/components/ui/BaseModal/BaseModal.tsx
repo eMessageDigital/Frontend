@@ -8,9 +8,15 @@ interface BaseModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	children: React.ReactNode;
+	showCloseBtn?: boolean;
 }
 
-const BaseModal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
+const BaseModal: React.FC<BaseModalProps> = ({
+	isOpen,
+	onClose,
+	children,
+	showCloseBtn = true,
+}) => {
 	if (!isOpen) return null;
 
 	const modalRoot = document.getElementById("modal-root-notes");
@@ -19,9 +25,11 @@ const BaseModal: React.FC<BaseModalProps> = ({ isOpen, onClose, children }) => {
 	return ReactDOM.createPortal(
 		<div className={styles.overlay} onClick={onClose}>
 			<div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-				<button className={styles.closeBtn} onClick={onClose}>
-					✕
-				</button>
+				{showCloseBtn && (
+					<button className={styles.closeBtn} onClick={onClose}>
+						✕
+					</button>
+				)}
 				{children}
 			</div>
 		</div>,

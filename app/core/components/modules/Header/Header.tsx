@@ -60,9 +60,9 @@ export const Header = () => {
 						<HoverLink onClick={() => setMenuOpen(false)} href='/services'>
 							Услуги
 						</HoverLink>
-						<HoverLink onClick={() => setMenuOpen(false)} href='#'>
+						{/* <HoverLink onClick={() => setMenuOpen(false)} href='#'>
 							Кейсы
-						</HoverLink>
+						</HoverLink> */}
 						<HoverLink onClick={() => setMenuOpen(false)} href='/faq'>
 							FAQ
 						</HoverLink>
@@ -70,7 +70,6 @@ export const Header = () => {
 							Контакты
 						</HoverLink>
 
-						{/* Мобильные кнопки */}
 						<div className={styles.mobileButtons}>
 							{user ? (
 								<span onClick={() => setMenuOpen(false)}>
@@ -90,7 +89,6 @@ export const Header = () => {
 					</nav>
 				</div>
 
-				{/* Десктопные кнопки */}
 				<div className={styles.buttons}>
 					{isLoading ? (
 						<MiniProfile loading={true} user={user} />

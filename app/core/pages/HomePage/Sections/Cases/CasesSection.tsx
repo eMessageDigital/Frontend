@@ -44,7 +44,7 @@ const trendData4 = [
 export default function CasesSection() {
 	return (
 		<Container className={styles.sectionContainer}>
-			<h1 className={styles.sectionTitle}>
+			<h1 id='cases' className={styles.sectionTitle}>
 				<span className={styles.titleRow}>
 					Кейсы
 					<FaBriefcase className={styles.icon} size={42} color='#4EBAC3' />, которые

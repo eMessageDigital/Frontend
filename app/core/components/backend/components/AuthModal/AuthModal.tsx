@@ -14,7 +14,7 @@ export const AuthModal = () => {
 	if (!isOpen || !mode) return null;
 
 	return (
-		<BaseModal isOpen={isOpen} onClose={() => dispatch(closeModal())}>
+		<BaseModal showCloseBtn={false} isOpen={isOpen} onClose={() => dispatch(closeModal())}>
 			{mode === "login" ? <LoginForm /> : <RegisterForm />}
 		</BaseModal>
 	);
