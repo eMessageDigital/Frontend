@@ -73,7 +73,7 @@ export function ResetPasswordForm() {
 					)}
 
 					<Button disabled={isLoadingReset} type='submit' className={styles.submitBtn}>
-						{isLoadingReset ? <Loader /> : "Сбросить пароль"}
+						{isLoadingReset ? <Loader color='#ffffff' /> : "Сбросить пароль"}
 					</Button>
 				</form>
 			</AuthWrapper>

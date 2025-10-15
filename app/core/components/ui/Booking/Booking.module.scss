@@ -123,8 +123,7 @@
 /* Очень маленькие устройства (480px и ниже) */
 @media (max-width: 480px) {
   .dateInput {
-    padding: 12px 36px 12px 12px;
-    font-size: 12px;
+    font-size: 15px;
   }
 
   .icon {
@@ -132,6 +131,12 @@
   }
 
   :global(.react-datepicker) {
-    font-size: 12px;
+    font-size: 16px;
   }
+}
+
+.errorText {
+  font-size: .85rem;
+  margin-top: 4px;
+  color: #e74c3c;
 }

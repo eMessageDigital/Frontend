@@ -74,7 +74,7 @@ export function NewPasswordForm() {
 					)}
 
 					<Button disabled={isLoadingNew} type='submit' className={styles.submitBtn}>
-						{isLoadingNew ? <Loader /> : "Сбросить пароль"}
+						{isLoadingNew ? <Loader color='#ffffff' /> : "Сбросить пароль"}
 					</Button>
 				</form>
 			</AuthWrapper>

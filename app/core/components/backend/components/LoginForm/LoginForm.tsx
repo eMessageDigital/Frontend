@@ -105,7 +105,7 @@ export function LoginForm() {
 				)}
 
 				<Button disabled={isLoadingLogin} type='submit' className={styles.submitBtn}>
-					{isLoadingLogin ? <Loader /> : "Войти"}
+					{isLoadingLogin ? <Loader color='#ffffff' /> : "Войти"}
 				</Button>
 			</form>
 		</AuthWrapper>

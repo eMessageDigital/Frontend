@@ -133,7 +133,7 @@ export function RegisterForm() {
 				/>
 
 				<Button type='submit' className={styles.submitBtn} disabled={isLoadingRegister}>
-					{isLoadingRegister ? <Loader /> : "Зарегестрироваться"}
+					{isLoadingRegister ? <Loader color='#ffffff' /> : "Зарегестрироваться"}
 				</Button>
 			</form>
 		</AuthWrapper>

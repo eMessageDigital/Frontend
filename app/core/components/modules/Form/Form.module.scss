@@ -64,16 +64,41 @@
           display: flex;
           flex-direction: column;
 
-          .input,
-          .inputPhoneInner {
+          .inputPhoneWrapper {
+            display: flex;
+            align-items: center;
             width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-color: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+            &:focus-within {
+              border-color: $color-accent;
+              box-shadow: 0 0 0 2px rgba($color-accent, 0.15);
+            }
+
+            &.inputError {
+              border: 1px solid #e74c3c;
+              box-shadow: none;
+            }
+
+            .inputPhoneInner {
+              width: 100%;
+              border: none;
+              outline: none;
+              background: transparent;
+              font-family: "Inter", sans-serif;
+              font-size: 16px;
+            }
           }
         }
 
         .fileInputWrapper {
           grid-column: 1 / 2;
           background: #fff;
-          border-radius: 12px;
+          border-radius: 8px;
           padding: 14px 18px;
           display: flex;
           align-items: center;
@@ -97,13 +122,6 @@
           .fileInput {
             display: none;
           }
-        }
-
-        .bookingWrapper {
-          grid-column: 2 / 3;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
         }
 
         .textarea {
@@ -277,53 +295,6 @@
   }
 }
 
-.inputPhoneWrapper {
-  box-sizing: border-box;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 0;
-  background-color: #fff;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-
-  &:focus-within {
-    border-color: $color-accent;
-    outline: none;
-  }
-
-  &.inputError {
-    border-color: #e74c3c;
-  }
-
-  .inputPhoneInner,
-  .inputPhoneWrapper input {
-    display: block;
-    width: 100%;
-    padding: 8px 10px;
-    font-family: "Inter", sans-serif;
-    font-size: 15px;
-    border: none;
-    background: transparent;
-    outline: none;
-    box-sizing: border-box;
-  }
-}
-
-.errorText {
-  color: #e74c3c;
-  margin-top: 4px;
-  font-size: 14px;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 /* ------------------ MEDIA QUERIES ------------------ */
 
 /* Планшеты (1024px и ниже) */
@@ -346,12 +317,11 @@
 
         .rightTitle {
           font-size: 48px;
-          text-align: center;
         }
-      }
 
-      .rightSubtitle {
-        font-size: 14px;
+        .rightSubtitle {
+          font-size: 14px;
+        }
       }
     }
 
@@ -368,6 +338,14 @@
 
         .textarea {
           font-size: 14px;
+        }
+
+        .fileInputWrapper {
+          padding: 12px 16px;
+
+          .fileLabel span {
+            font-size: 14px;
+          }
         }
       }
 
@@ -422,10 +400,10 @@
         .rightTitle {
           font-size: 32px;
         }
-      }
 
-      .rightSubtitle {
-        font-size: 12px;
+        .rightSubtitle {
+          font-size: 12px;
+        }
       }
     }
 
@@ -440,31 +418,21 @@
         grid-template-columns: 1fr;
         gap: 12px;
 
-        .wrapper {
+        .fileInputWrapper {
           padding: 10px 14px;
-          .input {
+
+          .fileLabel span {
             font-size: 13px;
           }
         }
 
         .textarea {
-          font-size: 14px;
           padding: 16px;
-        }
-
-        .fileInputWrapper {
-          padding: 10px 14px;
-
-          .fileLabel {
-            span {
-              font-size: 13px;
-            }
-          }
+          font-size: 14px;
         }
       }
 
       .extraService {
-        grid-column: 1 / -1;
         margin-top: 12px;
 
         .selectBox {
@@ -504,6 +472,8 @@
 /* Очень маленькие устройства (480px и ниже) */
 @media (max-width: 480px) {
   .container .form {
+    padding: 16px;
+
     .formHeader {
       .left,
       .rightTitle {
@@ -516,27 +486,53 @@
     }
 
     .section {
+      padding: 16px 0;
+
       .sectionTitle {
         font-size: 18px;
       }
-      
+
       .inputs {
+        grid-template-columns: 1fr;
+        gap: 10px;
+
         .fileInputWrapper {
+          padding: 10px 12px;
+
+          .fileLabel span {
+            font-size: 16px;
+          }
+        }
+
+        .textarea {
+          padding: 14px;
+          font-size: 14px;
+        }
+      }
+
+      .extraService {
+        margin-top: 10px;
+
+        .selectBox {
           padding: 8px 12px;
+        }
 
-          .fileLabel {
-            span {
-              font-size: 12px;
-            }
+        .dropdownList {
+          top: 40px;
+          padding: 6px;
+        }
 
-            .icon {
-              width: 12px;
-            }
+        .checkboxLabel {
+          font-size: 12px;
+          gap: 6px;
+
+          input[type="checkbox"] {
+            width: 12px;
+            height: 12px;
           }
         }
       }
     }
-
 
     .endSection {
       .formBtn {
@@ -550,45 +546,9 @@
     }
   }
 }
-   
-
-.inputPhoneWrapper {
-  box-sizing: border-box;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 0; 
-  background-color: #fff;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-
-  &:focus-within {
-    border-color: $color-accent;
-    outline: none;
-  }
-
-  &.inputError {
-    border: 1px solid #e74c3c
-  }
-
-  .inputPhoneInner,
-  .inputPhoneWrapper input {
-    display: block;
-    width: 100%;
-    padding: 8px 10px;
-    font-family: "Inter", sans-serif;
-    font-size: 15px;
-    border: none; 
-    background: transparent;
-    outline: none;
-    box-sizing: border-box;
-  }
-}
 
 .errorText {
-  color: #e74c3c;
+  font-size: .85rem;
   margin-top: 4px;
-  font-size: 14px;
-}
-
-.inputError {
-  border: 2px solid rgb(255, 65, 65);
+  color: #e74c3c;
 }

@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from "react";
 import styles from "./Form.module.scss";
-import { Booking, Button, Container, Input } from "../..";
+import { Booking, Button, Container, Input, Loader } from "../..";
 import { IMaskInput } from "react-imask";
 import { Download, Paperclip, X } from "lucide-react";
 import { ServiceData } from "../../../data/services/types";
@@ -261,7 +261,11 @@ export default function Form({ plan, serviceData }: FormProps) {
 							</label>
 						</div>
 
-						<Booking onChange={handleLaunchTimeChange} />
+						<Booking
+							onChange={handleLaunchTimeChange}
+							error={errors["project.launchTime"]}
+							required
+						/>
 
 						{form.files.length > 0 && (
 							<ul className={styles.filesList}>
@@ -305,7 +309,7 @@ export default function Form({ plan, serviceData }: FormProps) {
 				{/* Кнопка */}
 				<div className={styles.endSection}>
 					<Button className={styles.formBtn} type='submit' disabled={isSubmitting}>
-						{isSubmitting ? "Отправка..." : "Заказать рассылку"}
+						{isSubmitting ? <Loader color='#ffffff' /> : "Заказать рассылку"}
 					</Button>
 				</div>
 			</form>

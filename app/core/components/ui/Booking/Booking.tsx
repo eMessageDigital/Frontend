@@ -8,9 +8,11 @@ import { ChevronDown } from "lucide-react";
 
 interface BookingProps {
 	onChange: (dateTime: string) => void;
+	error?: string;
+	required?: boolean;
 }
 
-export default function Booking({ onChange }: BookingProps) {
+export default function Booking({ onChange, error, required }: BookingProps) {
 	const [startDate, setStartDate] = useState<Date | null>(null);
 
 	const today = new Date();
@@ -51,7 +53,7 @@ export default function Booking({ onChange }: BookingProps) {
 
 	return (
 		<div className={styles.bookingWrapper}>
-			<div className={styles.dateInputWrapper}>
+			<div className={`${styles.dateInputWrapper} ${error ? styles.inputError : ""}`}>
 				<DatePicker
 					className={styles.dateInput}
 					wrapperClassName={styles.fullWidthWrapper}
@@ -63,10 +65,11 @@ export default function Booking({ onChange }: BookingProps) {
 					dateFormat='dd.MM.yyyy HH:mm'
 					minDate={minDate}
 					filterTime={filterPassedTime}
-					placeholderText='Желаемое время запуска'
+					placeholderText={required ? "Желаемое время запуска *" : "Желаемое время запуска"}
 				/>
 				<ChevronDown size={18} className={styles.icon} />
 			</div>
+			{error && <div className={styles.errorText}>{error}</div>}
 		</div>
 	);
 }

@@ -31,7 +31,7 @@ const StyledWrapper = styled.div<{ $color: string; $size: string; $center: boole
 	display: ${({ $center }) => ($center ? "flex" : "inline-flex")};
 	align-items: ${({ $center }) => ($center ? "center" : "unset")};
 	justify-content: ${({ $center }) => ($center ? "center" : "unset")};
-	min-height: ${({ $center }) => ($center ? "200px" : "auto")};
+	min-height: ${({ $center }) => ($center ? "50px" : "auto")};
 
 	svg {
 		width: ${({ $size }) => $size};
