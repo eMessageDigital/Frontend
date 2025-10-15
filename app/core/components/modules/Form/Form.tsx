@@ -42,9 +42,13 @@ export default function Form({ plan, serviceData }: FormProps) {
 	};
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files) {
-			setForm((prev) => ({ ...prev, files: [...prev.files, ...Array.from(e.target.files)] }));
-		}
+		const files = e.target.files;
+		if (!files) return;
+
+		setForm((prev) => ({
+			...prev,
+			files: [...prev.files, ...Array.from(files)],
+		}));
 	};
 
 	const handleLaunchTimeChange = useCallback(
