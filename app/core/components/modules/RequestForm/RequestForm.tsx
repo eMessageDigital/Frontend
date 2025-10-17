@@ -13,8 +13,10 @@ import {
 	SimpleSubmitForm,
 } from "../../backend/features/user/schemas/simpleSubmitForm.schema";
 import { toastMessageHandler } from "../../backend/utils/toast-message-handler";
+import { useRouter } from "next/navigation";
 
 export const RequestForm: React.FC = () => {
+	const router = useRouter();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [form, setForm] = useState({
 		topic: "",
@@ -96,7 +98,6 @@ export const RequestForm: React.FC = () => {
 					</h1>
 				</div>
 
-				{/* Правая часть */}
 				<div className={styles.right}>
 					<h1>
 						Оставьте заявку, <br /> и мы свяжемся с вами!
@@ -110,7 +111,7 @@ export const RequestForm: React.FC = () => {
 							Оставить заявку
 						</Button>
 						<div className={styles.smallButtons}>
-							<Button className={styles.iconButton}>
+							<Button onClick={() => router.push("/contact")} className={styles.iconButton}>
 								<MdPhoneInTalk />
 							</Button>
 							<Link href='https://t.me/emessage_advt'>

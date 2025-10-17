@@ -21,6 +21,7 @@ import OrderDetails from "./modules/OrderDetails/OrderDetails";
 import { AuthWrapper } from "./backend/components/AuthWrapperModal/AuthWrapper";
 import { PersonalInfoForm } from "./modules/PersonalInfoForm/PersonalInfoForm";
 import { ContractorsForm } from "./modules/ContractorForm/ContractorForm";
+import Users from "./modules/Users/Users";
 
 export {
 	Header,
@@ -45,4 +46,5 @@ export {
 	ContractorCard,
 	PersonalInfoForm,
 	ContractorsForm,
+	Users,
 };

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Sidebar.module.scss";
 import { Button, Loader } from "../..";
-import { LogOut, SquareMousePointer, User } from "lucide-react";
+import { LogOut, SquareMousePointer, User, Users, CheckSquare, Plus } from "lucide-react";
 import { useLogoutMutation } from "../../backend/hooks/useLogoutMutation";
 
 interface SidebarProps {
@@ -14,6 +14,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 	const pathname = usePathname();
 	const { logout, isLoadingLogout } = useLogoutMutation();
+	const isAdmin = role === "ADMIN";
 
 	return (
 		<aside className={styles.sidebar}>
@@ -33,6 +34,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 					<SquareMousePointer />
 					<span>Заказы</span>
 				</Link>
+
+				{/* Админские ссылки */}
+				{isAdmin && (
+					<div className={styles.adminRoutes}>
+						<Link
+							href='/dashboard/users'
+							className={`${styles.tab} ${pathname === "/dashboard/users" ? styles.active : ""}`}>
+							<Users />
+							<span>Пользователи</span>
+						</Link>
+
+						<Link
+							href='/dashboard/orders/active'
+							className={`${styles.tab} ${
+								pathname === "/dashboard/orders/active" ? styles.active : ""
+							}`}>
+							<CheckSquare />
+							<span>Активные заказы</span>
+						</Link>
+
+						<Link
+							href='/dashboard/orders/active'
+							className={`${styles.tab} ${
+								pathname === "/dashboard/orders/active" ? styles.active : ""
+							}`}>
+							<Plus />
+							<span>Создать заказ</span>
+						</Link>
+					</div>
+				)}
 			</div>
 
 			<div className={styles.bottom}>

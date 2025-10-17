@@ -6,19 +6,25 @@ import styles from "../core/pages/DashboardPage/Dashboard.module.scss";
 import { Container, Sidebar } from "../core/components";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-	// получаем cookie
 	const session = (await cookies()).get("session")?.value;
 
-	// если нет сессии — серверный редирект
 	if (!session) {
 		redirect("/");
 	}
 
-	// тут можно серверно получить данные пользователя, если нужно
-	const user = { name: "Пользователь" }; // пример, обычно fetch на сервере
+	const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+	const res = await fetch(`${SERVER_URL}/users/profile`, {
+		headers: { cookie: `session=${session}` },
+		cache: "no-store",
+	});
 
-	// Хлебные крошки (можно оставить как есть)
-	const pathname = "/dashboard/profile"; // или динамически через params на сервере
+	if (!res.ok) {
+		redirect("/");
+	}
+
+	const user = await res.json();
+
+	const pathname = "/dashboard/profile";
 	const parts = pathname.split("/").filter(Boolean);
 
 	const labels: Record<string, string> = {
@@ -61,7 +67,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 			</div>
 
 			<div className={styles.content}>
-				<Sidebar role='user' />
+				<Sidebar role={user.role || "USER"} />
 				<main className={styles.main}>{children}</main>
 			</div>
 		</Container>
