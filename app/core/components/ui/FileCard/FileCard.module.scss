@@ -33,3 +33,20 @@
     transform: scale(1.05);
   }
 }
+
+@media (max-width: 480px) {
+  .fileCard {
+    padding: 8px;
+    gap: 4px;
+
+    p {
+      font-size: 12px;
+    }
+
+    .arrowIcon {
+      width: 28px;
+      height: 28px;
+      padding: 6px;
+    }
+  }
+}

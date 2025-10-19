@@ -73,7 +73,7 @@ export const Header = () => {
 						<div className={styles.mobileButtons}>
 							{user ? (
 								<span onClick={() => setMenuOpen(false)}>
-									<MiniProfile loading={isLoading} />
+									<MiniProfile user={user} />
 								</span>
 							) : (
 								<>

@@ -174,7 +174,8 @@ export const RequestForm: React.FC = () => {
 							{isSubmitting ? <Loader color='#ffffff' /> : "Отправить"}
 						</Button>
 						<span className={styles.agreementText}>
-							Нажимая на кнопку, Вы принимаете условия пользовательского соглашения
+							Нажимая на кнопку, Вы принимаете условия{" "}
+							<span className={styles.agreementTextHyper}>пользовательского соглашения</span>
 						</span>
 					</div>
 				</form>
