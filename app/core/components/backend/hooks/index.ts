@@ -7,3 +7,4 @@ export * from "./useResetPasswordMutation";
 export * from "./useNewPasswordMutation";
 export * from "./useUpdateProfileMutation";
 export * from "./useContractor";
+export * from "./useUsers";

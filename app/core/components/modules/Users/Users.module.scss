@@ -47,8 +47,103 @@
   .userInfo {
     margin-bottom: 4px;
   }
+
+  .userInfoId {
+    font-size: 10px;
+    color: #777777;
+  }
 }
 
 .row:last-child td {
   border-bottom: none;
+}
+
+/* Поиск */
+.searchWrapper { 
+  max-width: 300px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-start;
+  border: 2px solid #eeeeee;
+  border-radius: 12px;
+}
+
+/* Пагинация */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  gap: 12px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #999999;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pagination span {
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #121212;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sortWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sortLabel {
+  font-size: 14px;
+  color: #555;
+}
+
+.sortSelect {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sortOrderBtn {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.sortOrderBtn:hover {
+  background: #eaeaea;
 }
