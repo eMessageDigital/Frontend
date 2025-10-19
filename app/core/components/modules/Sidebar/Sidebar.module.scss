@@ -181,6 +181,12 @@
 }
 
 @media (max-width: 480px) {
+  .sidebar {
+    .top {
+      gap: 10px;
+    }
+  }
+  
   .adminRoutes {
     display: flex;
     flex-direction: row;
