@@ -7,10 +7,11 @@ import { IMaskInput } from "react-imask";
 import { useUpdateProfileMutation } from "../../backend/hooks";
 
 interface PersonalInfoFormProps {
+	title?: string;
 	user: any;
 }
 
-export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ user }) => {
+export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ user, title }) => {
 	const { updateProfile, isUpdating } = useUpdateProfileMutation();
 	const [formData, setFormData] = useState({
 		name: "",
@@ -42,15 +43,22 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ user }) => {
 	return (
 		<>
 			<div className={styles.sectionHeader}>
-				<h2>Персональная информация</h2>
+				<h2>{title}</h2>
 			</div>
 
 			<section className={styles.section}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<div className={styles.grid2}>
-						<Input label='Имя' name='name' value={formData.name} onChange={handleChange} />
+						<Input
+							label='Имя'
+							name='name'
+							placeholder='Иван'
+							value={formData.name}
+							onChange={handleChange}
+						/>
 						<Input
 							label='Фамилия'
+							placeholder='Иванов'
 							name='lastName'
 							value={formData.lastName}
 							onChange={handleChange}
@@ -59,6 +67,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({ user }) => {
 							label='Email'
 							name='email'
 							type='email'
+							placeholder='hello@emessage.su'
 							value={formData.email}
 							onChange={handleChange}
 						/>

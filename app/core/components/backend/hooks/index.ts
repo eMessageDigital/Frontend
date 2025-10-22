@@ -8,3 +8,5 @@ export * from "./useNewPasswordMutation";
 export * from "./useUpdateProfileMutation";
 export * from "./useContractor";
 export * from "./useUsers";
+export * from "./useOrders";
+export * from "./useCurrentUser";

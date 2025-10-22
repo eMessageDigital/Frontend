@@ -29,14 +29,27 @@
     }
   }
 
+  .created {
+    color: #555;
+    background: rgba($color: #9e9e9e, $alpha: 0.15);
+  }
+
+  /* 🟨 Ждёт подтверждения */
+  .waiting {
+    color: #ef6c00;
+    background: rgba($color: #ef6c00, $alpha: 0.1);
+  }
+
+  /* 🟩 В работе */
+  .pending {
+    color: #2e7d32;
+    background: #e6f4ea;
+  }
+
+  /* 🟢 Выполнен */
   .done {
     background-color: rgba($color: $color-primary, $alpha: .15);
     color: rgba($color: $color-primary, $alpha: .8);
-  }
-
-  .pending {
-    color: #2e7d32; 
-	  background: #e6f4ea;
   }
 }
 
@@ -190,4 +203,11 @@
       font-size: 13px;
     }
   }
+}
+
+.saveButton {
+  padding: 16px 32px;
+  background-color: $color-accent;
+  color: #fff;
+  margin-top: 20px;
 }

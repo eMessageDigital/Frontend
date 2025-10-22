@@ -1,53 +1,141 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux";
-import { rootState } from "../../../../core/store";
+import React, { useEffect, useState } from "react";
 import styles from "./OrderDetails.module.scss";
-import { FileCard, Input } from "../..";
+import { Button, Input } from "../..";
+import { orderStatus } from "../../backend/utils/orderStatus";
+import { toastMessageHandler } from "../../backend/utils/toast-message-handler";
 
-export default function OrderDetails() {
-	const { id } = useParams<{ id: string }>();
-	const dispatch = useDispatch();
+export interface Order {
+	id: string;
+	userId: string;
+	base?: string;
+	desiredLaunchAt?: string;
+	offer?: string;
+	projectDetails?: string;
+	status: "CREATED" | "PENDING_APPROVAL" | "ACCEPTED" | "COMPLETED" | string;
+	reach?: number;
+	ctr?: number;
+	conversion?: number;
+	contractorIds?: string[];
+	createdAt: string;
+	updatedAt: string;
+	price: number;
+	user?: {
+		id: string;
+		displayName?: string;
+		email?: string;
+	};
+}
 
-	const order = useSelector((state: rootState) => state.orders.orders.find((o) => o.id === id));
+export interface Contractor {
+	id: string;
+	name: string;
+	inn?: string;
+	kpp?: string;
+	ogrn?: string;
+}
 
-	const contractors = useSelector((state: rootState) => state.profile.contractors);
+interface OrderDetailsProps {
+	order: Order;
+	contractors?: Contractor[];
+	onRemoveContractor?: (contractorId: string) => void;
+}
 
-	if (!order) return <p>Заказ не найден</p>;
+const OrderDetails: React.FC<OrderDetailsProps> = ({
+	order,
+	contractors = [],
+	onRemoveContractor,
+}) => {
+	const [editableOrder, setEditableOrder] = useState<Partial<Order>>({
+		base: order.base,
+		desiredLaunchAt: order.desiredLaunchAt,
+		offer: order.offer,
+		projectDetails: order.projectDetails,
+		reach: order.reach,
+		ctr: order.ctr,
+		conversion: order.conversion,
+		price: order.price,
+	});
+	const [isAdmin, setIsAdmin] = useState(false);
+	const [isSaving, setIsSaving] = useState(false);
 
-	const orderContractors = contractors.filter((c) => order.contractorIds.includes(c.id));
+	useEffect(() => {
+		const fetchUserRole = async () => {
+			try {
+				const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/me`, {
+					credentials: "include",
+				});
+				if (!res.ok) return;
+				const user = await res.json();
+				setIsAdmin(user.role === "ADMIN");
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchUserRole();
+	}, []);
 
-	const handleRemoveContractor = (contractorId: string) => {
-		dispatch({
-			type: "orders/removeContractor",
-			payload: { orderId: order.id, contractorId },
-		});
+	const handleChange = (field: keyof Order, value: any) => {
+		setEditableOrder((prev) => ({ ...prev, [field]: value }));
+	};
+
+	const handleSave = async () => {
+		setIsSaving(true);
+		try {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/orders/${order.id}`, {
+				method: "PATCH",
+				credentials: "include",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(editableOrder),
+			});
+			if (!res.ok) throw new Error("Не удалось сохранить заказ");
+			toastMessageHandler("Изменения сохранены");
+		} catch (err) {
+			toastMessageHandler("Ошибка при сохранении заказа");
+		} finally {
+			setIsSaving(false);
+		}
+	};
+
+	const orderContractors = contractors.filter((c) => order.contractorIds?.includes(c.id));
+
+	const calculateLeads = () => {
+		const { reach = 0, ctr = 0, conversion = 0 } = editableOrder;
+		return Math.round((reach * ctr * conversion) / 10000);
 	};
 
 	return (
 		<div className={styles.orderDetails}>
-			{/* Заголовок */}
 			<div className={styles.header}>
 				<h2>Заказ №{order.id}</h2>
-				<span
-					className={`${styles.status} ${
-						order.status === "Выполнен"
-							? styles.done
-							: order.status === "В обработке"
-							? styles.pending
-							: styles.cancelled
-					}`}>
-					{order.status}
-				</span>
+
+				<div className={styles.statusAndPrice}>
+					<span
+						className={`${styles.status} ${
+							order.status === "COMPLETED"
+								? styles.done
+								: order.status === "ACCEPTED"
+								? styles.pending
+								: order.status === "PENDING_APPROVAL"
+								? styles.waiting
+								: styles.created
+						}`}>
+						{orderStatus[order.status] || order.status}
+					</span>
+				</div>
 			</div>
 
+			{/* Исполнители */}
 			<section className={styles.contractorsList}>
 				{orderContractors.length > 0 ? (
 					orderContractors.map((c) => (
 						<div key={c.id} className={styles.contractorCard}>
 							<div className={styles.contractorCardHeader}>
 								<h4>{c.name}</h4>
+								{isAdmin && onRemoveContractor && (
+									<button onClick={() => onRemoveContractor(c.id)}>Удалить</button>
+								)}
 							</div>
 							<div className={styles.contractorCardText}>
 								<p>
@@ -67,102 +155,91 @@ export default function OrderDetails() {
 				)}
 			</section>
 
+			{/* Основная информация */}
 			<section className={styles.info}>
 				<div className={styles.sectionHeader}>
 					<div>
 						<p>База</p>
-						<Input className={styles.input} readOnly />
+						<Input
+							readOnly={!isAdmin}
+							value={editableOrder.base || ""}
+							onChange={(e) => handleChange("base", e.target.value)}
+						/>
 					</div>
 					<div>
 						<p>Желаемое время запуска</p>
-						<Input className={styles.input} readOnly />
+						<Input
+							readOnly={!isAdmin}
+							value={editableOrder.desiredLaunchAt || ""}
+							onChange={(e) => handleChange("desiredLaunchAt", e.target.value)}
+						/>
 					</div>
 				</div>
 				<div className={styles.offer}>
 					<p>Оффер</p>
-					<Input readOnly />
+					<Input
+						readOnly={!isAdmin}
+						value={editableOrder.offer || ""}
+						onChange={(e) => handleChange("offer", e.target.value)}
+					/>
 				</div>
 				<div className={styles.about}>
 					<p>О проекте</p>
-					<Input readOnly />
-				</div>
-				<div className={styles.files}>
-					<p className={styles.text}>Прикрепленные файлы</p>
-					<div className={styles.bottomFiles}>
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"penis.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"tgotchet.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-					</div>
+					<Input
+						readOnly={!isAdmin}
+						value={editableOrder.projectDetails || ""}
+						onChange={(e) => handleChange("projectDetails", e.target.value)}
+					/>
 				</div>
 			</section>
 
+			{/* Результаты */}
 			<h1 className={styles.resultsTitle}>Результаты</h1>
 			<section className={styles.result}>
 				<div className={styles.row}>
 					<div>
 						<p>Охват</p>
-						<Input className={styles.input} readOnly value={order.reach} />
+						<Input
+							readOnly={!isAdmin}
+							type='number'
+							value={editableOrder.reach || 0}
+							onChange={(e) => handleChange("reach", Number(e.target.value))}
+						/>
 					</div>
 					<div>
 						<p>Конверсия</p>
-						{(() => {
-							const conversionCount = Math.round((order.conversion / 100) * order.reach);
-							return (
-								<Input
-									className={styles.input}
-									readOnly
-									value={`${order.conversion}% (${conversionCount})`}
-								/>
-							);
-						})()}
+						<Input
+							readOnly={!isAdmin}
+							type='number'
+							value={editableOrder.conversion || 0}
+							onChange={(e) => handleChange("conversion", Number(e.target.value))}
+						/>
 					</div>
 				</div>
 				<div className={styles.row}>
 					<div>
 						<p>CTR</p>
-						{(() => {
-							const ctrCount = Math.round((order.ctr / 100) * order.reach);
-							return (
-								<Input className={styles.input} readOnly value={`${order.ctr}% (${ctrCount})`} />
-							);
-						})()}
+						<Input
+							readOnly={!isAdmin}
+							type='number'
+							value={editableOrder.ctr || 0}
+							onChange={(e) => handleChange("ctr", Number(e.target.value))}
+						/>
 					</div>
 					<div>
 						<p>Лидогенерация</p>
-						{(() => {
-							const leadsCount = Math.round(
-								(order.ctr / 100) * (order.conversion / 100) * order.reach
-							);
-							return <Input className={styles.input} readOnly value={`${leadsCount}`} />;
-						})()}
-					</div>
-				</div>
-
-				<div className={styles.files}>
-					<p className={styles.text}>Прикрепленные файлы</p>
-					<div className={styles.bottomFiles}>
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"penis.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"tgotchet.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
-						<FileCard name={"main.txt"} />
+						<Input readOnly value={calculateLeads()} />
 					</div>
 				</div>
 			</section>
+
+			{isAdmin && (
+				<Button className={styles.saveButton} onClick={handleSave} disabled={isSaving}>
+					{isSaving ? "Сохранение..." : "Сохранить изменения"}
+				</Button>
+			)}
 		</div>
 	);
-}
+};
+
+export default OrderDetails;

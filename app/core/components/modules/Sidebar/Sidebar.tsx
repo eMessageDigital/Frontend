@@ -28,9 +28,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 
 				<Link
 					href='/dashboard/orders'
-					className={`${styles.tab} ${
-						pathname?.startsWith("/dashboard/orders") ? styles.active : ""
-					}`}>
+					className={`${styles.tab} ${pathname === "/dashboard/orders" ? styles.active : ""}`}>
 					<SquareMousePointer />
 					<span>Заказы</span>
 				</Link>
@@ -46,18 +44,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 						</Link>
 
 						<Link
-							href='/dashboard/orders/active'
+							href='/dashboard/orders/all'
 							className={`${styles.tab} ${
-								pathname === "/dashboard/orders/active" ? styles.active : ""
+								pathname === "/dashboard/orders/all" ? styles.active : ""
 							}`}>
 							<CheckSquare />
-							<span>Активные заказы</span>
+							<span>Все заказы</span>
 						</Link>
 
 						<Link
-							href='/dashboard/orders/active'
+							href='/dashboard/orders/create'
 							className={`${styles.tab} ${
-								pathname === "/dashboard/orders/active" ? styles.active : ""
+								pathname === "/dashboard/orders/create" ? styles.active : ""
 							}`}>
 							<Plus />
 							<span>Создать заказ</span>

@@ -1,19 +1,15 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useSelector } from "react-redux";
-import { rootState } from "../../../core/store";
 import { OrderDetails } from "../../../core/components";
-
-export const dynamic = "force-dynamic";
+import { useOrder } from "../../../core/components/backend/hooks/useOrder";
 
 export default function OrderDetailsPage() {
 	const { id } = useParams<{ id: string }>();
-	const order = useSelector((state: rootState) => state.orders.orders.find((o) => o.id === id));
+	const { data: order, isLoading, isError } = useOrder(id!);
 
-	if (!order) {
-		return <p>Заказ не найден</p>;
-	}
+	if (isLoading) return <p>Загрузка...</p>;
+	if (isError || !order) return <p>Заказ не найден</p>;
 
-	return <OrderDetails />;
+	return <OrderDetails order={order} />;
 }

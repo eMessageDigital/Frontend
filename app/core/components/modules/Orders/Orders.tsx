@@ -1,17 +1,43 @@
 "use client";
 
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { rootState } from "../../../store";
-import { cancelOrder } from "../../../store/slices/ordersSlice";
 import styles from "./Orders.module.scss";
 import Card from "./ui/Card";
 import { useRouter } from "next/navigation";
 
-const Orders: React.FC = () => {
-	const dispatch = useDispatch();
-	const orders = useSelector((state: rootState) => state.orders.orders);
+export interface Order {
+	id: string;
+	userId: string;
+	base?: string;
+	desiredLaunchAt?: string;
+	offer?: string;
+	projectDetails?: string;
+	status: "CREATED" | "PENDING_APPROVAL" | "ACCEPTED" | "COMPLETED";
+	createdAt: string;
+	updatedAt: string;
+	user?: {
+		id: string;
+		displayName?: string;
+		email?: string;
+	};
+}
 
+interface OrdersProps {
+	useOrdersHook: () => {
+		data?: Order[];
+		isLoading: boolean;
+		isError: boolean;
+	};
+	title?: string;
+	showCancelButton?: boolean;
+}
+
+const Orders: React.FC<OrdersProps> = ({
+	useOrdersHook,
+	title = "История заказов",
+	showCancelButton = false,
+}) => {
+	const { data: orders, isLoading, isError } = useOrdersHook();
 	const router = useRouter();
 
 	const handleGoToOrder = (id: string) => {
@@ -19,22 +45,25 @@ const Orders: React.FC = () => {
 	};
 
 	const handleCancel = (id: string) => {
-		dispatch(cancelOrder(id));
+		console.log("Cancel order", id);
 	};
+
+	if (isLoading) return <p>Загрузка заказов...</p>;
+	if (isError) return <p>Ошибка при загрузке заказов</p>;
+
+	if (!orders || orders.length === 0) return <p>Заказов пока нет.</p>;
 
 	return (
 		<div className={styles.orders}>
-			<h2>История заказов</h2>
-
-			{orders.length === 0 && <p>У вас пока нет заказов.</p>}
+			<h2>{title}</h2>
 
 			<div className={styles.ordersList}>
-				{orders.map((order) => (
+				{orders.map((order: Order) => (
 					<Card
 						key={order.id}
 						order={order}
-						onCancel={handleCancel}
-						onGoToOrder={handleGoToOrder}
+						onCancel={showCancelButton ? () => handleCancel(order.id) : undefined}
+						onGoToOrder={() => handleGoToOrder(order.id)}
 					/>
 				))}
 			</div>
