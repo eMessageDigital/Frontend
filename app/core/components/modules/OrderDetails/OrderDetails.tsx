@@ -20,7 +20,7 @@ export interface Order {
 	contractorIds?: string[];
 	createdAt: string;
 	updatedAt: string;
-	price: number;
+	price?: number;
 	user?: {
 		id: string;
 		displayName?: string;
