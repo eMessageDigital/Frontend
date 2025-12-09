@@ -20,12 +20,14 @@ export interface Order {
 
 type OrdersResponse = Order[];
 
-// Хук для обычного пользователя — свои заказы
-const fetchOrders = async (): Promise<OrdersResponse> => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/orders`, {
-		method: "GET",
-		credentials: "include",
-	});
+const fetchOrders = async (
+	sortBy: "createdAt" | "updatedAt" = "createdAt",
+	order: "asc" | "desc" = "desc"
+): Promise<OrdersResponse> => {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_SERVER_URL}/orders?sortBy=${sortBy}&order=${order}`,
+		{ method: "GET", credentials: "include" }
+	);
 
 	if (!res.ok) {
 		const error = await res.json().catch(() => ({ message: "Ошибка при загрузке заказов" }));
@@ -33,25 +35,34 @@ const fetchOrders = async (): Promise<OrdersResponse> => {
 		throw new Error(error.message || "Не удалось загрузить заказы");
 	}
 
-	const json = await res.json();
-	return json;
+	return res.json();
 };
 
-export const useOrders = () => {
-	return useQuery<OrdersResponse, Error>({
-		queryKey: ["orders"],
-		queryFn: fetchOrders,
+export const useOrders = ({
+	sortBy = "createdAt",
+	order = "desc",
+}: {
+	sortBy?: "createdAt" | "updatedAt";
+	order?: "asc" | "desc";
+} = {}) => {
+	return useQuery({
+		queryKey: ["orders", sortBy, order] as const, // 👈 as const важно
+		queryFn: () => fetchOrders(sortBy, order),
 		staleTime: 1000 * 60 * 5,
 		retry: 1,
+		refetchOnWindowFocus: false,
 	});
 };
 
-// Хук для админа — все заказы
-const fetchAllOrders = async (): Promise<OrdersResponse> => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/orders/all`, {
-		method: "GET",
-		credentials: "include",
-	});
+// === Для админа ===
+const fetchAllOrders = async (
+	sortBy: "createdAt" | "updatedAt" = "createdAt",
+	order: "asc" | "desc" = "desc"
+): Promise<OrdersResponse> => {
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_SERVER_URL}/orders/all?sortBy=${sortBy}&order=${order}`,
+		{ method: "GET", credentials: "include" }
+	);
 
 	if (!res.ok) {
 		const error = await res.json().catch(() => ({ message: "Ошибка при загрузке всех заказов" }));
@@ -59,15 +70,21 @@ const fetchAllOrders = async (): Promise<OrdersResponse> => {
 		throw new Error(error.message || "Не удалось загрузить все заказы");
 	}
 
-	const json = await res.json();
-	return json;
+	return res.json();
 };
 
-export const useAllOrders = () => {
-	return useQuery<OrdersResponse, Error>({
-		queryKey: ["orders", "all"],
-		queryFn: fetchAllOrders,
+export const useAllOrders = ({
+	sortBy = "createdAt",
+	order = "desc",
+}: {
+	sortBy?: "createdAt" | "updatedAt";
+	order?: "asc" | "desc";
+} = {}) => {
+	return useQuery({
+		queryKey: ["orders", "all", sortBy, order] as const,
+		queryFn: () => fetchAllOrders(sortBy, order),
 		staleTime: 1000 * 60 * 5,
 		retry: 1,
+		refetchOnWindowFocus: false,
 	});
 };

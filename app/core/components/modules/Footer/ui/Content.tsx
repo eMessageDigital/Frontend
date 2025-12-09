@@ -24,7 +24,7 @@ export default function Content() {
 
 					<div className={styles.column}>
 						<p>+7 (995) 933-83-72</p>
-						<p>emessage.adt@yandex.ru</p>
+						<p>hello@emessage.su</p>
 					</div>
 				</div>
 

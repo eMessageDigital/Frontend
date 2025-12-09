@@ -36,7 +36,7 @@ export default function ContactsPage() {
 						<div className={styles.cardText}>
 							<p className={styles.contactLabel}>Электронная почта</p>
 							<p className={styles.contactValue}>
-								<a href='tel:+1234567890'>emessage.adt@yandex.ru</a>
+								<a href='mailto:hello@emessage.su'>hello@emessage.su</a>
 							</p>
 						</div>
 					</div>

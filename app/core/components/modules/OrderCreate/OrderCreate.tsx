@@ -5,11 +5,13 @@ import styles from "./OrderCreate.module.scss";
 import { Input, FileCard, Button } from "../..";
 import { IMaskInput } from "react-imask";
 import { useUsers, User as ServerUser } from "../../backend/hooks/useUsers";
+import { toastMessageHandler } from "../../backend/utils/toast-message-handler";
 
 export default function OrderCreate() {
 	const [searchValue, setSearchValue] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState<ServerUser[]>([]);
 	const [selectedUser, setSelectedUser] = useState<ServerUser | null>(null);
+
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
@@ -22,10 +24,12 @@ export default function OrderCreate() {
 		projectDetails: "",
 		files: [] as File[],
 	});
+
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const { data: usersResponse } = useUsers({ page: 1, limit: 100, search: searchValue });
 
+	// 🔹 Фильтрация пользователей по имени или email
 	useEffect(() => {
 		if (usersResponse?.data) {
 			const filtered = usersResponse.data.filter(
@@ -41,24 +45,26 @@ export default function OrderCreate() {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
+		setFormData((prev) => ({ ...prev, [name]: value }));
 	};
 
+	// 🔹 Выбор существующего пользователя
 	const handleSelectUser = (user: ServerUser) => {
 		setSelectedUser(user);
-		setFormData({
-			...formData,
+		setFormData((prev) => ({
+			...prev,
 			name: user.firstName,
 			email: user.email,
 			telegram: "",
 			phone: user.phone || "",
-		});
+		}));
 		setSearchValue("");
 	};
 
+	// 🔹 Выбор файлов
 	const handleFilesChange = (files: FileList | null) => {
 		if (!files) return;
-		setFormData({ ...formData, files: Array.from(files) });
+		setFormData((prev) => ({ ...prev, files: Array.from(files) }));
 	};
 
 	const handleSubmit = async () => {
@@ -70,6 +76,7 @@ export default function OrderCreate() {
 				desiredLaunchAt: formData.desiredLaunchAt ? new Date(formData.desiredLaunchAt) : undefined,
 				offer: formData.offer,
 				projectDetails: formData.projectDetails,
+				price: formData.price ? parseFloat(formData.price) : undefined,
 			};
 
 			if (selectedUser) {
@@ -95,7 +102,9 @@ export default function OrderCreate() {
 				throw new Error(error.message || "Ошибка при создании заказа");
 			}
 
-			alert("Заказ успешно создан!");
+			toastMessageHandler("Заказ успешно создан");
+
+			// Сброс формы
 			setFormData({
 				name: "",
 				email: "",
@@ -110,7 +119,7 @@ export default function OrderCreate() {
 			});
 			setSelectedUser(null);
 		} catch (err: any) {
-			alert(err.message);
+			toastMessageHandler({ message: err.message, status: "error" });
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -120,7 +129,7 @@ export default function OrderCreate() {
 		<div className={styles.container}>
 			<h1 className={styles.sectionTitle}>Создать заказ</h1>
 
-			{/* 🔹 Поиск существующего пользователя */}
+			{/* 🔹 Поиск пользователя */}
 			<Input
 				className={styles.searchInput}
 				label='Найти пользователя (по имени или email)'
@@ -151,7 +160,7 @@ export default function OrderCreate() {
 				</div>
 			)}
 
-			{/* 🔹 Форма пользователя */}
+			{/* 🔹 Данные пользователя */}
 			<form className={styles.form} onSubmit={(e) => e.preventDefault()}>
 				<div className={styles.grid2}>
 					<Input label='Имя' name='name' value={formData.name} onChange={handleChange} />
@@ -183,7 +192,7 @@ export default function OrderCreate() {
 				</div>
 			</form>
 
-			{/* 🔹 Вторая форма — детали заказа */}
+			{/* 🔹 Детали заказа */}
 			<section className={styles.info}>
 				<div className={styles.sectionHeader}>
 					<div>
@@ -234,13 +243,14 @@ export default function OrderCreate() {
 					<Input
 						type='number'
 						name='price'
-						value={formData.price || ""}
+						value={formData.price}
 						onChange={handleChange}
 						placeholder='Введите цену'
 					/>
 				</div>
 			</section>
 
+			{/* 🔹 Кнопка отправки */}
 			<div>
 				<Button
 					className={styles.createOrder}

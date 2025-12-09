@@ -11,7 +11,9 @@ const Users: React.FC = () => {
 	const [debouncedSearch, setDebouncedSearch] = useState("");
 	const [sortBy, setSortBy] = useState<"createdAt" | "ordersCount">("createdAt");
 	const [order, setOrder] = useState<"asc" | "desc">("desc");
+	const [role, setRole] = useState<string>(""); // ✅ фильтр по роли
 
+	// debounce для поиска
 	useEffect(() => {
 		const handler = setTimeout(() => setDebouncedSearch(search), 500);
 		return () => clearTimeout(handler);
@@ -23,6 +25,7 @@ const Users: React.FC = () => {
 		search: debouncedSearch,
 		sortBy,
 		order,
+		role, // ✅ передаём роль
 	});
 
 	if (isLoading) return <div>Загрузка...</div>;
@@ -48,6 +51,24 @@ const Users: React.FC = () => {
 						}}
 						className={styles.searchInput}
 					/>
+				</div>
+
+				<div className={styles.roleFilter}>
+					<label htmlFor='role' className={styles.sortLabel}>
+						Роль:
+					</label>
+					<select
+						id='role'
+						className={styles.sortSelect}
+						value={role}
+						onChange={(e) => {
+							setRole(e.target.value);
+							setPage(1);
+						}}>
+						<option value=''>Все</option>
+						<option value='REGULAR'>Пользователь</option>
+						<option value='ADMIN'>Администратор</option>
+					</select>
 				</div>
 
 				<div className={styles.sortWrapper}>
@@ -81,6 +102,7 @@ const Users: React.FC = () => {
 						<th className={styles.headerCell}>E-mail</th>
 						<th className={styles.headerCell}>Телефон</th>
 						<th className={styles.headerCell}>Кол-во заказов</th>
+						<th className={styles.headerCell}>Роль</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -93,13 +115,26 @@ const Users: React.FC = () => {
 								<div className={styles.userInfoId}>ID: {user.id}</div>
 							</td>
 							<td>{user.email}</td>
-							<td>{user.phone}</td>
+							<td>{user.phone ?? "—"}</td>
 							<td>{user.ordersCount}</td>
+							<td>
+								<span
+									className={`${styles.roleBadge} ${
+										user.role === "ADMIN"
+											? styles.admin
+											: user.role === "MANAGER"
+											? styles.manager
+											: styles.user
+									}`}>
+									{user.role}
+								</span>
+							</td>
 						</tr>
 					))}
 				</tbody>
 			</table>
 
+			{/* 📄 пагинация */}
 			<div className={styles.pagination}>
 				<Button onClick={() => setPage((p) => Math.max(p - 1, 1))} disabled={page === 1}>
 					Назад
