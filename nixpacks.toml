@@ -1,0 +1,12 @@
+[variables]
+NPM_CONFIG_PRODUCTION = "false"
+NODE_OPTIONS = "--max-old-space-size=1024"
+
+[phases.install]
+cmds = ["npm ci --include=dev"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"
