@@ -54,7 +54,7 @@
 }
 
 /* ------------------- ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ REACT-DATEPICKER ------------------- */
-:global(.react-datepicker) {
+.bookingWrapper :global(.react-datepicker) {
   font-family: inherit;
   border-radius: 12px;
   border: 1px solid $color-primary;
@@ -64,24 +64,24 @@
   display: flex;
 }
 
-:global(.react-datepicker__header) {
+.bookingWrapper :global(.react-datepicker__header) {
   background-color: $color-primary;
   border-bottom: 1px solid $color-primary;
 }
 
-:global(.react-datepicker__day--selected),
-:global(.react-datepicker__day--keyboard-selected) {
+.bookingWrapper :global(.react-datepicker__day--selected),
+.bookingWrapper :global(.react-datepicker__day--keyboard-selected) {
   background-color: $color-accent !important;
   color: #fff !important;
   border-radius: 50px;
 }
 
-:global(.react-datepicker__day:hover) {
+.bookingWrapper :global(.react-datepicker__day:hover) {
   background-color: rgba(73, 145, 254, 0.1);
   border-radius: 50px;
 }
 
-:global(.react-datepicker__time-container) {
+.bookingWrapper :global(.react-datepicker__time-container) {
   width: auto; // чтобы тайм-пикер не растягивался
   float: right; // по дефолту календарь слева, тайм-пикер справа
 }
@@ -99,7 +99,7 @@
     right: 12px;
   }
 
-  :global(.react-datepicker) {
+  .bookingWrapper :global(.react-datepicker) {
     font-size: 14px;
   }
 }
@@ -115,7 +115,7 @@
     right: 10px;
   }
 
-  :global(.react-datepicker) {
+  .bookingWrapper :global(.react-datepicker) {
     font-size: 13px;
   }
 }
@@ -130,7 +130,7 @@
     right: 8px;
   }
 
-  :global(.react-datepicker) {
+  .bookingWrapper :global(.react-datepicker) {
     font-size: 16px;
   }
 }

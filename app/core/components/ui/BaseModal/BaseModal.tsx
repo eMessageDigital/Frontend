@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "./BaseModal.module.scss";
 
@@ -17,7 +17,13 @@ const BaseModal: React.FC<BaseModalProps> = ({
 	children,
 	showCloseBtn = true,
 }) => {
-	if (!isOpen) return null;
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	if (!isOpen || !mounted) return null;
 
 	const modalRoot = document.getElementById("modal-root-notes");
 	if (!modalRoot) return null;
