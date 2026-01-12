@@ -24,7 +24,7 @@ export default function RootLayout({
 				<ReactQueryProvider>
 					<ReduxProvider>
 						<Header />
-						{children}
+						<main className='page-content'>{children}</main>
 						<Footer />
 						<AuthModal />
 						<Toaster position='bottom-right' richColors duration={4000} />

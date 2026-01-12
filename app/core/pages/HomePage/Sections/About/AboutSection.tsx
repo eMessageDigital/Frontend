@@ -5,7 +5,7 @@ import { Container } from "../../../../components";
 
 export default function AboutSection() {
 	return (
-		<div className={styles.one}>
+		<div id='about' className={styles.one}>
 			<Container>
 				<div className={styles.gridContainer}>
 					<div className={styles.card1}>

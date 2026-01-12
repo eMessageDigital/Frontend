@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styles from "./Content.module.scss";
 import { Container } from "../../..";
 
@@ -8,23 +9,23 @@ export default function Content() {
 			<Container>
 				<div className={styles.top}>
 					<div className={styles.column}>
-						<p>О нас</p>
-						<p>Наши услуги</p>
+						<Link href='/#about'>О нас</Link>
+						<Link href='/services'>Наши услуги</Link>
 					</div>
 
 					<div className={styles.column}>
-						<p>Кейсы</p>
-						<p>Контакты</p>
+						<Link href='/#cases'>Кейсы</Link>
+						<Link href='/contact'>Контакты</Link>
 					</div>
 
 					<div className={styles.column}>
-						<p>Оферта</p>
-						<p>Политика конфиденциальности</p>
+						<Link href='/privacy-policy'>Политика конфиденциальности</Link>
+						<Link href='/personal-data'>Обработка и хранение персональных данных</Link>
 					</div>
 
 					<div className={styles.column}>
-						<p>+7 (995) 933-83-72</p>
-						<p>hello@emessage.su</p>
+						<a href='tel:+79959338372'>+7 (995) 933-83-72</a>
+						<a href='mailto:hello@emessage.su'>hello@emessage.su</a>
 					</div>
 				</div>
 
