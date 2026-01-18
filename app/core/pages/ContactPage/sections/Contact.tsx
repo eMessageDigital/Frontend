@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./Contact.module.scss";
-import { Button, Container } from "../../../components";
+import { Container } from "../../../components";
 import Image from "next/image";
 
 export default function ContactsPage() {
@@ -70,6 +70,41 @@ export default function ContactsPage() {
 								<p className={styles.columnValue}>Самарская область, город Самара</p>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
+
+			<div className={styles.documentsCard}>
+				<div className={styles.leftIcon}>
+					<Image src='/ico/paper.svg' width={48} height={48} alt='icon' />
+				</div>
+				<div className={styles.documentsContent}>
+					<p className={styles.documentsTitle}>Документы</p>
+					<div className={styles.documentsList}>
+						<a
+							className={styles.documentsLink}
+							href='/pdf/Согласие%20на%20получение%20рекламы.pdf'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							Согласие на получение рекламы.pdf
+						</a>
+						<a
+							className={styles.documentsLink}
+							href='/pdf/Согласие_на_обработку_персональных_данных.pdf'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							Согласие_на_обработку_персональных_данных.pdf
+						</a>
+						<a
+							className={styles.documentsLink}
+							href='/pdf/Соглашение_об_использовании_куки.pdf'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							Соглашение_об_использовании_куки.pdf
+						</a>
 					</div>
 				</div>
 			</div>
