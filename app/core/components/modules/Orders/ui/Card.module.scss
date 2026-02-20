@@ -69,11 +69,16 @@
 }
 
 .secondary {
-  border: 1px solid $color-accent;
+  border: 1px solid $color-accent !important;
   padding: 16px 32px;
-  color: $color-accent;
+  color: $color-accent !important;
+  background: #fff !important;
   font-size: 14px;
   transition: all .2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 
   &:hover {
     transform: scale(1.05);
@@ -83,9 +88,13 @@
 .primary {
   padding: 16px 32px;
   font-size: 14px;
-  background-color: $color-accent;
-  color: #ffffff;
+  background: $color-accent !important;
+  color: #ffffff !important;
   transition: all .2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 
   &:hover {
     transform: scale(1.05);
