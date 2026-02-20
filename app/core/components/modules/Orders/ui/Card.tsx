@@ -9,9 +9,14 @@ interface Order {
 	status: string;
 	price?: number;
 	reach?: number;
-	leads?: number;
+	views?: number;
+	clicks?: number;
 	ctr?: number;
-	conversion?: number;
+	user?: {
+		id: string;
+		displayName?: string;
+		email?: string;
+	};
 }
 
 interface CardProps {
@@ -42,16 +47,10 @@ const Card: React.FC<CardProps> = ({ order, onCancel, onGoToOrder }) => {
 	const [isNotesOpen, setIsNotesOpen] = useState(false);
 	const [notes, setNotes] = useState<string[]>([]);
 
-	const ctrCount =
-		order.ctr && order.reach ? Math.round((order.ctr / 100) * order.reach) : undefined;
-	const conversionCount =
-		order.conversion && order.reach
-			? Math.round((order.conversion / 100) * order.reach)
-			: undefined;
-	const leadsCount =
-		order.ctr && order.conversion && order.reach
-			? Math.round((order.ctr / 100) * (order.conversion / 100) * order.reach)
-			: undefined;
+	const ctrValue =
+		order.reach && order.clicks != null
+			? Math.round((order.clicks / order.reach) * 10000) / 100
+			: order.ctr;
 
 	const handleSaveNote = () => {
 		if (draftNote.trim()) {
@@ -66,9 +65,17 @@ const Card: React.FC<CardProps> = ({ order, onCancel, onGoToOrder }) => {
 	return (
 		<div className={styles.orderCard}>
 			<div className={styles.cardHeader}>
-				<h3 onClick={() => onGoToOrder?.(order.id)}>
-					Заказ №{order.id} от {createdDate}
-				</h3>
+				<div>
+					<h3 onClick={() => onGoToOrder?.(order.id)}>
+						Заказ №{order.id} от {createdDate}
+					</h3>
+					{order.user && (
+						<p className={styles.owner}>
+							Клиент:{" "}
+							<strong>{order.user.displayName || order.user.email || order.user.id}</strong>
+						</p>
+					)}
+				</div>
 				<p>{order.price != null ? `${Number(order.price).toLocaleString("ru-RU")} ₽` : "—"}</p>
 			</div>
 
@@ -78,18 +85,17 @@ const Card: React.FC<CardProps> = ({ order, onCancel, onGoToOrder }) => {
 						<strong>Охват:</strong> {order.reach ?? "Скоро появится"}
 					</p>
 					<p>
-						<strong>CTR:</strong> {order.ctr ?? "Скоро появится"}
-						{ctrCount !== undefined ? ` (${ctrCount} чел.)` : ""}
+						<strong>Просмотры:</strong> {order.views ?? "Скоро появится"}
 					</p>
 				</div>
 
 				<div className={styles.column}>
 					<p>
-						<strong>Конверсия:</strong> {order.conversion ?? "Скоро появится"}
-						{conversionCount !== undefined ? ` (${conversionCount} чел.)` : ""}
+						<strong>Клики:</strong> {order.clicks ?? "Скоро появится"}
 					</p>
 					<p>
-						<strong>Лидогенерация:</strong> {leadsCount ?? "Скоро появится"}
+						<strong>CTR:</strong>{" "}
+						{ctrValue != null ? `${Number(ctrValue).toFixed(2)}%` : "Скоро появится"}
 					</p>
 				</div>
 

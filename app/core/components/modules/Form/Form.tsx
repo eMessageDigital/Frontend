@@ -23,6 +23,7 @@ interface FormProps {
 export default function Form({ plan, serviceData }: FormProps) {
 	const [form, setForm] = useState({
 		name: "",
+		email: "",
 		phone: "",
 		telegram: "",
 		company: "",
@@ -81,6 +82,7 @@ export default function Form({ plan, serviceData }: FormProps) {
 			type: "full",
 			client: {
 				name: form.name,
+				email: form.email,
 				phone: form.phone,
 				telegram: form.telegram,
 				company: form.company,
@@ -130,6 +132,7 @@ export default function Form({ plan, serviceData }: FormProps) {
 
 			setForm({
 				name: "",
+				email: "",
 				phone: "",
 				telegram: "",
 				company: "",
@@ -184,6 +187,15 @@ export default function Form({ plan, serviceData }: FormProps) {
 							onChange={(e) => handleFieldChange("name", e.target.value)}
 							error={!!errors["client.name"]}
 							errorMessage={errors["client.name"]}
+						/>
+
+						<Input
+							type='email'
+							placeholder='Email'
+							value={form.email}
+							onChange={(e) => handleFieldChange("email", e.target.value)}
+							error={!!errors["client.email"]}
+							errorMessage={errors["client.email"]}
 						/>
 
 						<div className={styles.inputWrapper}>

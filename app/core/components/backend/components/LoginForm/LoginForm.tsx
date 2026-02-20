@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+const isRecaptchaEnabled =
+	process.env.NEXT_PUBLIC_RECAPTCHA_ENABLED !== "false";
 
 export function LoginForm() {
 	const dispatch = useDispatch();
@@ -34,12 +36,12 @@ export function LoginForm() {
 	const { login, isLoadingLogin } = useLoginMutation();
 
 	const onSubmit = (values: TypeLoginSchema) => {
-		if (recaptchaValue) {
-			login({ values, recaptcha: recaptchaValue });
-		} else {
+		if (isRecaptchaEnabled && !recaptchaValue) {
 			toast.error("Пройдите проверку reCAPTCHA!");
 			return;
 		}
+
+		login({ values, recaptcha: recaptchaValue ?? undefined });
 	};
 
 	const handleForgotPasswordClick = () => {
@@ -95,7 +97,7 @@ export function LoginForm() {
 					)}
 				</div>
 
-				{typeof window !== "undefined" && (
+				{isRecaptchaEnabled && typeof window !== "undefined" && (
 					<div style={{ display: "flex", justifyContent: "center" }}>
 						<ReCAPTCHA
 							sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!}

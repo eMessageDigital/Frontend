@@ -14,7 +14,7 @@ export function useLoginMutation() {
 
 	const { mutate: login, isPending: isLoadingLogin } = useMutation({
 		mutationKey: ["login user"],
-		mutationFn: ({ values, recaptcha }: { values: TypeLoginSchema; recaptcha: string }) =>
+		mutationFn: ({ values, recaptcha }: { values: TypeLoginSchema; recaptcha?: string }) =>
 			authService.login(values, recaptcha),
 		onSuccess(user) {
 			queryClient.setQueryData(["profile"], user);

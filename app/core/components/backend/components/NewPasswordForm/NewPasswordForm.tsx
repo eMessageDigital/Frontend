@@ -19,6 +19,8 @@ import dynamic from "next/dynamic";
 import { useNewPasswordMutation } from "../../hooks";
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+const isRecaptchaEnabled =
+	process.env.NEXT_PUBLIC_RECAPTCHA_ENABLED !== "false";
 
 export function NewPasswordForm() {
 	const dispatch = useDispatch();
@@ -35,12 +37,12 @@ export function NewPasswordForm() {
 	const { newPassword, isLoadingNew } = useNewPasswordMutation();
 
 	const onSubmit = (values: TypeNewPasswordSchema) => {
-		if (recaptchaValue) {
-			newPassword({ values, recaptcha: recaptchaValue });
-		} else {
+		if (isRecaptchaEnabled && !recaptchaValue) {
 			toast.error("Пройдите проверку reCAPTCHA!");
 			return;
 		}
+
+		newPassword({ values, recaptcha: recaptchaValue ?? undefined });
 	};
 
 	return (
@@ -64,7 +66,7 @@ export function NewPasswordForm() {
 						)}
 					</div>
 
-					{typeof window !== "undefined" && (
+					{isRecaptchaEnabled && typeof window !== "undefined" && (
 						<div style={{ display: "flex", justifyContent: "center" }}>
 							<ReCAPTCHA
 								sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!}

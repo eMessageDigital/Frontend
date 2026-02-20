@@ -5,6 +5,30 @@ import styles from "./OrderDetails.module.scss";
 import { Button, Input } from "../..";
 import { orderStatus } from "../../backend/utils/orderStatus";
 import { toastMessageHandler } from "../../backend/utils/toast-message-handler";
+import { useQueryClient } from "@tanstack/react-query";
+
+const formatDisplayDateTime = (value?: string) => {
+	if (!value) return "";
+	const date = new Date(value);
+	if (Number.isNaN(date.getTime())) return value;
+	return date.toLocaleString("ru-RU", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+};
+
+const toDateTimeLocalValue = (value?: string) => {
+	if (!value) return "";
+	const date = new Date(value);
+	if (Number.isNaN(date.getTime())) return "";
+	const pad = (n: number) => String(n).padStart(2, "0");
+	return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+		date.getDate()
+	)}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
 
 export interface Order {
 	id: string;
@@ -15,8 +39,9 @@ export interface Order {
 	projectDetails?: string;
 	status: "CREATED" | "PENDING_APPROVAL" | "ACCEPTED" | "COMPLETED" | string;
 	reach?: number;
+	views?: number;
+	clicks?: number;
 	ctr?: number;
-	conversion?: number;
 	contractorIds?: string[];
 	createdAt: string;
 	updatedAt: string;
@@ -52,13 +77,15 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 		desiredLaunchAt: order.desiredLaunchAt,
 		offer: order.offer,
 		projectDetails: order.projectDetails,
+		status: order.status,
 		reach: order.reach,
-		ctr: order.ctr,
-		conversion: order.conversion,
+		views: order.views,
+		clicks: order.clicks,
 		price: order.price,
 	});
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
+	const queryClient = useQueryClient();
 
 	useEffect(() => {
 		const fetchUserRole = async () => {
@@ -89,10 +116,17 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(editableOrder),
 			});
-			if (!res.ok) throw new Error("Не удалось сохранить заказ");
+			if (!res.ok) {
+				const error = await res.json().catch(() => ({ message: "Не удалось сохранить заказ" }));
+				throw new Error(error.message || "Не удалось сохранить заказ");
+			}
 			toastMessageHandler("Изменения сохранены");
+			queryClient.invalidateQueries({ queryKey: ["order", String(order.id)] });
+			queryClient.invalidateQueries({ queryKey: ["orders"] });
+			queryClient.invalidateQueries({ queryKey: ["orders", "all"] });
 		} catch (err) {
-			toastMessageHandler("Ошибка при сохранении заказа");
+			const message = err instanceof Error ? err.message : "Ошибка при сохранении заказа";
+			toastMessageHandler(message);
 		} finally {
 			setIsSaving(false);
 		}
@@ -100,9 +134,11 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 
 	const orderContractors = contractors.filter((c) => order.contractorIds?.includes(c.id));
 
-	const calculateLeads = () => {
-		const { reach = 0, ctr = 0, conversion = 0 } = editableOrder;
-		return Math.round((reach * ctr * conversion) / 10000);
+	const calculateCtr = () => {
+		const reach = editableOrder.reach ?? 0;
+		const clicks = editableOrder.clicks ?? 0;
+		if (!reach) return 0;
+		return Math.round((clicks / reach) * 10000) / 100;
 	};
 
 	return (
@@ -113,18 +149,26 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 				<div className={styles.statusAndPrice}>
 					<span
 						className={`${styles.status} ${
-							order.status === "COMPLETED"
+							(editableOrder.status ?? order.status) === "COMPLETED"
 								? styles.done
-								: order.status === "ACCEPTED"
+								: (editableOrder.status ?? order.status) === "ACCEPTED"
 								? styles.pending
-								: order.status === "PENDING_APPROVAL"
+								: (editableOrder.status ?? order.status) === "PENDING_APPROVAL"
 								? styles.waiting
 								: styles.created
 						}`}>
-						{orderStatus[order.status] || order.status}
+						{orderStatus[editableOrder.status ?? order.status] ||
+							(editableOrder.status ?? order.status)}
 					</span>
 				</div>
 			</div>
+
+			{order.user && (
+				<div className={styles.owner}>
+					<span>Клиент:</span>{" "}
+					<strong>{order.user.displayName || order.user.email || order.user.id}</strong>
+				</div>
+			)}
 
 			{/* Исполнители */}
 			<section className={styles.contractorsList}>
@@ -170,8 +214,19 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 						<p>Желаемое время запуска</p>
 						<Input
 							readOnly={!isAdmin}
-							value={editableOrder.desiredLaunchAt || ""}
-							onChange={(e) => handleChange("desiredLaunchAt", e.target.value)}
+							type={isAdmin ? "datetime-local" : "text"}
+							value={
+								isAdmin
+									? toDateTimeLocalValue(editableOrder.desiredLaunchAt)
+									: formatDisplayDateTime(editableOrder.desiredLaunchAt)
+							}
+							onChange={(e) => {
+								if (!isAdmin) return;
+								const nextIso = e.target.value
+									? new Date(e.target.value).toISOString()
+									: "";
+								handleChange("desiredLaunchAt", nextIso);
+							}}
 						/>
 					</div>
 				</div>
@@ -193,12 +248,27 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 				</div>
 			</section>
 
+			{isAdmin && (
+				<section className={styles.statusSection}>
+					<p>Статус заказа</p>
+					<select
+						className={styles.statusSelect}
+						value={editableOrder.status ?? order.status}
+						onChange={(e) => handleChange("status", e.target.value)}>
+						<option value='CREATED'>Создан</option>
+						<option value='PENDING_APPROVAL'>Ожидает подтверждения</option>
+						<option value='ACCEPTED'>В работе</option>
+						<option value='COMPLETED'>Выполнен</option>
+					</select>
+				</section>
+			)}
+
 			{/* Результаты */}
 			<h1 className={styles.resultsTitle}>Результаты</h1>
 			<section className={styles.result}>
 				<div className={styles.row}>
 					<div>
-						<p>Охват</p>
+						<p>Охват (объем рассылки)</p>
 						<Input
 							readOnly={!isAdmin}
 							type='number'
@@ -207,28 +277,28 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 						/>
 					</div>
 					<div>
-						<p>Конверсия</p>
+						<p>Просмотры сообщений</p>
 						<Input
 							readOnly={!isAdmin}
 							type='number'
-							value={editableOrder.conversion || 0}
-							onChange={(e) => handleChange("conversion", Number(e.target.value))}
+							value={editableOrder.views || 0}
+							onChange={(e) => handleChange("views", Number(e.target.value))}
 						/>
 					</div>
 				</div>
 				<div className={styles.row}>
 					<div>
-						<p>CTR</p>
+						<p>Клики по ссылке</p>
 						<Input
 							readOnly={!isAdmin}
 							type='number'
-							value={editableOrder.ctr || 0}
-							onChange={(e) => handleChange("ctr", Number(e.target.value))}
+							value={editableOrder.clicks || 0}
+							onChange={(e) => handleChange("clicks", Number(e.target.value))}
 						/>
 					</div>
 					<div>
-						<p>Лидогенерация</p>
-						<Input readOnly value={calculateLeads()} />
+						<p>CTR</p>
+						<Input readOnly value={`${calculateCtr()}%`} />
 					</div>
 				</div>
 			</section>

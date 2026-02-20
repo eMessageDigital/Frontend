@@ -9,6 +9,10 @@ export interface Order {
 	offer?: string;
 	projectDetails?: string;
 	status: "CREATED" | "PENDING_APPROVAL" | "ACCEPTED" | "COMPLETED";
+	reach?: number;
+	views?: number;
+	clicks?: number;
+	ctr?: number;
 	createdAt: string;
 	updatedAt: string;
 	user?: {

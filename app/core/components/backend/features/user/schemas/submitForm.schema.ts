@@ -4,6 +4,10 @@ export const SubmitFormSchema = z.object({
 	type: z.enum(["simple", "full"]),
 	client: z.object({
 		name: z.string().min(1, "Имя обязательно"),
+		email: z
+			.string()
+			.min(1, "Email обязателен")
+			.email("Некорректный email"),
 		phone: z.string().min(1, "Телефон обязателен"),
 		telegram: z.string().min(1, "Telegram обязателен"),
 		company: z.string().min(1, "Компания обязательна"),

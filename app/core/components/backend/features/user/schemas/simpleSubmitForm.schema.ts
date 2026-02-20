@@ -9,6 +9,7 @@ export const SimpleSubmitFormSchema = SubmitFormSchema.pick({
 	type: z.literal("simple"),
 	client: z.object({
 		phone: SubmitFormSchema.shape.client.shape.phone,
+		email: SubmitFormSchema.shape.client.shape.email,
 	}),
 	project: z.object({
 		description: SubmitFormSchema.shape.project.shape.description,

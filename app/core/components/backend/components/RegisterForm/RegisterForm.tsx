@@ -14,6 +14,8 @@ import { toast } from "sonner";
 import { useRegisterMutation } from "../../hooks";
 
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), { ssr: false });
+const isRecaptchaEnabled =
+	process.env.NEXT_PUBLIC_RECAPTCHA_ENABLED !== "false";
 
 export function RegisterForm() {
 	const dispatch = useDispatch();
@@ -33,12 +35,12 @@ export function RegisterForm() {
 	const { register, isLoadingRegister } = useRegisterMutation();
 
 	const onSubmit = (values: TypeRegisterSchema) => {
-		if (recaptchaValue) {
-			register({ values, recaptcha: recaptchaValue });
-		} else {
+		if (isRecaptchaEnabled && !recaptchaValue) {
 			toast.error("Пройдите проверку reCAPTCHA!");
 			return;
 		}
+
+		register({ values, recaptcha: recaptchaValue ?? undefined });
 	};
 
 	return (
@@ -126,11 +128,13 @@ export function RegisterForm() {
 					)}
 				</div>
 
-				<ReCAPTCHA
-					style={{ display: "flex", justifyContent: "center" }}
-					sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!}
-					onChange={setRecaptchaValue}
-				/>
+				{isRecaptchaEnabled && (
+					<ReCAPTCHA
+						style={{ display: "flex", justifyContent: "center" }}
+						sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY!}
+						onChange={setRecaptchaValue}
+					/>
+				)}
 
 				<Button type='submit' className={styles.submitBtn} disabled={isLoadingRegister}>
 					{isLoadingRegister ? <Loader color='#ffffff' /> : "Зарегестрироваться"}

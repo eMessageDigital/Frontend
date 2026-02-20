@@ -6,8 +6,13 @@ import { toastMessageHandler } from "../utils/toast-message-handler";
 export function useResetPasswordMutation() {
 	const { mutate: reset, isPending: isLoadingReset } = useMutation({
 		mutationKey: ["reest password"],
-		mutationFn: ({ values, recaptcha }: { values: TypeResetPasswordSchema; recaptcha: string }) =>
-			passwordRecoveryService.reset(values, recaptcha),
+		mutationFn: ({
+			values,
+			recaptcha,
+		}: {
+			values: TypeResetPasswordSchema;
+			recaptcha?: string;
+		}) => passwordRecoveryService.reset(values, recaptcha),
 		onSuccess() {
 			toastMessageHandler(
 				"Проверьте почту! На вашу почту была отправлена ссылка для подтверждения."

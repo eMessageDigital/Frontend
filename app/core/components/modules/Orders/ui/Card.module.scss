@@ -23,6 +23,18 @@
       font-size: 18px;
       color: $color-text-dark;
     }
+
+    .owner {
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba($color: $color-text-dark, $alpha: 0.65);
+
+      strong {
+        color: $color-text-dark;
+        font-weight: 600;
+      }
+    }
   }
 
   .cardMain {

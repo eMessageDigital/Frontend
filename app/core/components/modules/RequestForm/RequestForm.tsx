@@ -20,10 +20,16 @@ export const RequestForm: React.FC = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [form, setForm] = useState({
 		topic: "",
+		email: "",
 		phone: "",
 		tasks: "",
 	});
-	const [errors, setErrors] = useState<{ topic?: string; phone?: string; tasks?: string }>({});
+	const [errors, setErrors] = useState<{
+		topic?: string;
+		email?: string;
+		phone?: string;
+		tasks?: string;
+	}>({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const openModal = () => setIsModalOpen(true);
@@ -45,6 +51,7 @@ export const RequestForm: React.FC = () => {
 				type: "simple",
 				client: {
 					phone: form.phone,
+					email: form.email,
 				},
 				project: {
 					base: form.topic,
@@ -67,14 +74,20 @@ export const RequestForm: React.FC = () => {
 			}
 
 			toastMessageHandler({ message: "Форма успешно отправлена!", status: "success" });
-			setForm({ topic: "", phone: "", tasks: "" });
+			setForm({ topic: "", email: "", phone: "", tasks: "" });
 			closeModal();
 		} catch (err: any) {
 			if (err?.issues) {
-				const newErrors: { topic?: string; phone?: string; tasks?: string } = {};
+				const newErrors: {
+					topic?: string;
+					email?: string;
+					phone?: string;
+					tasks?: string;
+				} = {};
 				err.issues.forEach((issue: any) => {
 					const fieldKey = issue.path[1];
 					if (fieldKey === "phone") newErrors.phone = issue.message;
+					if (fieldKey === "email") newErrors.email = issue.message;
 					if (fieldKey === "base") newErrors.topic = issue.message;
 					if (fieldKey === "description") newErrors.tasks = issue.message;
 				});
@@ -155,6 +168,19 @@ export const RequestForm: React.FC = () => {
 							/>
 						</div>
 						{errors.phone && <div className={styles.errorText}>{errors.phone}</div>}
+					</div>
+
+					<div className={styles.inputWrapper}>
+						<label htmlFor='email'>Email</label>
+						<Input
+							id='email'
+							type='email'
+							placeholder='your@email.com'
+							value={form.email}
+							onChange={(e) => handleFieldChange("email", e.target.value)}
+							error={!!errors.email}
+							errorMessage={errors.email}
+						/>
 					</div>
 
 					<div className={styles.inputWrapper}>

@@ -12,8 +12,13 @@ export function useNewPasswordMutation() {
 
 	const { mutate: newPassword, isPending: isLoadingNew } = useMutation({
 		mutationKey: ["reset password"],
-		mutationFn: ({ values, recaptcha }: { values: TypeNewPasswordSchema; recaptcha: string }) =>
-			passwordRecoveryService.newpass(values, token, recaptcha),
+		mutationFn: ({
+			values,
+			recaptcha,
+		}: {
+			values: TypeNewPasswordSchema;
+			recaptcha?: string;
+		}) => passwordRecoveryService.newpass(values, token, recaptcha),
 		onSuccess() {
 			queryClient.invalidateQueries({ queryKey: ["user"] });
 

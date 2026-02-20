@@ -12,8 +12,9 @@ export interface Order {
 	projectDetails?: string;
 	status: "CREATED" | "PENDING_APPROVAL" | "ACCEPTED" | "COMPLETED" | string;
 	reach?: number;
+	views?: number;
+	clicks?: number;
 	ctr?: number;
-	conversion?: number;
 	contractorIds?: string[];
 	createdAt: string;
 	updatedAt: string;
