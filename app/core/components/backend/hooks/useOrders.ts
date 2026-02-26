@@ -13,6 +13,7 @@ export interface Order {
 	views?: number;
 	clicks?: number;
 	ctr?: number;
+	files?: unknown;
 	createdAt: string;
 	updatedAt: string;
 	user?: {
@@ -45,13 +46,16 @@ const fetchOrders = async (
 export const useOrders = ({
 	sortBy = "createdAt",
 	order = "desc",
+	enabled = true,
 }: {
 	sortBy?: "createdAt" | "updatedAt";
 	order?: "asc" | "desc";
+	enabled?: boolean;
 } = {}) => {
 	return useQuery({
 		queryKey: ["orders", sortBy, order] as const, // 👈 as const важно
 		queryFn: () => fetchOrders(sortBy, order),
+		enabled,
 		staleTime: 1000 * 60 * 5,
 		retry: 1,
 		refetchOnWindowFocus: false,
@@ -80,13 +84,16 @@ const fetchAllOrders = async (
 export const useAllOrders = ({
 	sortBy = "createdAt",
 	order = "desc",
+	enabled = true,
 }: {
 	sortBy?: "createdAt" | "updatedAt";
 	order?: "asc" | "desc";
+	enabled?: boolean;
 } = {}) => {
 	return useQuery({
 		queryKey: ["orders", "all", sortBy, order] as const,
 		queryFn: () => fetchAllOrders(sortBy, order),
+		enabled,
 		staleTime: 1000 * 60 * 5,
 		retry: 1,
 		refetchOnWindowFocus: false,

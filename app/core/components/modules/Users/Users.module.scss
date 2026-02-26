@@ -54,6 +54,15 @@
   }
 }
 
+.rowClickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.rowClickable:hover td {
+  background-color: #fafafa;
+}
+
 .row:last-child td {
   border-bottom: none;
 }

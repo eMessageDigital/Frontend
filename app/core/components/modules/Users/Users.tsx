@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Users.module.scss";
 import { useUsers, User } from "../../backend/hooks";
 import { Button, Input } from "../..";
+import { useRouter } from "next/navigation";
 
 const Users: React.FC = () => {
 	const [page, setPage] = useState(1);
@@ -12,6 +13,7 @@ const Users: React.FC = () => {
 	const [sortBy, setSortBy] = useState<"createdAt" | "ordersCount">("createdAt");
 	const [order, setOrder] = useState<"asc" | "desc">("desc");
 	const [role, setRole] = useState<string>(""); // ✅ фильтр по роли
+	const router = useRouter();
 
 	// debounce для поиска
 	useEffect(() => {
@@ -107,7 +109,10 @@ const Users: React.FC = () => {
 				</thead>
 				<tbody>
 					{users.map((user) => (
-						<tr className={styles.row} key={user.id}>
+						<tr
+							className={`${styles.row} ${styles.rowClickable}`}
+							key={user.id}
+							onClick={() => router.push(`/dashboard/users/${user.id}`)}>
 							<td>
 								<div className={styles.userInfo}>
 									{user.firstName} {user.lastName}

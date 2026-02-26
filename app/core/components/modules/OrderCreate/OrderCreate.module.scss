@@ -163,6 +163,197 @@
   }
 }
 
+.blocksSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 24px;
+  padding: 40px;
+  background-color: #f9f9f9;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
+      font-size: 13px;
+      color: rgba($color-text-dark, 0.7);
+    }
+  }
+}
+
+.blocksHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 500;
+    color: $color-text-dark;
+  }
+}
+
+.blocksAddBtn {
+  padding: 10px 16px;
+  background: $color-accent;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.blocksHint {
+  font-size: 14px;
+  color: rgba($color-text-dark, 0.6);
+}
+
+.blocksList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.blockCard {
+  background: #fff;
+  border: 1px solid rgba($color-text-dark, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.blockHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.blockTitle {
+  flex: 1;
+}
+
+.blockInput {
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.blockSelect {
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.blockRemoveBtn {
+  background: #fff;
+  border: 1px solid rgba($color-text-dark, 0.2);
+  color: $color-text-dark;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.fieldsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1.2fr 0.7fr 1.5fr auto;
+  gap: 12px;
+  align-items: end;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba($color-text-dark, 0.04);
+}
+
+.fieldCol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fieldRemoveBtn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgba($color-text-dark, 0.2);
+}
+
+.fieldAddBtn {
+  align-self: flex-start;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba($color-text-dark, 0.08);
+  color: $color-text-dark;
+}
+
+.fileInputWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fileInput {
+  border: 1px dashed rgba($color-text-dark, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.fileMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba($color-text-dark, 0.7);
+}
+
+.fileRemoveBtn {
+  border: none;
+  background: transparent;
+  color: $color-accent;
+  cursor: pointer;
+}
+
+.extraSection {
+  border-radius: 24px;
+  padding: 32px 40px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: $color-text-dark;
+  }
+}
+
+.extraGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
 /* ---------- Адаптив ---------- */
 @media (max-width: 1024px) {
   .sectionTitle {
@@ -176,6 +367,14 @@
   .grid2 {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+
+  .extraGrid {
+    grid-template-columns: 1fr;
   }
 }
 

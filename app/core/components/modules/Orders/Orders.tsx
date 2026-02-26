@@ -4,31 +4,33 @@ import React, { useState, useMemo } from "react";
 import styles from "./Orders.module.scss";
 import Card from "./ui/Card";
 import { useRouter } from "next/navigation";
-import { useOrders, useAllOrders, Order } from "../../backend/hooks";
+import { useOrders, useAllOrders, useUserOrders, Order } from "../../backend/hooks";
 import { Button } from "../..";
 
 interface OrdersProps {
 	isAdmin?: boolean;
 	title?: string;
 	showCancelButton?: boolean;
+	userId?: string;
 }
 
 const Orders: React.FC<OrdersProps> = ({
 	isAdmin = false,
 	title = "История заказов",
 	showCancelButton = false,
+	userId,
 }) => {
 	const [sortBy, setSortBy] = useState<"createdAt" | "updatedAt">("createdAt");
 	const [order, setOrder] = useState<"asc" | "desc">("desc");
 	const [filterStatus, setFilterStatus] = useState<string>("ALL");
 
 	// Получаем сырые данные из React Query
-	const {
-		data: ordersRaw,
-		isLoading,
-		isError,
-		isFetching,
-	} = isAdmin ? useAllOrders() : useOrders();
+	const userOrdersQuery = useUserOrders({ userId: userId ?? "" });
+	const allOrdersQuery = useAllOrders({ enabled: !userId && isAdmin });
+	const myOrdersQuery = useOrders({ enabled: !userId && !isAdmin });
+
+	const activeQuery = userId ? userOrdersQuery : isAdmin ? allOrdersQuery : myOrdersQuery;
+	const { data: ordersRaw, isLoading, isError, isFetching } = activeQuery;
 
 	const router = useRouter();
 	const handleGoToOrder = (id: string) => router.push(`/dashboard/orders/${id}`);

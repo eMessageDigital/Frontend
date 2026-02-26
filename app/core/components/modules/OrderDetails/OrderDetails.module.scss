@@ -135,6 +135,79 @@
   }
 }
 
+.customBlocks {
+  margin-top: 40px;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border-radius: 24px;
+
+  h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+    color: $color-text-dark;
+  }
+}
+
+.customBlocksList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.customBlockCard {
+  background: #fff;
+  border: 1px solid rgba($color: $color-text-dark, $alpha: 0.08);
+  border-radius: 16px;
+  padding: 20px;
+
+  h4 {
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    color: $color-text-dark;
+  }
+}
+
+.customBlockFields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customBlockField {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba($color: $color-text-dark, $alpha: 0.04);
+}
+
+.customBlockLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba($color: $color-text-dark, $alpha: 0.7);
+}
+
+.customBlockValue {
+  font-size: 14px;
+  color: $color-text-dark;
+  word-break: break-word;
+}
+
+.customBlockFile {
+  font-size: 14px;
+  color: $color-accent;
+  text-decoration: underline;
+}
+
+.customBlockEmpty {
+  font-size: 14px;
+  color: rgba($color: $color-text-dark, $alpha: 0.5);
+}
+
 .resultsTitle {
   margin-top: 40px;
   font-size: 34px;
@@ -220,6 +293,11 @@
     .row {
       grid-template-columns: 1fr;
     }
+  }
+
+  .customBlockField {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

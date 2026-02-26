@@ -16,6 +16,7 @@ export interface Order {
 	clicks?: number;
 	ctr?: number;
 	contractorIds?: string[];
+	files?: unknown;
 	createdAt: string;
 	updatedAt: string;
 	user?: {

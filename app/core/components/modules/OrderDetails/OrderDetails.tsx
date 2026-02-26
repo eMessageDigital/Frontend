@@ -46,6 +46,7 @@ export interface Order {
 	createdAt: string;
 	updatedAt: string;
 	price?: number;
+	files?: unknown;
 	user?: {
 		id: string;
 		displayName?: string;
@@ -66,6 +67,35 @@ interface OrderDetailsProps {
 	contractors?: Contractor[];
 	onRemoveContractor?: (contractorId: string) => void;
 }
+
+type CustomField = {
+	id?: string;
+	label?: string;
+	type?: "text" | "file";
+	value?: string;
+	file?: {
+		name?: string;
+		type?: string;
+		size?: number;
+		dataUrl?: string;
+	};
+};
+
+type CustomBlock = {
+	id?: string;
+	title?: string;
+	fields?: CustomField[];
+};
+
+const getCustomBlocks = (raw: unknown): CustomBlock[] => {
+	if (!raw) return [];
+	if (Array.isArray(raw)) return raw as CustomBlock[];
+	if (typeof raw === "object" && raw !== null) {
+		const maybeBlocks = (raw as { blocks?: unknown }).blocks;
+		if (Array.isArray(maybeBlocks)) return maybeBlocks as CustomBlock[];
+	}
+	return [];
+};
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({
 	order,
@@ -124,6 +154,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 			queryClient.invalidateQueries({ queryKey: ["order", String(order.id)] });
 			queryClient.invalidateQueries({ queryKey: ["orders"] });
 			queryClient.invalidateQueries({ queryKey: ["orders", "all"] });
+			queryClient.invalidateQueries({ queryKey: ["orders", "by-user"] });
 		} catch (err) {
 			const message = err instanceof Error ? err.message : "Ошибка при сохранении заказа";
 			toastMessageHandler(message);
@@ -133,6 +164,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 	};
 
 	const orderContractors = contractors.filter((c) => order.contractorIds?.includes(c.id));
+	const customBlocks = getCustomBlocks(order.files);
 
 	const calculateCtr = () => {
 		const reach = editableOrder.reach ?? 0;
@@ -247,6 +279,50 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({
 					/>
 				</div>
 			</section>
+
+			{customBlocks.length > 0 && (
+				<section className={styles.customBlocks}>
+					<h3>Блоки заказа</h3>
+					<div className={styles.customBlocksList}>
+						{customBlocks.map((block, blockIndex) => (
+							<div key={block.id ?? `${block.title}-${blockIndex}`} className={styles.customBlockCard}>
+								<h4>{block.title || "Без названия"}</h4>
+								{block.fields && block.fields.length > 0 ? (
+									<div className={styles.customBlockFields}>
+										{block.fields.map((field, fieldIndex) => (
+											<div
+												key={field.id ?? `${field.label}-${fieldIndex}`}
+												className={styles.customBlockField}>
+												<span className={styles.customBlockLabel}>
+													{field.label || "Поле"}
+												</span>
+												{field.type === "file" ? (
+													field.file?.dataUrl ? (
+														<a
+															className={styles.customBlockFile}
+															href={field.file.dataUrl}
+															download={field.file.name || "file"}>
+															{field.file.name || "Скачать файл"}
+														</a>
+													) : (
+														<span className={styles.customBlockValue}>Файл не загружен</span>
+													)
+												) : (
+													<span className={styles.customBlockValue}>
+														{field.value || "—"}
+													</span>
+												)}
+											</div>
+										))}
+									</div>
+								) : (
+									<p className={styles.customBlockEmpty}>Поля отсутствуют</p>
+								)}
+							</div>
+						))}
+					</div>
+				</section>
+			)}
 
 			{isAdmin && (
 				<section className={styles.statusSection}>

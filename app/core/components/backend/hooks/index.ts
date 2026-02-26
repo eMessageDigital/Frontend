@@ -9,4 +9,5 @@ export * from "./useUpdateProfileMutation";
 export * from "./useContractor";
 export * from "./useUsers";
 export * from "./useOrders";
+export * from "./useUserOrders";
 export * from "./useCurrentUser";

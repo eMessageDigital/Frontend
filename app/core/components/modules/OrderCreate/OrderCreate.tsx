@@ -2,10 +2,73 @@
 
 import React, { useState, useEffect } from "react";
 import styles from "./OrderCreate.module.scss";
-import { Input, FileCard, Button } from "../..";
+import { Input, Button } from "../..";
 import { IMaskInput } from "react-imask";
 import { useUsers, User as ServerUser } from "../../backend/hooks/useUsers";
 import { toastMessageHandler } from "../../backend/utils/toast-message-handler";
+
+type FieldType = "text" | "file";
+
+type UploadedFile = {
+	name: string;
+	type: string;
+	size: number;
+	dataUrl: string;
+};
+
+type BlockField = {
+	id: string;
+	label: string;
+	type: FieldType;
+	value?: string;
+	file?: File | UploadedFile;
+};
+
+type Block = {
+	id: string;
+	title: string;
+	fields: BlockField[];
+};
+
+const createId = () =>
+	typeof crypto !== "undefined" && "randomUUID" in crypto
+		? crypto.randomUUID()
+		: `id-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+const createField = (type: FieldType = "text"): BlockField => ({
+	id: createId(),
+	label: "",
+	type,
+	value: "",
+});
+
+const createDefaultBlocks = (): Block[] => [
+	{
+		id: createId(),
+		title: "Название",
+		fields: [{ ...createField("text"), label: "Название" }],
+	},
+	{
+		id: createId(),
+		title: "Вводные данные",
+		fields: [{ ...createField("text"), label: "Описание" }],
+	},
+	{
+		id: createId(),
+		title: "Отчет",
+		fields: [{ ...createField("text"), label: "Комментарий" }],
+	},
+];
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const fileToDataUrl = (file: File) =>
+	new Promise<string>((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => resolve(String(reader.result));
+		reader.onerror = () => reject(new Error("Не удалось прочитать файл"));
+		reader.readAsDataURL(file);
+	});
 
 export default function OrderCreate() {
 	const [searchValue, setSearchValue] = useState("");
@@ -17,14 +80,11 @@ export default function OrderCreate() {
 		email: "",
 		telegram: "",
 		phone: "",
-		base: "",
 		desiredLaunchAt: "",
-		offer: "",
 		price: "",
-		projectDetails: "",
-		files: [] as File[],
 	});
 
+	const [blocks, setBlocks] = useState<Block[]>(() => createDefaultBlocks());
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const { data: usersResponse } = useUsers({ page: 1, limit: 100, search: searchValue });
@@ -61,22 +121,186 @@ export default function OrderCreate() {
 		setSearchValue("");
 	};
 
-	// 🔹 Выбор файлов
-	const handleFilesChange = (files: FileList | null) => {
-		if (!files) return;
-		setFormData((prev) => ({ ...prev, files: Array.from(files) }));
+	const handleAddBlock = () => {
+		setBlocks((prev) => [
+			...prev,
+			{ id: createId(), title: "Новый блок", fields: [createField("text")] },
+		]);
+	};
+
+	const handleRemoveBlock = (blockId: string) => {
+		setBlocks((prev) => prev.filter((block) => block.id !== blockId));
+	};
+
+	const handleBlockTitleChange = (blockId: string, value: string) => {
+		setBlocks((prev) =>
+			prev.map((block) => (block.id === blockId ? { ...block, title: value } : block))
+		);
+	};
+
+	const handleAddField = (blockId: string) => {
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? { ...block, fields: [...block.fields, createField("text")] }
+					: block
+			)
+		);
+	};
+
+	const handleRemoveField = (blockId: string, fieldId: string) => {
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? { ...block, fields: block.fields.filter((field) => field.id !== fieldId) }
+					: block
+			)
+		);
+	};
+
+	const handleFieldLabelChange = (blockId: string, fieldId: string, value: string) => {
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? {
+							...block,
+							fields: block.fields.map((field) =>
+								field.id === fieldId ? { ...field, label: value } : field
+							),
+					  }
+					: block
+			)
+		);
+	};
+
+	const handleFieldTypeChange = (blockId: string, fieldId: string, value: FieldType) => {
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? {
+							...block,
+							fields: block.fields.map((field) =>
+								field.id === fieldId
+									? {
+											...field,
+											type: value,
+											value: value === "text" ? field.value ?? "" : "",
+											file: value === "file" ? field.file : undefined,
+									  }
+									: field
+							),
+					  }
+					: block
+			)
+		);
+	};
+
+	const handleFieldValueChange = (blockId: string, fieldId: string, value: string) => {
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? {
+							...block,
+							fields: block.fields.map((field) =>
+								field.id === fieldId ? { ...field, value } : field
+							),
+					  }
+					: block
+			)
+		);
+	};
+
+	const handleFieldFileChange = (blockId: string, fieldId: string, file?: File) => {
+		if (file && file.size > MAX_FILE_SIZE) {
+			toastMessageHandler({
+				message: "Файл слишком большой. Максимум 5 МБ.",
+				status: "error",
+			});
+			return;
+		}
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? {
+							...block,
+							fields: block.fields.map((field) =>
+								field.id === fieldId ? { ...field, file } : field
+							),
+					  }
+					: block
+			)
+		);
+	};
+
+	const handleClearFieldFile = (blockId: string, fieldId: string) => {
+		setBlocks((prev) =>
+			prev.map((block) =>
+				block.id === blockId
+					? {
+							...block,
+							fields: block.fields.map((field) =>
+								field.id === fieldId ? { ...field, file: undefined } : field
+							),
+					  }
+					: block
+			)
+		);
 	};
 
 	const handleSubmit = async () => {
 		setIsSubmitting(true);
 
 		try {
+			const blocksPayload = await Promise.all(
+				blocks.map(async (block) => {
+					const normalizedFields = await Promise.all(
+						block.fields.map(async (field) => {
+							const label = field.label.trim();
+							if (field.type === "file") {
+								if (!field.file) {
+									if (!label) return null;
+									return { id: field.id, label, type: "file" as const, file: null };
+								}
+
+								const filePayload =
+									field.file instanceof File
+										? {
+												name: field.file.name,
+												type: field.file.type,
+												size: field.file.size,
+												dataUrl: await fileToDataUrl(field.file),
+										  }
+										: field.file;
+
+								return { id: field.id, label, type: "file" as const, file: filePayload };
+							}
+
+							const value = (field.value ?? "").trim();
+							if (!label && !value) return null;
+							return { id: field.id, label, type: "text" as const, value };
+						})
+					);
+
+					const fields = normalizedFields.filter(Boolean) as Array<{
+						id: string;
+						label: string;
+						type: "text" | "file";
+						value?: string;
+						file?: UploadedFile | null;
+					}>;
+
+					return {
+						id: block.id,
+						title: block.title.trim() || "Без названия",
+						fields,
+					};
+				})
+			);
+
 			const body: any = {
-				base: formData.base,
 				desiredLaunchAt: formData.desiredLaunchAt ? new Date(formData.desiredLaunchAt) : undefined,
-				offer: formData.offer,
-				projectDetails: formData.projectDetails,
 				price: formData.price ? parseFloat(formData.price) : undefined,
+				blocks: blocksPayload,
 			};
 
 			if (selectedUser) {
@@ -110,13 +334,10 @@ export default function OrderCreate() {
 				email: "",
 				telegram: "",
 				phone: "",
-				base: "",
 				desiredLaunchAt: "",
-				offer: "",
-				projectDetails: "",
-				files: [],
 				price: "",
 			});
+			setBlocks(createDefaultBlocks());
 			setSelectedUser(null);
 		} catch (err: any) {
 			toastMessageHandler({ message: err.message, status: "error" });
@@ -192,18 +413,138 @@ export default function OrderCreate() {
 				</div>
 			</form>
 
-			{/* 🔹 Детали заказа */}
-			<section className={styles.info}>
-				<div className={styles.sectionHeader}>
-					<div>
-						<p>База</p>
-						<Input
-							className={styles.input}
-							name='base'
-							value={formData.base}
-							onChange={handleChange}
-						/>
-					</div>
+			{/* 🔹 Блоки заказа */}
+			<section className={styles.blocksSection}>
+				<div className={styles.blocksHeader}>
+					<h2>Блоки заказа</h2>
+					<Button className={styles.blocksAddBtn} onClick={handleAddBlock}>
+						Добавить блок
+					</Button>
+				</div>
+				<p className={styles.blocksHint}>
+					В блоке &quot;Вводные данные&quot; можно добавлять произвольные поля с текстом или файлами.
+				</p>
+
+				<div className={styles.blocksList}>
+					{blocks.map((block) => (
+						<div key={block.id} className={styles.blockCard}>
+							<div className={styles.blockHeader}>
+								<div className={styles.blockTitle}>
+									<label>
+										<span>Название блока</span>
+										<input
+											type='text'
+											value={block.title}
+											onChange={(e) => handleBlockTitleChange(block.id, e.target.value)}
+											className={styles.blockInput}
+											placeholder='Например: Вводные данные'
+										/>
+									</label>
+								</div>
+								<Button
+									className={styles.blockRemoveBtn}
+									onClick={() => handleRemoveBlock(block.id)}>
+									Удалить блок
+								</Button>
+							</div>
+
+							<div className={styles.fieldsList}>
+								{block.fields.map((field) => (
+									<div key={field.id} className={styles.fieldRow}>
+										<div className={styles.fieldCol}>
+											<label>
+												<span>Название поля</span>
+												<input
+													type='text'
+													value={field.label}
+													onChange={(e) =>
+														handleFieldLabelChange(block.id, field.id, e.target.value)
+													}
+													className={styles.blockInput}
+													placeholder='Например: Описание'
+												/>
+											</label>
+										</div>
+
+										<div className={styles.fieldCol}>
+											<label>
+												<span>Тип</span>
+												<select
+													className={styles.blockSelect}
+													value={field.type}
+													onChange={(e) =>
+														handleFieldTypeChange(block.id, field.id, e.target.value as FieldType)
+													}>
+													<option value='text'>Текст</option>
+													<option value='file'>Файл</option>
+												</select>
+											</label>
+										</div>
+
+										<div className={styles.fieldCol}>
+											<label>
+												<span>Значение</span>
+												{field.type === "file" ? (
+													<div className={styles.fileInputWrap}>
+														<input
+															type='file'
+															className={styles.fileInput}
+															onChange={(e) =>
+																handleFieldFileChange(
+																	block.id,
+																	field.id,
+																	e.target.files?.[0]
+																)
+															}
+														/>
+														{field.file && (
+															<div className={styles.fileMeta}>
+																<span>{field.file.name}</span>
+																<button
+																	type='button'
+																	className={styles.fileRemoveBtn}
+																	onClick={() => handleClearFieldFile(block.id, field.id)}>
+																	Удалить
+																</button>
+															</div>
+														)}
+													</div>
+												) : (
+													<input
+														type='text'
+														value={field.value ?? ""}
+														onChange={(e) =>
+															handleFieldValueChange(block.id, field.id, e.target.value)
+														}
+														className={styles.blockInput}
+														placeholder='Введите текст'
+													/>
+												)}
+											</label>
+										</div>
+
+										<div className={styles.fieldActions}>
+											<Button
+												className={styles.fieldRemoveBtn}
+												onClick={() => handleRemoveField(block.id, field.id)}>
+												Удалить поле
+											</Button>
+										</div>
+									</div>
+								))}
+							</div>
+
+							<Button className={styles.fieldAddBtn} onClick={() => handleAddField(block.id)}>
+								Добавить поле
+							</Button>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section className={styles.extraSection}>
+				<h2>Дополнительно</h2>
+				<div className={styles.extraGrid}>
 					<div>
 						<p>Желаемое время запуска</p>
 						<Input
@@ -214,39 +555,16 @@ export default function OrderCreate() {
 							onChange={handleChange}
 						/>
 					</div>
-				</div>
-
-				<div className={styles.offer}>
-					<p>Оффер</p>
-					<Input name='offer' value={formData.offer} onChange={handleChange} />
-				</div>
-
-				<div className={styles.about}>
-					<p>О проекте</p>
-					<Input name='projectDetails' value={formData.projectDetails} onChange={handleChange} />
-				</div>
-
-				<div className={styles.files}>
-					<div className={styles.filesHeader}>
-						<p className={styles.text}>Выбранные файлы (для скачивания)</p>
-						<Input type='file' multiple onChange={(e) => handleFilesChange(e.target.files)} />
+					<div>
+						<p>Цена</p>
+						<Input
+							type='number'
+							name='price'
+							value={formData.price}
+							onChange={handleChange}
+							placeholder='Введите цену'
+						/>
 					</div>
-					<div className={styles.bottomFiles}>
-						{formData.files.map((file) => (
-							<FileCard key={file.name} name={file.name} />
-						))}
-					</div>
-				</div>
-
-				<div className={styles.price}>
-					<p>Цена</p>
-					<Input
-						type='number'
-						name='price'
-						value={formData.price}
-						onChange={handleChange}
-						placeholder='Введите цену'
-					/>
 				</div>
 			</section>
 
