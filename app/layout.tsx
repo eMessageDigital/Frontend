@@ -6,6 +6,7 @@ import { AuthModal } from "./core/components/backend/components/AuthModal/AuthMo
 import { Toaster } from "sonner";
 import { ReactQueryProvider } from "./core/Providers/ReactQueryProvider";
 import YandexMetrica from "./core/components/analytics/YandexMetrica";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
 	title: "eMessage - Главная",
@@ -44,7 +45,9 @@ export default function RootLayout({
 						<Footer />
 						<AuthModal />
 						<Toaster position='bottom-right' richColors duration={4000} />
-						<YandexMetrica />
+						<Suspense fallback={null}>
+							<YandexMetrica />
+						</Suspense>
 					</ReduxProvider>
 				</ReactQueryProvider>
 			</body>
