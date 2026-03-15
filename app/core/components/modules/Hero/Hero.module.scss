@@ -108,6 +108,7 @@
 .telegramPlanes .plane { fill: #4991FE; }
 .whatsappPlanes .plane { fill: #25D366; }
 .vkPlanes .plane { fill: #FF4F79; }
+.maxPlanes .plane { fill: #4991FE; }
 .defaultPlanes .plane { fill: #53BBFF; }
 
   &.telegram {
@@ -129,6 +130,13 @@
     background-image:
       linear-gradient(#FFD3E3, 1px, transparent 1px),
       linear-gradient(90deg, #FFD3E3, 1px, transparent 1px);
+  }
+
+  &.max {
+    background-color: #EEF8FF;
+    background-image:
+      linear-gradient(#CAEAFF, 1px, transparent 1px),
+      linear-gradient(90deg, #CAEAFF, 1px, transparent 1px);
   }
 }
 

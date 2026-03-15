@@ -47,64 +47,64 @@ export default function ApproachSection() {
 						</p>
 					</div>
 				</Link>
-				<Link href={"/services"}>
-					<div className={styles.card2}>
-						<div className={styles.cardTop}>
-							<div className={styles.iconContainer}>
-								<Image
-									className={styles.icon}
-									src={"/ico/companies/soon/yandex.svg"}
-									width={48}
-									height={48}
-									alt='icon'
-								/>
-								<Image
-									className={styles.icon}
-									src={"/ico/companies/soon/xz.svg"}
-									width={48}
-									height={48}
-									alt='icon'
-								/>
-								<Image
-									className={styles.icon}
-									src={"/ico/companies/soon/vk.svg"}
-									width={48}
-									height={48}
-									alt='icon'
-								/>
-								<Image
-									className={styles.icon}
-									src={"/ico/companies/soon/tg.svg"}
-									width={48}
-									height={48}
-									alt='icon'
-								/>
-							</div>
-							{/* <div className={`${styles.badge} ${styles.blue}`}>скоро 🔥</div> */}
-						</div>
-						<h1>Настройка таргетированной рекламы</h1>
-						<p>
-							Точечный таргетинг на вашу целевую аудиторию с оптимизацией бюджета и высоким ROI.
-						</p>
-					</div>
-				</Link>
-				<Link href={"/services"}>
-					<div className={styles.card3}>
+				<Link href={"/services/max"}>
+					<div className={`${styles.card3} ${styles.activeCard}`}>
 						<div className={styles.cardTop}>
 							<Image
 								className={styles.icon}
-								src={"/ico/companies/soon/trandline.svg"}
+								src={"/ico/companies/max.png"}
 								width={48}
 								height={48}
-								alt='icon'></Image>
-							{/* <div className={`${styles.badge} ${styles.dark}`}>скоро 🔥</div> */}
+								alt='MAX'
+							/>
 						</div>
-						<h1>Развитие проекта под ключ</h1>
+						<h1>
+							Инвайтинг пользователей
+							<br />в чаты MAX
+						</h1>
 						<p>
-							Берём ваш проект от идеи до стабильных продаж: стратегия, контент, реклама, аналитика.
+							Приглашаем живых пользователей в чаты MAX через безопасный инвайтинг. Помогаем
+							быстро набрать аудиторию, протестировать нишу и занять позиции на новой платформе.
 						</p>
 					</div>
 				</Link>
+				<div className={`${styles.card2} ${styles.staticCard}`}>
+					<div className={styles.cardTop}>
+						<div className={styles.iconContainer}>
+							<Image
+								className={styles.icon}
+								src={"/ico/companies/soon/yandex.svg"}
+								width={48}
+								height={48}
+								alt='icon'
+							/>
+							<Image
+								className={styles.icon}
+								src={"/ico/companies/soon/xz.svg"}
+								width={48}
+								height={48}
+								alt='icon'
+							/>
+							<Image
+								className={styles.icon}
+								src={"/ico/companies/soon/vk.svg"}
+								width={48}
+								height={48}
+								alt='icon'
+							/>
+							<Image
+								className={styles.icon}
+								src={"/ico/companies/soon/tg.svg"}
+								width={48}
+								height={48}
+								alt='icon'
+							/>
+						</div>
+						{/* <div className={`${styles.badge} ${styles.blue}`}>скоро 🔥</div> */}
+					</div>
+					<h1>Настройка таргетированной рекламы</h1>
+					<p>Точечный таргетинг на вашу целевую аудиторию с оптимизацией бюджета и высоким ROI.</p>
+				</div>
 			</div>
 			<div className={styles.buttonContainer}>
 				<Link href='/services'>

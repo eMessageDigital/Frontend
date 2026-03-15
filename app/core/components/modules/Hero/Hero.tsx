@@ -9,7 +9,7 @@ type Props = {
 	about?: string;
 	buttonText: string;
 	buttonLink?: string;
-	variant?: "default" | "telegram" | "whatsapp" | "vk";
+	variant?: "default" | "telegram" | "whatsapp" | "vk" | "max";
 };
 
 export default function Hero({

@@ -22,6 +22,15 @@ export default function OurServices() {
 						buttonLink={"/services/telegram"}
 					/>
 					<Card
+						src={"/ico/companies/max.png"}
+						title={"MAX"}
+						description={
+							"Инвайтинг в MAX — безопасное приглашение живых пользователей в чаты, чтобы быстро набрать аудиторию и протестировать нишу."
+						}
+						buttonText={"Перейти"}
+						buttonLink={"/services/max"}
+					/>
+					<Card
 						src={"/ico/companies/whatsapp.svg"}
 						title={"WhatsApp"}
 						description={

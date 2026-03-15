@@ -146,6 +146,21 @@
       transform: scale(1.05);
     }
   }
+
+  .activeCard {
+    h1,
+    p {
+      opacity: 1;
+    }
+  }
+
+  .staticCard {
+    cursor: default;
+
+    &:hover {
+      transform: none;
+    }
+  }
 }
 
 
