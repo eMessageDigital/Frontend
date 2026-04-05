@@ -210,6 +210,17 @@
               height: 16px;
             }
           }
+
+          .maxIcon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+
+            @media (max-width: 480px) {
+              width: 16px;
+              height: 16px;
+            }
+          }
         }
       }
     }

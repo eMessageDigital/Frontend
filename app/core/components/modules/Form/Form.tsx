@@ -219,7 +219,8 @@ export default function Form({ plan, serviceData }: FormProps) {
 
 						<Input
 							type='text'
-							placeholder='Telegram'
+							label='Где с вами связаться?'
+							placeholder='Оставьте контакт удобного вам мессенджера'
 							value={form.telegram}
 							onChange={(e) => handleFieldChange("telegram", e.target.value)}
 							error={!!errors["client.telegram"]}

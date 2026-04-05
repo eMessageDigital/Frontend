@@ -15,23 +15,26 @@ type Plan = {
 type PlansSectionProps = {
 	title: string;
 	plans?: Plan[];
-	href: string;
 };
 
-export default function PlansSection({ title, plans = [], href }: PlansSectionProps) {
+export default function PlansSection({ title, plans = [] }: PlansSectionProps) {
 	const serviceKey = useSelector((state: rootState) => state.service.selected);
+	const hasSinglePlan = plans.length === 1;
 
 	return (
 		<div className={styles.one}>
 			<Container className={styles.container}>
-				<h1 style={{ whiteSpace: "pre-line" }} className={styles.title}>
+				<h1
+					style={{ whiteSpace: "pre-line" }}
+					className={`${styles.title} ${hasSinglePlan ? styles.singlePlanTitle : ""}`}>
 					{title}
 				</h1>
-				<div className={styles.cards}>
+				<div className={`${styles.cards} ${hasSinglePlan ? styles.singlePlan : ""}`}>
 					{plans.map((plan, idx) => (
 						<Card
 							href={`/request/${serviceKey}?plan=${encodeURIComponent(plan.title.toLowerCase())}`}
 							key={idx}
+							isSingle={hasSinglePlan}
 							{...plan}
 						/>
 					))}

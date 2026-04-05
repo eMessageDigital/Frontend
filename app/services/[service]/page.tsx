@@ -24,7 +24,7 @@ export default function ServicePage() {
 	return (
 		<>
 			<Hero {...service.hero} variant={serviceKey} />
-			<PlansSection title={service.plans.title} plans={service.plans.list} href={""} />
+			<PlansSection title={service.plans.title} plans={service.plans.list} />
 			<ToolsSection title={service.tools.title} tools={service.tools.list} />
 			<RequestForm />
 		</>

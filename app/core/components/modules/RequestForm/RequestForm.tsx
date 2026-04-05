@@ -7,6 +7,7 @@ import { MdPhoneInTalk } from "react-icons/md";
 import { Container } from "../../ui/Container/Container";
 import { BaseModal, Button, Input, Loader } from "../..";
 import Link from "next/link";
+import Image from "next/image";
 import { IMaskInput } from "react-imask";
 import {
 	SimpleSubmitFormSchema,
@@ -16,18 +17,23 @@ import { toastMessageHandler } from "../../backend/utils/toast-message-handler";
 import { useRouter } from "next/navigation";
 
 export const RequestForm: React.FC = () => {
+	const MAX_LINK =
+		"https://max.ru/u/f9LHodD0cOJ8hbNzSUB1LpUdBTJ0tAAGGUsVJKchLw4F9AkCVjBvMOPSKbY";
+
 	const router = useRouter();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [form, setForm] = useState({
 		topic: "",
 		email: "",
 		phone: "",
+		messengerContact: "",
 		tasks: "",
 	});
 	const [errors, setErrors] = useState<{
 		topic?: string;
 		email?: string;
 		phone?: string;
+		messengerContact?: string;
 		tasks?: string;
 	}>({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,6 +58,7 @@ export const RequestForm: React.FC = () => {
 				client: {
 					phone: form.phone,
 					email: form.email,
+					telegram: form.messengerContact,
 				},
 				project: {
 					base: form.topic,
@@ -74,7 +81,7 @@ export const RequestForm: React.FC = () => {
 			}
 
 			toastMessageHandler({ message: "Форма успешно отправлена!", status: "success" });
-			setForm({ topic: "", email: "", phone: "", tasks: "" });
+			setForm({ topic: "", email: "", phone: "", messengerContact: "", tasks: "" });
 			closeModal();
 		} catch (err: any) {
 			if (err?.issues) {
@@ -82,12 +89,14 @@ export const RequestForm: React.FC = () => {
 					topic?: string;
 					email?: string;
 					phone?: string;
+					messengerContact?: string;
 					tasks?: string;
 				} = {};
 				err.issues.forEach((issue: any) => {
 					const fieldKey = issue.path[1];
 					if (fieldKey === "phone") newErrors.phone = issue.message;
 					if (fieldKey === "email") newErrors.email = issue.message;
+					if (fieldKey === "telegram") newErrors.messengerContact = issue.message;
 					if (fieldKey === "base") newErrors.topic = issue.message;
 					if (fieldKey === "description") newErrors.tasks = issue.message;
 				});
@@ -132,6 +141,17 @@ export const RequestForm: React.FC = () => {
 									<FaTelegramPlane />
 								</Button>
 							</Link>
+								<Link href={MAX_LINK} target='_blank' rel='noopener noreferrer'>
+									<Button className={styles.iconButton} aria-label='MAX'>
+										<Image
+											src='/ico/companies/max-mark.svg'
+											width={20}
+											height={20}
+											alt='MAX'
+											className={styles.maxIcon}
+										/>
+									</Button>
+								</Link>
 						</div>
 					</div>
 				</div>
@@ -180,6 +200,19 @@ export const RequestForm: React.FC = () => {
 							onChange={(e) => handleFieldChange("email", e.target.value)}
 							error={!!errors.email}
 							errorMessage={errors.email}
+						/>
+					</div>
+
+					<div className={styles.inputWrapper}>
+						<label htmlFor='messengerContact'>Где с вами связаться?</label>
+						<Input
+							id='messengerContact'
+							type='text'
+							placeholder='Оставьте контакт удобного вам мессенджера'
+							value={form.messengerContact}
+							onChange={(e) => handleFieldChange("messengerContact", e.target.value)}
+							error={!!errors.messengerContact}
+							errorMessage={errors.messengerContact}
 						/>
 					</div>
 

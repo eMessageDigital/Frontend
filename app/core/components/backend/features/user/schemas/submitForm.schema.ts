@@ -9,7 +9,7 @@ export const SubmitFormSchema = z.object({
 			.min(1, "Email обязателен")
 			.email("Некорректный email"),
 		phone: z.string().min(1, "Телефон обязателен"),
-		telegram: z.string().min(1, "Telegram обязателен"),
+		telegram: z.string().min(1, "Поле «Где с вами связаться?» обязательно"),
 		company: z.string().min(1, "Компания обязательна"),
 	}),
 	project: z.object({

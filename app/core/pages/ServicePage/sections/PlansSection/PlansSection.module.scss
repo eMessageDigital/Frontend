@@ -19,12 +19,20 @@
     font-weight: 500;
     font-size: 48px;
     color: $color-text-dark;
+
+    &.singlePlanTitle {
+      text-align: center;
+    }
   }
 
   .cards {
     margin-top: 52px;
     display: flex;
     gap: 20px;
+
+    &.singlePlan {
+      justify-content: center;
+    }
   }
 }
 
